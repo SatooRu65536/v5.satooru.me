@@ -1,0 +1,23 @@
+{
+  "json.schemaDownload.trustedDomains": {
+    "https://emdashcms.com/seed.schema.json": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "package.json": "pnpm-lock.yaml, pnpm-workspace.yaml",
+    "astro.config.mjs": "eslint.config.ts, prettier.config.ts, tsconfig.json",
+    "README.md": "AGENTS.md, .mcp.json",
+    "*.json": "*.schema.json",
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "eslint.useFlatConfig": true,
+  "prettier.configPath": "./prettier.config.ts"
+}

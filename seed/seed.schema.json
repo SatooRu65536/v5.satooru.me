@@ -1,0 +1,466 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://emdashcms.com/seed.schema.json",
+  "title": "EmDash Seed Schema",
+  "type": "object",
+  "required": ["version"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string",
+      "const": "1"
+    },
+    "meta": {
+      "$ref": "#/$defs/meta"
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "collections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/collection"
+      }
+    },
+    "taxonomies": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/taxonomy"
+      }
+    },
+    "bylines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/byline"
+      }
+    },
+    "menus": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/menu"
+      }
+    },
+    "redirects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/redirect"
+      }
+    },
+    "widgetAreas": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/widgetArea"
+      }
+    },
+    "sections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/section"
+      }
+    },
+    "content": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/contentEntry"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "author": { "type": "string" }
+      }
+    },
+
+    "collection": {
+      "type": "object",
+      "required": ["slug", "label", "fields"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "label": {
+          "type": "string"
+        },
+        "labelSingular": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "icon": {
+          "type": "string"
+        },
+        "supports": {
+          "type": "array"
+        },
+        "fields": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/field"
+          }
+        }
+      }
+    },
+
+    "field": {
+      "type": "object",
+      "required": ["slug", "label", "type"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "label": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "string",
+            "text",
+            "number",
+            "integer",
+            "boolean",
+            "date",
+            "datetime",
+            "email",
+            "url",
+            "slug",
+            "portableText",
+            "image",
+            "file",
+            "json",
+            "reference"
+          ]
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "unique": {
+          "type": "boolean"
+        },
+        "defaultValue": {},
+        "validation": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "widget": {
+          "type": "string"
+        },
+        "options": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      }
+    },
+
+    "taxonomy": {
+      "type": "object",
+      "required": ["name", "label", "hierarchical", "collections"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "labelSingular": {
+          "type": "string"
+        },
+        "hierarchical": {
+          "type": "boolean"
+        },
+        "collections": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "terms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/term"
+          }
+        }
+      }
+    },
+
+    "term": {
+      "type": "object",
+      "required": ["slug", "label"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+
+    "byline": {
+      "type": "object",
+      "required": ["id", "slug", "displayName"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "websiteUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "isGuest": {
+          "type": "boolean"
+        }
+      }
+    },
+
+    "menu": {
+      "type": "object",
+      "required": ["name", "label", "items"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/menuItem"
+          }
+        }
+      }
+    },
+
+    "menuItem": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": ["custom", "page", "post", "taxonomy", "collection"]
+        },
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "collection": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "titleAttr": {
+          "type": "string"
+        },
+        "cssClasses": {
+          "type": "string"
+        },
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/menuItem"
+          }
+        }
+      }
+    },
+
+    "redirect": {
+      "type": "object",
+      "required": ["source", "destination"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "destination": {
+          "type": "string",
+          "pattern": "^/"
+        },
+        "type": {
+          "enum": [301, 302, 307, 308]
+        },
+        "enabled": {
+          "type": "boolean"
+        },
+        "groupName": {
+          "type": "string"
+        }
+      }
+    },
+
+    "widgetArea": {
+      "type": "object",
+      "required": ["name", "label", "widgets"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "widgets": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/widget"
+          }
+        }
+      }
+    },
+
+    "widget": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": ["content", "menu", "component"]
+        },
+        "title": {
+          "type": "string"
+        },
+        "menuName": {
+          "type": "string"
+        },
+        "componentId": {
+          "type": "string"
+        },
+        "props": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "content": {
+          "type": "array"
+        }
+      }
+    },
+
+    "section": {
+      "type": "object",
+      "required": ["slug", "title", "content"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "keywords": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "content": {
+          "type": "array"
+        },
+        "source": {
+          "enum": ["theme", "import", "user"]
+        }
+      }
+    },
+
+    "contentEntry": {
+      "type": "object",
+      "required": ["id", "slug", "data"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "status": {
+          "enum": ["published", "draft"]
+        },
+        "data": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "bylines": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/contentByline"
+          }
+        },
+        "taxonomies": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+
+    "contentByline": {
+      "type": "object",
+      "required": ["byline"],
+      "additionalProperties": false,
+      "properties": {
+        "byline": {
+          "type": "string"
+        },
+        "roleLabel": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
