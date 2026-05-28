@@ -1,5 +1,6 @@
 ---
 import { getMenu, getSiteSettings } from 'emdash';
+import icon from '../assets/icon.webp';
 
 const settings = await getSiteSettings();
 const name = settings?.title || 'My Profile';
@@ -17,18 +18,12 @@ const { fixed = false } = Astro.props;
 ---
 
 <header class="header" data-fixed={fixed}>
-  <a href="/" class="title_container">
-    <a class="site-title" href="/">
-      {
-        siteLogo && (
-          <img
-            alt={siteLogo.alt || name}
-            class="site-logo-img"
-            src={siteLogo.url}
-          />
-        )
-      }
-    </a>
+  <a href="/" class="title-container">
+    <img
+      class="logo-img"
+      src={siteLogo?.url ?? icon.src}
+      alt={siteLogo?.alt || name}
+    />
     <h3 class="title">{name}</h3>
   </a>
 
@@ -65,10 +60,10 @@ const { fixed = false } = Astro.props;
       padding-inline: 20px;
     }
 
-    .title_container {
+    .title-container {
       display: contents;
 
-      .icon {
+      .logo-img {
         height: 40px;
       }
 
