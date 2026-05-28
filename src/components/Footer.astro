@@ -1,0 +1,161 @@
+---
+import { getSiteSettings } from 'emdash';
+
+const settings = await getSiteSettings();
+const siteTitle = settings?.title || 'Studio';
+const siteLogo = settings?.logo?.url
+  ? (settings.logo as { mediaId: string; alt?: string; url: string })
+  : null;
+---
+
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="footer-logo">
+        {
+          siteLogo ? (
+            <img
+              alt={siteLogo.alt || siteTitle}
+              class="footer-logo-img"
+              src={siteLogo.url}
+            />
+          ) : (
+            siteTitle
+          )
+        }
+      </span>
+      <p class="footer-tagline">
+        {settings?.tagline || 'Design & Development'}
+      </p>
+    </div>
+    <div class="footer-right">
+      <div class="theme-switcher">
+        <button
+          aria-label="Light mode"
+          class="theme-btn"
+          data-theme="light"
+          type="button"
+        >
+          Light
+        </button>
+        <button
+          aria-label="Dark mode"
+          class="theme-btn"
+          data-theme="dark"
+          type="button"
+        >
+          Dark
+        </button>
+        <button
+          aria-label="System theme"
+          class="theme-btn"
+          data-theme="system"
+          type="button"
+        >
+          System
+        </button>
+      </div>
+      <p class="footer-powered">
+        Powered by
+        {' '}
+        <a href="https://emdashcms.com">EmDash</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    max-width: var(--wide-width);
+    margin: 0 auto;
+    padding: var(--spacing-3xl) var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+
+  .footer-logo {
+    font-family: var(--font-serif);
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+  }
+
+  .footer-logo-img {
+    height: 24px;
+    width: auto;
+  }
+
+  .footer-tagline {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: var(--font-size-sm);
+    color: var(--color-muted);
+    margin-top: var(--spacing-xs);
+  }
+
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--spacing-md);
+  }
+
+  .theme-switcher {
+    display: flex;
+    gap: var(--spacing-xs);
+  }
+
+  .theme-btn {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-muted);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .theme-btn:hover {
+    color: var(--color-text);
+    border-color: var(--color-text);
+  }
+
+  .theme-btn.active {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border-color: var(--color-accent);
+  }
+
+  .footer-powered {
+    font-size: var(--font-size-sm);
+    color: var(--color-muted);
+  }
+
+  .footer-powered a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .footer-powered a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .footer-content {
+      flex-direction: column;
+      gap: var(--spacing-xl);
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-right {
+      align-items: center;
+    }
+  }
+</style>

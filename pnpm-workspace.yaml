@@ -12,5 +12,5 @@ allowBuilds:
 minimumReleaseAge: 1440
 minimumReleaseAgeExclude:
   - emdash
-  - '@emdash-cms/*'
+  - "@emdash-cms/*"
 blockExoticSubdeps: true

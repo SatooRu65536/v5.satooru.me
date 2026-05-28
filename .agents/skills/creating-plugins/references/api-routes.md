@@ -7,12 +7,12 @@ Plugin routes expose REST endpoints at `/_emdash/api/plugins/<plugin-id>/<route-
 ## Defining Routes
 
 ```typescript
-import { definePlugin } from 'emdash';
-import { z } from 'astro/zod';
+import { definePlugin } from "emdash";
+import { z } from "astro/zod";
 
 definePlugin({
-  id: 'forms',
-  version: '1.0.0',
+  id: "forms",
+  version: "1.0.0",
 
   routes: {
     // Simple route
@@ -33,7 +33,7 @@ definePlugin({
         const { formId, limit, cursor } = ctx.input;
         const result = await ctx.storage.submissions!.query({
           where: formId ? { formId } : undefined,
-          orderBy: { createdAt: 'desc' },
+          orderBy: { createdAt: "desc" },
           limit,
           cursor,
         });
@@ -46,7 +46,7 @@ definePlugin({
     },
 
     // Nested path
-    'settings/save': {
+    "settings/save": {
       input: z.object({
         enabled: z.boolean().optional(),
         apiKey: z.string().optional(),
@@ -130,12 +130,12 @@ return 42; // Primitive
 Throw to return error response:
 
 ```typescript
-throw new Error('Item not found'); // 500 with { error: "Item not found" }
+throw new Error("Item not found"); // 500 with { error: "Item not found" }
 
 // Custom status code
-throw new Response(JSON.stringify({ error: 'Not found' }), {
+throw new Response(JSON.stringify({ error: "Not found" }), {
   status: 404,
-  headers: { 'Content-Type': 'application/json' },
+  headers: { "Content-Type": "application/json" },
 });
 ```
 
@@ -146,13 +146,13 @@ Routes respond to all methods. Check `ctx.request.method`:
 ```typescript
 handler: async (ctx) => {
   switch (ctx.request.method) {
-    case 'GET':
+    case "GET":
       return await ctx.storage.items!.get(ctx.input.id);
-    case 'DELETE':
+    case "DELETE":
       await ctx.storage.items!.delete(ctx.input.id);
       return { deleted: true };
     default:
-      throw new Response('Method not allowed', { status: 405 });
+      throw new Response("Method not allowed", { status: 405 });
   }
 };
 ```
@@ -219,19 +219,19 @@ Requires `network:request` capability and `allowedHosts`:
 
 ```typescript
 definePlugin({
-  capabilities: ['network:request'],
-  allowedHosts: ['api.weather.example.com'],
+  capabilities: ["network:request"],
+  allowedHosts: ["api.weather.example.com"],
 
   routes: {
     forecast: {
       input: z.object({ city: z.string() }),
       handler: async (ctx) => {
-        const apiKey = await ctx.kv.get<string>('settings:apiKey');
-        if (!apiKey) throw new Error('API key not configured');
+        const apiKey = await ctx.kv.get<string>("settings:apiKey");
+        if (!apiKey) throw new Error("API key not configured");
 
         const response = await ctx.http!.fetch(
           `https://api.weather.example.com/forecast?city=${ctx.input.city}`,
-          { headers: { 'X-API-Key': apiKey } },
+          { headers: { "X-API-Key": apiKey } },
         );
 
         if (!response.ok) throw new Error(`API error: ${response.status}`);
@@ -245,11 +245,11 @@ definePlugin({
 ## Calling from Admin UI
 
 ```typescript
-import { usePluginAPI } from '@emdash-cms/admin';
+import { usePluginAPI } from "@emdash-cms/admin";
 
 const api = usePluginAPI();
-const data = await api.get('status');
-await api.post('settings/save', { enabled: true });
+const data = await api.get("status");
+await api.post("settings/save", { enabled: true });
 ```
 
 ## Calling Externally

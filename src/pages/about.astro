@@ -18,13 +18,11 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
     <div class="about-content" {...page?.edit?.content}>
       {
-        page?.data?.content
-          ? (
-              <PortableText value={page.data.content} />
-            )
-          : (
-              <p>Content coming soon.</p>
-            )
+        page?.data?.content ? (
+          <PortableText value={page.data.content} />
+        ) : (
+          <p>Content coming soon.</p>
+        )
       }
     </div>
 
@@ -53,7 +51,6 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 </Base>
 
 <style>
-
   .about-page {
     max-width: var(--wide-width);
     margin: 0 auto;
@@ -172,5 +169,4 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
       grid-template-columns: 1fr;
     }
   }
-
 </style>

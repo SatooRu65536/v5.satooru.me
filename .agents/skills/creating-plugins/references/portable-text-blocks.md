@@ -56,23 +56,23 @@ Fields use Block Kit element syntax:
 ```typescript
 fields: [
   {
-    type: 'text_input',
-    action_id: 'id',
-    label: 'URL',
-    placeholder: 'https://...',
+    type: "text_input",
+    action_id: "id",
+    label: "URL",
+    placeholder: "https://...",
   },
-  { type: 'text_input', action_id: 'title', label: 'Title' },
-  { type: 'text_input', action_id: 'poster', label: 'Poster Image' },
-  { type: 'number_input', action_id: 'start', label: 'Start Time (seconds)' },
-  { type: 'toggle', action_id: 'autoplay', label: 'Autoplay' },
+  { type: "text_input", action_id: "title", label: "Title" },
+  { type: "text_input", action_id: "poster", label: "Poster Image" },
+  { type: "number_input", action_id: "start", label: "Start Time (seconds)" },
+  { type: "toggle", action_id: "autoplay", label: "Autoplay" },
   {
-    type: 'select',
-    action_id: 'size',
-    label: 'Size',
+    type: "select",
+    action_id: "size",
+    label: "Size",
     options: [
-      { label: 'Small', value: 'small' },
-      { label: 'Medium', value: 'medium' },
-      { label: 'Large', value: 'large' },
+      { label: "Small", value: "small" },
+      { label: "Medium", value: "medium" },
+      { label: "Large", value: "large" },
     ],
   },
 ];
@@ -110,8 +110,8 @@ To render block types on the site, export Astro components from a `componentsEnt
 
 ```typescript
 // src/astro/index.ts
-import YouTube from './YouTube.astro';
-import CodePen from './CodePen.astro';
+import YouTube from "./YouTube.astro";
+import CodePen from "./CodePen.astro";
 
 // This export name is required
 export const blockComponents = {
@@ -150,10 +150,10 @@ Set `componentsEntry` in the descriptor:
 ```typescript
 export function myPlugin(options = {}): PluginDescriptor {
   return {
-    id: 'my-plugin',
-    entrypoint: '@my-org/my-plugin',
-    componentsEntry: '@my-org/my-plugin/astro',
-    version: '1.0.0',
+    id: "my-plugin",
+    entrypoint: "@my-org/my-plugin",
+    componentsEntry: "@my-org/my-plugin/astro",
+    version: "1.0.0",
     options,
   };
 }
@@ -190,46 +190,46 @@ Site authors don't need to import anything. User components take precedence over
 
 ```typescript
 // src/index.ts
-import { definePlugin } from 'emdash';
-import type { PluginDescriptor } from 'emdash';
+import { definePlugin } from "emdash";
+import type { PluginDescriptor } from "emdash";
 
 export function embedsPlugin(options = {}): PluginDescriptor {
   return {
-    id: 'embeds',
-    version: '1.0.0',
-    entrypoint: '@my-org/plugin-embeds',
-    componentsEntry: '@my-org/plugin-embeds/astro',
+    id: "embeds",
+    version: "1.0.0",
+    entrypoint: "@my-org/plugin-embeds",
+    componentsEntry: "@my-org/plugin-embeds/astro",
     options,
   };
 }
 
 export function createPlugin() {
   return definePlugin({
-    id: 'embeds',
-    version: '1.0.0',
+    id: "embeds",
+    version: "1.0.0",
 
     admin: {
       portableTextBlocks: [
         {
-          type: 'youtube',
-          label: 'YouTube Video',
-          icon: 'video',
-          placeholder: 'Paste YouTube URL...',
+          type: "youtube",
+          label: "YouTube Video",
+          icon: "video",
+          placeholder: "Paste YouTube URL...",
           fields: [
-            { type: 'text_input', action_id: 'id', label: 'YouTube URL' },
-            { type: 'text_input', action_id: 'title', label: 'Title' },
+            { type: "text_input", action_id: "id", label: "YouTube URL" },
+            { type: "text_input", action_id: "title", label: "Title" },
             {
-              type: 'text_input',
-              action_id: 'poster',
-              label: 'Poster Image URL',
+              type: "text_input",
+              action_id: "poster",
+              label: "Poster Image URL",
             },
           ],
         },
         {
-          type: 'linkPreview',
-          label: 'Link Preview',
-          icon: 'link-external',
-          placeholder: 'Paste any URL...',
+          type: "linkPreview",
+          label: "Link Preview",
+          icon: "link-external",
+          placeholder: "Paste any URL...",
         },
       ],
     },
@@ -241,8 +241,8 @@ export default createPlugin;
 
 ```typescript
 // src/astro/index.ts
-import YouTube from './YouTube.astro';
-import LinkPreview from './LinkPreview.astro';
+import YouTube from "./YouTube.astro";
+import LinkPreview from "./LinkPreview.astro";
 
 export const blockComponents = {
   youtube: YouTube,

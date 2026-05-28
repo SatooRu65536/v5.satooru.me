@@ -13,8 +13,8 @@ interface Props {
   tags?: string[];
 }
 
-const { title, summary, featuredImage, href, client, year, categories, tags }
-  = Astro.props;
+const { title, summary, featuredImage, href, client, year, categories, tags } =
+  Astro.props;
 // Combine categories and tags for display
 const allTags = [...(categories || []), ...(tags || [])];
 ---
@@ -38,7 +38,7 @@ const allTags = [...(categories || []), ...(tags || [])];
       {
         allTags.length > 0 && (
           <div class="card-categories">
-            {allTags.map(tag => (
+            {allTags.map((tag) => (
               <span class="card-category">{tag}</span>
             ))}
           </div>
@@ -49,7 +49,6 @@ const allTags = [...(categories || []), ...(tags || [])];
 </article>
 
 <style>
-
   .project-card {
     position: relative;
   }
@@ -167,5 +166,4 @@ const allTags = [...(categories || []), ...(tags || [])];
     border: 1px solid var(--color-border, #e5e7eb);
     border-radius: var(--radius, 4px);
   }
-
 </style>

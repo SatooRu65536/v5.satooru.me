@@ -29,10 +29,10 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 // one getEntryTerms() round-trip per card.
 const tagsByEntry = await getTermsForEntries(
   'projects',
-  sortedProjects.map(p => p.data.id),
+  sortedProjects.map((p) => p.data.id),
   'tag',
 );
-const projectsWithTags = sortedProjects.map(project => ({
+const projectsWithTags = sortedProjects.map((project) => ({
   project,
   projectTags: tagsByEntry.get(project.data.id) ?? [],
 }));
@@ -40,7 +40,7 @@ const projectsWithTags = sortedProjects.map(project => ({
 
 <Base
   title={activeTag
-    ? `${tags.find(t => t.slug === activeTag)?.label || activeTag} — Work`
+    ? `${tags.find((t) => t.slug === activeTag)?.label || activeTag} — Work`
     : 'Work'}
 >
   <section class="work-header">
@@ -53,7 +53,7 @@ const projectsWithTags = sortedProjects.map(project => ({
     {
       tags.length > 0 && (
         <nav aria-label="Filter by tag" class="tag-filters">
-          {tags.map(tag => (
+          {tags.map((tag) => (
             <a
               class:list={['tag-filter', { active: activeTag === tag.slug }]}
               href={`/work?tag=${tag.slug}`}
@@ -82,7 +82,7 @@ const projectsWithTags = sortedProjects.map(project => ({
                   featuredImage={project.data.featured_image ?? ''}
                   href={`/work/${project.id}`}
                   summary={project.data.summary}
-                  tags={projectTags.map(t => t.label)}
+                  tags={projectTags.map((t) => t.label)}
                   title={project.data.title ?? 'Untitled'}
                   year={project.data.year}
                 />
@@ -115,6 +115,7 @@ const projectsWithTags = sortedProjects.map(project => ({
 </Base>
 
 <style>
+
   .work-header {
     max-width: var(--wide-width);
     margin: 0 auto;

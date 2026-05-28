@@ -13,8 +13,8 @@
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy",
     "typecheck": "astro check",
-    "lint": "eslint . --fix",
-    "format": "prettier --write ."
+    "lint": "eslint --fix",
+    "format": "prettier --write src/**/*.astro"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^13.5.3",
@@ -29,12 +29,15 @@
     "@astrojs/check": "^0.9.7",
     "@cloudflare/workers-types": "^4.20260305.1",
     "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^8.60.0",
     "eslint": "^10.4.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-astro": "^1.7.0",
     "globals": "^17.6.0",
     "jiti": "^2.7.0",
     "prettier": "^3.8.3",
+    "prettier-plugin-astro": "^0.14.1",
     "typescript-eslint": "^8.60.0",
     "wrangler": "^4.83.0"
   }

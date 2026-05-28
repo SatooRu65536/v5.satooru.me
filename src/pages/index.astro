@@ -24,43 +24,40 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
   </section>
 
   {
-    featuredProjects.length > 0
-      ? (
-          <section class="featured">
-            <header class="section-header">
-              <h2 class="section-title">Selected Work</h2>
-              <a class="section-link" href="/work">
-                View all projects &rarr;
-              </a>
-            </header>
-            <div class="projects-grid">
-              {featuredProjects.map(project => (
-                <ProjectCard
-                  client={project.data.client}
-                  featuredImage={project.data.featured_image ?? ''}
-                  href={`/work/${project.id}`}
-                  summary={project.data.summary}
-                  title={project.data.title ?? 'Untitled'}
-                  year={project.data.year}
-                />
-              ))}
-            </div>
-          </section>
-        )
-      : (
-          <section class="empty-state">
-            <h2>No projects yet</h2>
-            <p>Add your first project in the admin panel.</p>
-            <a class="btn" href="/_emdash/admin/content/projects/new">
-              Add a project
-            </a>
-          </section>
-        )
+    featuredProjects.length > 0 ? (
+      <section class="featured">
+        <header class="section-header">
+          <h2 class="section-title">Selected Work</h2>
+          <a class="section-link" href="/work">
+            View all projects &rarr;
+          </a>
+        </header>
+        <div class="projects-grid">
+          {featuredProjects.map((project) => (
+            <ProjectCard
+              client={project.data.client}
+              featuredImage={project.data.featured_image ?? ''}
+              href={`/work/${project.id}`}
+              summary={project.data.summary}
+              title={project.data.title ?? 'Untitled'}
+              year={project.data.year}
+            />
+          ))}
+        </div>
+      </section>
+    ) : (
+      <section class="empty-state">
+        <h2>No projects yet</h2>
+        <p>Add your first project in the admin panel.</p>
+        <a class="btn" href="/_emdash/admin/content/projects/new">
+          Add a project
+        </a>
+      </section>
+    )
   }
 </Base>
 
 <style>
-
   .hero {
     max-width: var(--wide-width);
     margin: 0 auto;
@@ -170,5 +167,4 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
       align-items: flex-start;
     }
   }
-
 </style>

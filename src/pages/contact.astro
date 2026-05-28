@@ -16,96 +16,97 @@ if (Astro.request.method === 'POST') {
     if (!name || !email || !message) {
       formStatus = 'error';
       formMessage = 'Please fill in all fields.';
-    }
-    else if (!email.includes('@')) {
+    } else if (!email.includes('@')) {
       formStatus = 'error';
       formMessage = 'Please enter a valid email address.';
-    }
-    else {
+    } else {
       // In a real implementation, you would send this to an email service,
       // save to database, or forward to a webhook.
       // For this template, we just show a success message.
       console.log('Contact form submission:', { name, email, message });
       formStatus = 'success';
-      formMessage = 'Thanks for reaching out! We\'ll get back to you soon.';
+      formMessage = "Thanks for reaching out! We'll get back to you soon.";
     }
-  }
-  catch {
+  } catch {
     formStatus = 'error';
     formMessage = 'Something went wrong. Please try again.';
   }
 }
 ---
 
-<Base description="Get in touch with us about your next project." title="Contact">
+<Base
+  description="Get in touch with us about your next project."
+  title="Contact"
+>
   <div class="contact-page">
     <header class="contact-header">
       <h1 class="contact-title">Get in Touch</h1>
       <p class="contact-intro">
-        Have a project in mind? We'd love to hear about it. Fill out the form below
-        and we'll get back to you within 24 hours.
+        Have a project in mind? We'd love to hear about it. Fill out the form
+        below and we'll get back to you within 24 hours.
       </p>
     </header>
 
     <div class="contact-grid">
       <div class="contact-form-wrapper">
-        {formStatus === 'success'
-          ? (
-              <div class="form-success">
-                <h2>Message Sent</h2>
-                <p>{formMessage}</p>
-                <a class="form-reset" href="/contact">Send another message</a>
+        {
+          formStatus === 'success' ? (
+            <div class="form-success">
+              <h2>Message Sent</h2>
+              <p>{formMessage}</p>
+              <a class="form-reset" href="/contact">
+                Send another message
+              </a>
+            </div>
+          ) : (
+            <form class="contact-form" method="POST">
+              {formStatus === 'error' && (
+                <div class="form-error">
+                  <p>{formMessage}</p>
+                </div>
+              )}
+
+              <div class="form-field">
+                <label for="name">Name</label>
+                <input
+                  autocomplete="name"
+                  id="name"
+                  name="name"
+                  placeholder="Your name"
+                  required
+                  type="text"
+                />
               </div>
-            )
-          : (
-              <form class="contact-form" method="POST">
-                {formStatus === 'error' && (
-                  <div class="form-error">
-                    <p>{formMessage}</p>
-                  </div>
-                )}
 
-                <div class="form-field">
-                  <label for="name">Name</label>
-                  <input
-                    autocomplete="name"
-                    id="name"
-                    name="name"
-                    placeholder="Your name"
-                    required
-                    type="text"
-                  />
-                </div>
+              <div class="form-field">
+                <label for="email">Email</label>
+                <input
+                  autocomplete="email"
+                  id="email"
+                  name="email"
+                  placeholder="you@example.com"
+                  required
+                  type="email"
+                />
+              </div>
 
-                <div class="form-field">
-                  <label for="email">Email</label>
-                  <input
-                    autocomplete="email"
-                    id="email"
-                    name="email"
-                    placeholder="you@example.com"
-                    required
-                    type="email"
-                  />
-                </div>
+              <div class="form-field">
+                <label for="message">Message</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  placeholder="Tell us about your project..."
+                  required
+                  rows="6"
+                ></textarea>
+              </div>
 
-                <div class="form-field">
-                  <label for="message">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Tell us about your project..."
-                    required
-                    rows="6"
-                  >
-                  </textarea>
-                </div>
-
-                <button class="form-submit" type="submit">
-                  Send Message
-                </button>
-              </form>
-            )}
+              <button class="form-submit" type="submit">
+                Send Message
+              </button>
+            </form>
+          )
+        }
       </div>
 
       <aside class="contact-info">
@@ -124,10 +125,42 @@ if (Astro.request.method === 'POST') {
         <div class="info-section">
           <h3>Social</h3>
           <ul class="social-links">
-            <li><a href="https://twitter.com" rel="noopener noreferrer" target="_blank">Twitter</a></li>
-            <li><a href="https://instagram.com" rel="noopener noreferrer" target="_blank">Instagram</a></li>
-            <li><a href="https://dribbble.com" rel="noopener noreferrer" target="_blank">Dribbble</a></li>
-            <li><a href="https://linkedin.com" rel="noopener noreferrer" target="_blank">LinkedIn</a></li>
+            <li>
+              <a
+                href="https://twitter.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Twitter
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://instagram.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Instagram
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://dribbble.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Dribbble
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://linkedin.com"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                LinkedIn
+              </a>
+            </li>
           </ul>
         </div>
       </aside>
@@ -136,7 +169,6 @@ if (Astro.request.method === 'POST') {
 </Base>
 
 <style>
-
   .contact-page {
     max-width: var(--wide-width);
     margin: 0 auto;
@@ -361,5 +393,4 @@ if (Astro.request.method === 'POST') {
       grid-template-columns: 1fr;
     }
   }
-
 </style>

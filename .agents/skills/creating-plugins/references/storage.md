@@ -14,20 +14,20 @@ Declare in `definePlugin({ storage })`. EmDash creates the schema automatically 
 
 ```typescript
 definePlugin({
-  id: 'forms',
-  version: '1.0.0',
+  id: "forms",
+  version: "1.0.0",
 
   storage: {
     submissions: {
       indexes: [
-        'formId', // Single-field index
-        'status',
-        'createdAt',
-        ['formId', 'createdAt'], // Composite index
+        "formId", // Single-field index
+        "status",
+        "createdAt",
+        ["formId", "createdAt"], // Composite index
       ],
     },
     forms: {
-      indexes: ['slug'],
+      indexes: ["slug"],
     },
   },
 });
@@ -40,26 +40,26 @@ Storage is scoped to the plugin — `submissions` in plugin `forms` is separate 
 ```typescript
 const { submissions } = ctx.storage;
 
-await submissions.put('sub_123', {
-  formId: 'contact',
-  email: 'user@example.com',
+await submissions.put("sub_123", {
+  formId: "contact",
+  email: "user@example.com",
 });
-const item = await submissions.get('sub_123');
-const exists = await submissions.exists('sub_123');
-await submissions.delete('sub_123');
+const item = await submissions.get("sub_123");
+const exists = await submissions.exists("sub_123");
+await submissions.delete("sub_123");
 ```
 
 ### Batch Operations
 
 ```typescript
-const items = await submissions.getMany(['sub_1', 'sub_2']); // Map<string, T>
+const items = await submissions.getMany(["sub_1", "sub_2"]); // Map<string, T>
 
 await submissions.putMany([
-  { id: 'sub_1', data: { formId: 'contact', status: 'new' } },
-  { id: 'sub_2', data: { formId: 'contact', status: 'new' } },
+  { id: "sub_1", data: { formId: "contact", status: "new" } },
+  { id: "sub_2", data: { formId: "contact", status: "new" } },
 ]);
 
-const deletedCount = await submissions.deleteMany(['sub_1', 'sub_2']);
+const deletedCount = await submissions.deleteMany(["sub_1", "sub_2"]);
 ```
 
 ### Querying
@@ -69,10 +69,10 @@ Only indexed fields can be queried. Non-indexed queries throw.
 ```typescript
 const result = await ctx.storage.submissions.query({
   where: {
-    formId: 'contact',
-    status: 'pending',
+    formId: "contact",
+    status: "pending",
   },
-  orderBy: { createdAt: 'desc' },
+  orderBy: { createdAt: "desc" },
   limit: 20,
 });
 
@@ -104,7 +104,7 @@ where: { slug: { startsWith: "blog-" } }
 let cursor: string | undefined;
 do {
   const result = await ctx.storage.submissions!.query({
-    orderBy: { createdAt: 'desc' },
+    orderBy: { createdAt: "desc" },
     limit: 100,
     cursor,
   });
@@ -117,7 +117,7 @@ do {
 
 ```typescript
 const total = await ctx.storage.submissions!.count();
-const pending = await ctx.storage.submissions!.count({ status: 'pending' });
+const pending = await ctx.storage.submissions!.count({ status: "pending" });
 ```
 
 ### Index Design
@@ -135,7 +135,7 @@ Composite indexes support filtering on the first field + ordering by the second.
 ```typescript
 interface Submission {
   formId: string;
-  status: 'pending' | 'approved' | 'spam';
+  status: "pending" | "approved" | "spam";
   createdAt: string;
 }
 
@@ -183,9 +183,9 @@ interface KVAccess {
 | `cache:`    | Cached data                   | `cache:results`   |
 
 ```typescript
-await ctx.kv.set('settings:webhookUrl', url);
-await ctx.kv.set('state:lastRun', new Date().toISOString());
-const allSettings = await ctx.kv.list('settings:');
+await ctx.kv.set("settings:webhookUrl", url);
+await ctx.kv.set("state:lastRun", new Date().toISOString());
+const allSettings = await ctx.kv.list("settings:");
 ```
 
 ## Settings Schema
@@ -246,8 +246,8 @@ admin: {
 Settings are accessed via KV with `settings:` prefix:
 
 ```typescript
-const enabled = (await ctx.kv.get<boolean>('settings:enabled')) ?? true;
-const apiKey = await ctx.kv.get<string>('settings:apiKey');
+const enabled = (await ctx.kv.get<boolean>("settings:enabled")) ?? true;
+const apiKey = await ctx.kv.get<string>("settings:apiKey");
 ```
 
 Schema defaults are UI defaults only — not auto-persisted. Handle missing values with `??` or persist defaults in `plugin:install`:

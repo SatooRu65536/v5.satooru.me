@@ -25,7 +25,7 @@ const { entries: relatedProjects } = await getEmDashCollection('projects', {
   orderBy: { published_at: 'desc' },
   limit: 3,
 });
-const otherProjects = relatedProjects.filter(p => p.id !== project.id).slice(0, 2);
+const otherProjects = relatedProjects.filter((p) => p.id !== project.id).slice(0, 2);
 
 // Parse gallery if present
 const gallery = project.data.gallery as
@@ -107,7 +107,7 @@ function getImageSrc(img: unknown): string | undefined {
     {
       gallery && gallery.length > 0 && (
         <div class="project-gallery">
-          {gallery.map(img => (
+          {gallery.map((img) => (
             <div class="gallery-item">
               <img alt={img.alt || ''} loading="lazy" src={img.url} />
             </div>
@@ -123,7 +123,7 @@ function getImageSrc(img: unknown): string | undefined {
         <div class="more-inner">
           <h2 class="more-title">More Work</h2>
           <div class="more-grid">
-            {otherProjects.map(p => (
+            {otherProjects.map((p) => (
               <ProjectCard
                 client={p.data.client}
                 featuredImage={p.data.featured_image ?? ''}

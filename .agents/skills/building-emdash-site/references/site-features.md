@@ -3,7 +3,7 @@
 ## Site Settings
 
 ```typescript
-import { getSiteSettings, getSiteSetting } from 'emdash';
+import { getSiteSettings, getSiteSetting } from "emdash";
 
 // All settings
 const settings = await getSiteSettings();
@@ -13,7 +13,7 @@ settings.logo?.url; // Resolved media URL
 settings.favicon?.url;
 
 // Single setting
-const title = await getSiteSetting('title');
+const title = await getSiteSetting("title");
 ```
 
 Available keys: `title`, `tagline`, `logo`, `favicon`, `social`, `timezone`, `dateFormat`.
@@ -23,10 +23,10 @@ Use these instead of hard-coding site name, logo, etc.
 ## Navigation Menus
 
 ```typescript
-import { getMenu, getMenus } from 'emdash';
+import { getMenu, getMenus } from "emdash";
 
 // Fetch a named menu
-const menu = await getMenu('primary');
+const menu = await getMenu("primary");
 
 // List all menus
 const menus = await getMenus();
@@ -83,22 +83,22 @@ import {
   getTerm,
   getEntryTerms,
   getEntriesByTerm,
-} from 'emdash';
+} from "emdash";
 
 // All terms in a taxonomy (name must match your seed's "name" field exactly)
-const categories = await getTaxonomyTerms('category');
-const tags = await getTaxonomyTerms('tag');
+const categories = await getTaxonomyTerms("category");
+const tags = await getTaxonomyTerms("tag");
 
 // Single term by slug
-const term = await getTerm('category', 'news');
+const term = await getTerm("category", "news");
 // { id, name, slug, label, children, count }
 
 // Terms for a specific entry (use data.id, not entry.id!)
-const postCategories = await getEntryTerms('posts', post.data.id, 'category');
-const postTags = await getEntryTerms('posts', post.data.id, 'tag');
+const postCategories = await getEntryTerms("posts", post.data.id, "category");
+const postTags = await getEntryTerms("posts", post.data.id, "tag");
 
 // Entries with a specific term
-const newsPosts = await getEntriesByTerm('posts', 'category', 'news');
+const newsPosts = await getEntriesByTerm("posts", "category", "news");
 ```
 
 **Important:** The taxonomy name argument must match exactly what your seed defines in `"name"`. The blog seed uses `"category"` and `"tag"` (singular). Using `"categories"` returns empty results with no error.
@@ -207,11 +207,11 @@ Theme via CSS variables:
 ### Programmatic search
 
 ```typescript
-import { search } from 'emdash';
+import { search } from "emdash";
 
-const results = await search('hello world', {
-  collections: ['posts', 'pages'],
-  status: 'published',
+const results = await search("hello world", {
+  collections: ["posts", "pages"],
+  status: "published",
   limit: 20,
 });
 // { results: SearchResult[], total, nextCursor? }
@@ -243,10 +243,10 @@ Add Cmd+K / Ctrl+K to focus search:
 
 ```html
 <script>
-  document.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
       e.preventDefault();
-      document.querySelector('.site-search-input')?.focus();
+      document.querySelector(".site-search-input")?.focus();
     }
   });
 </script>
@@ -265,10 +265,10 @@ Search requires per-collection enablement:
 Generate SEO meta from content entries:
 
 ```typescript
-import { getSeoMeta } from 'emdash';
+import { getSeoMeta } from "emdash";
 
 const seo = getSeoMeta(post, {
-  siteTitle: 'My Blog',
+  siteTitle: "My Blog",
   siteUrl: Astro.url.origin,
   path: `/posts/${slug}`,
   defaultOgImage: featuredImageUrl, // Optional fallback
@@ -366,10 +366,10 @@ Bylines are automatically attached to every entry by the query layer:
 ### Standalone query functions
 
 ```typescript
-import { getByline, getBylineBySlug } from 'emdash';
+import { getByline, getBylineBySlug } from "emdash";
 
 // Look up a specific byline
-const byline = await getBylineBySlug('jane-doe');
+const byline = await getBylineBySlug("jane-doe");
 ```
 
 ### BylineSummary shape
@@ -393,7 +393,7 @@ interface ContentBylineCredit {
   byline: BylineSummary;
   sortOrder: number;
   roleLabel: string | null; // e.g., "Guest essay", "Photographer"
-  source?: 'explicit' | 'inferred'; // "inferred" = fallback from author_id
+  source?: "explicit" | "inferred"; // "inferred" = fallback from author_id
 }
 ```
 
@@ -406,12 +406,12 @@ Cookie-based theme switching (no flash on load):
 <script is:inline>
   (function () {
     var c = document.cookie;
-    var i = c.indexOf('theme=');
-    var theme = i >= 0 ? c.slice(i + 6).split(';')[0] : null;
-    if (theme === 'dark' || theme === 'light') {
+    var i = c.indexOf("theme=");
+    var theme = i >= 0 ? c.slice(i + 6).split(";")[0] : null;
+    if (theme === "dark" || theme === "light") {
       document.documentElement.classList.add(theme);
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark');
+    } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.classList.add("dark");
     }
   })();
 </script>

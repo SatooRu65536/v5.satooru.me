@@ -8,14 +8,14 @@ Export pages and widgets from `src/admin.tsx`:
 
 ```typescript
 // src/admin.tsx
-import { SettingsPage } from './components/SettingsPage';
-import { ReportsPage } from './components/ReportsPage';
-import { StatusWidget } from './components/StatusWidget';
+import { SettingsPage } from "./components/SettingsPage";
+import { ReportsPage } from "./components/ReportsPage";
+import { StatusWidget } from "./components/StatusWidget";
 
 // Pages keyed by path (must match admin.pages paths)
 export const pages = {
-  '/settings': SettingsPage,
-  '/reports': ReportsPage,
+  "/settings": SettingsPage,
+  "/reports": ReportsPage,
 };
 
 // Widgets keyed by ID (must match admin.widgets IDs)
@@ -28,16 +28,16 @@ Reference in plugin definition:
 
 ```typescript
 definePlugin({
-  id: 'my-plugin',
-  version: '1.0.0',
+  id: "my-plugin",
+  version: "1.0.0",
 
   admin: {
-    entry: '@my-org/my-plugin/admin',
+    entry: "@my-org/my-plugin/admin",
     pages: [
-      { path: '/settings', label: 'Settings', icon: 'settings' },
-      { path: '/reports', label: 'Reports', icon: 'chart' },
+      { path: "/settings", label: "Settings", icon: "settings" },
+      { path: "/reports", label: "Reports", icon: "chart" },
     ],
-    widgets: [{ id: 'status', title: 'Status', size: 'half' }],
+    widgets: [{ id: "status", title: "Status", size: "half" }],
   },
 });
 ```
@@ -127,9 +127,9 @@ Auto-prefixes plugin ID to route URLs:
 ```typescript
 const api = usePluginAPI();
 
-const data = await api.get('status'); // GET /.../plugins/<id>/status
-await api.post('settings/save', { enabled: true }); // POST with body
-const result = await api.get('history?limit=50'); // Query params
+const data = await api.get("status"); // GET /.../plugins/<id>/status
+await api.post("settings/save", { enabled: true }); // POST with body
+const result = await api.get("history?limit=50"); // Query params
 ```
 
 ## Admin Components
@@ -146,7 +146,7 @@ import {
   Table,
   Loading,
   Alert,
-} from '@emdash-cms/admin';
+} from "@emdash-cms/admin";
 ```
 
 ## Auto-Generated Settings
@@ -170,12 +170,12 @@ Admin components need a separate build entry:
 // tsdown.config.ts
 export default {
   entry: {
-    index: 'src/index.ts',
-    admin: 'src/admin.tsx',
+    index: "src/index.ts",
+    admin: "src/admin.tsx",
   },
-  format: 'esm',
+  format: "esm",
   dts: true,
-  external: ['react', 'react-dom', 'emdash', '@emdash-cms/admin'],
+  external: ["react", "react-dom", "emdash", "@emdash-cms/admin"],
 };
 ```
 
@@ -188,13 +188,13 @@ The descriptor (returned by factory function) also declares admin metadata:
 ```typescript
 export function myPlugin(options = {}): PluginDescriptor {
   return {
-    id: 'my-plugin',
-    entrypoint: '@my-org/my-plugin',
-    version: '1.0.0',
+    id: "my-plugin",
+    entrypoint: "@my-org/my-plugin",
+    version: "1.0.0",
     options,
-    adminEntry: '@my-org/my-plugin/admin',
-    adminPages: [{ path: '/settings', label: 'Settings', icon: 'settings' }],
-    adminWidgets: [{ id: 'status', title: 'Status', size: 'half' }],
+    adminEntry: "@my-org/my-plugin/admin",
+    adminPages: [{ path: "/settings", label: "Settings", icon: "settings" }],
+    adminWidgets: [{ id: "status", title: "Status", size: "half" }],
   };
 }
 ```

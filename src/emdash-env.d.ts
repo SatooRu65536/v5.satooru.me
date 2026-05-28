@@ -3,7 +3,7 @@
 
 /// <reference types="emdash/locals" />
 
-import type { ContentBylineCredit, PortableTextBlock } from 'emdash';
+import type { ContentBylineCredit, PortableTextBlock } from "emdash";
 
 export interface Page {
   id: string;
@@ -41,7 +41,7 @@ export interface Project {
   bylines?: ContentBylineCredit[];
 }
 
-declare module 'emdash' {
+declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
     projects: Project;

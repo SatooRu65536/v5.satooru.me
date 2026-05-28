@@ -9,17 +9,17 @@ All query functions are imported from `"emdash"`.
 Fetch multiple entries from a collection. Returns `{ entries, error, cacheHint, nextCursor }`.
 
 ```typescript
-import { getEmDashCollection } from 'emdash';
+import { getEmDashCollection } from "emdash";
 
 // Basic
-const { entries: posts } = await getEmDashCollection('posts');
+const { entries: posts } = await getEmDashCollection("posts");
 
 // With options
-const { entries: posts, cacheHint } = await getEmDashCollection('posts', {
-  status: 'published',
+const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
+  status: "published",
   limit: 10,
-  orderBy: { published_at: 'desc' },
-  where: { category: 'news' },
+  orderBy: { published_at: "desc" },
+  where: { category: "news" },
 });
 ```
 
@@ -37,12 +37,12 @@ Options:
 Fetch a single entry by slug. Returns `{ entry, error, isPreview, cacheHint }`.
 
 ```typescript
-import { getEmDashEntry } from 'emdash';
+import { getEmDashEntry } from "emdash";
 
-const { entry: post, cacheHint } = await getEmDashEntry('posts', slug);
+const { entry: post, cacheHint } = await getEmDashEntry("posts", slug);
 
 if (!post) {
-  return Astro.redirect('/404');
+  return Astro.redirect("/404");
 }
 ```
 
@@ -267,15 +267,15 @@ const { entries: posts } = await getEmDashCollection("posts", {
 ### RSS feed (e.g., `/rss.xml.ts`)
 
 ```typescript
-import type { APIRoute } from 'astro';
-import { getEmDashCollection } from 'emdash';
+import type { APIRoute } from "astro";
+import { getEmDashCollection } from "emdash";
 
-const siteTitle = 'My Site';
+const siteTitle = "My Site";
 
 export const GET: APIRoute = async ({ url }) => {
   const siteUrl = url.origin;
-  const { entries: posts } = await getEmDashCollection('posts', {
-    orderBy: { published_at: 'desc' },
+  const { entries: posts } = await getEmDashCollection("posts", {
+    orderBy: { published_at: "desc" },
     limit: 20,
   });
 
@@ -288,10 +288,10 @@ export const GET: APIRoute = async ({ url }) => {
       <link>${postUrl}</link>
       <guid isPermaLink="true">${postUrl}</guid>
       <pubDate>${post.data.publishedAt!.toUTCString()}</pubDate>
-      <description>${escapeXml(post.data.excerpt || '')}</description>
+      <description>${escapeXml(post.data.excerpt || "")}</description>
     </item>`;
     })
-    .join('\n');
+    .join("\n");
 
   return new Response(
     `<?xml version="1.0" encoding="UTF-8"?>
@@ -307,8 +307,8 @@ ${items}
 </rss>`,
     {
       headers: {
-        'Content-Type': 'application/rss+xml; charset=utf-8',
-        'Cache-Control': 'public, max-age=3600',
+        "Content-Type": "application/rss+xml; charset=utf-8",
+        "Cache-Control": "public, max-age=3600",
       },
     },
   );
@@ -316,11 +316,11 @@ ${items}
 
 function escapeXml(s: string): string {
   return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&apos;');
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
 }
 ```
 
@@ -380,9 +380,9 @@ Astro.cache.set(cacheHint);
 Dates come as `Date` objects. Use `toLocaleDateString` or `Intl.DateTimeFormat`:
 
 ```typescript
-const formatted = post.data.publishedAt?.toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
+const formatted = post.data.publishedAt?.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
 });
 ```

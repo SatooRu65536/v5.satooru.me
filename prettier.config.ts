@@ -1,6 +1,7 @@
 import { type Config } from 'prettier';
 
 const config: Config = {
+  plugins: ['prettier-plugin-astro'],
   trailingComma: 'all',
   tabWidth: 2,
   semi: true,

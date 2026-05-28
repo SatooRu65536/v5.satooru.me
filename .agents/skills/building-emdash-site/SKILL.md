@@ -73,13 +73,13 @@ The admin UI is at `http://localhost:4321/_emdash/admin`.
 
 ```typescript
 // Content (entries have .data.byline and .data.bylines eagerly loaded)
-import { getEmDashCollection, getEmDashEntry } from 'emdash';
-const { entries, nextCursor, cacheHint } = await getEmDashCollection('posts', {
+import { getEmDashCollection, getEmDashEntry } from "emdash";
+const { entries, nextCursor, cacheHint } = await getEmDashCollection("posts", {
   limit: 10,
   cursor,
-  orderBy: { published_at: 'desc' },
+  orderBy: { published_at: "desc" },
 });
-const { entry: post, cacheHint } = await getEmDashEntry('posts', slug);
+const { entry: post, cacheHint } = await getEmDashEntry("posts", slug);
 
 // Site features
 import {
@@ -93,10 +93,10 @@ import {
   search,
   getSection,
   getSeoMeta,
-} from 'emdash';
+} from "emdash";
 
 // Bylines (standalone queries -- usually not needed since entries have bylines attached)
-import { getByline, getBylineBySlug } from 'emdash';
+import { getByline, getBylineBySlug } from "emdash";
 
 // UI components
 import {
@@ -108,11 +108,11 @@ import {
   EmDashHead,
   EmDashBodyStart,
   EmDashBodyEnd,
-} from 'emdash/ui';
-import LiveSearch from 'emdash/ui/search';
+} from "emdash/ui";
+import LiveSearch from "emdash/ui/search";
 
 // Page context (for plugin contributions)
-import { createPublicPageContext } from 'emdash/page';
+import { createPublicPageContext } from "emdash/page";
 ```
 
 ## Plugins
