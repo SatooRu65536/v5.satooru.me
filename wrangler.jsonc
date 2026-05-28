@@ -1,25 +1,22 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "satooru-me",
-  "main": "./src/worker.ts",
-  "compatibility_date": "2026-02-24",
-  "compatibility_flags": ["nodejs_compat"],
-  "d1_databases": [
-    {
-      "binding": "DB",
-      "database_name": "satooru-me",
-    },
-  ],
-  "r2_buckets": [
-    {
-      "binding": "MEDIA",
-      "bucket_name": "satooru-me",
-    },
-  ],
-  // Worker Loader for plugin sandboxing
-  "worker_loaders": [
-    {
-      "binding": "LOADER",
-    },
-  ],
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "v5-satooru-me",
+	"main": "./src/worker.ts",
+	"compatibility_date": "2026-02-24",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"r2_buckets": [
+		{
+			"bucket_name": "satooru-me",
+			"binding": "MEDIA"
+		},
+	],
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "satooru-me",
+			"database_id": "b7de037a-c0ef-4cf8-b134-46eae7d8402d",
+		}
+	],
 }
