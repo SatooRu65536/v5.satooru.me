@@ -1,6 +1,6 @@
 ---
 import { getEmDashCollection, getSiteSettings } from 'emdash';
-import Base from '../layouts/Base.astro';
+import PageLayout from '../layouts/Page.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 
 // Fetch settings + the 4 featured projects in parallel. Limiting and
@@ -17,7 +17,7 @@ const [settings, { entries: featuredProjects, cacheHint }] = await Promise.all([
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 ---
 
-<Base>
+<PageLayout>
   <section class="hero">
     <h1 class="hero-title">{settings?.title || 'Studio'}</h1>
     <p class="hero-tagline">{settings?.tagline || 'Design & Development'}</p>
@@ -55,7 +55,7 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
       </section>
     )
   }
-</Base>
+</PageLayout>
 
 <style>
   .hero {

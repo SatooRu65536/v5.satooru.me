@@ -174,7 +174,7 @@ When an admin is logged in and views the site, these attributes enable click-to-
 ---
 import { getEmDashCollection, getEntryTerms } from "emdash";
 import { Image } from "emdash/ui";
-import Base from "../../layouts/Base.astro";
+import PageLayout from "../../layouts/Page.astro";
 
 const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
 	orderBy: { published_at: "desc" },
@@ -187,7 +187,7 @@ const sortedPosts = posts.toSorted((a, b) => {
 	return dateB - dateA;
 });
 ---
-<Base title="Posts">
+<PageLayout title="Posts">
 	{sortedPosts.map(post => (
 		<article>
 			{post.data.featured_image && <Image image={post.data.featured_image} />}
@@ -195,7 +195,7 @@ const sortedPosts = posts.toSorted((a, b) => {
 			{post.data.excerpt && <p>{post.data.excerpt}</p>}
 		</article>
 	))}
-</Base>
+</PageLayout>
 ```
 
 ### Detail page (e.g., `/posts/[slug].astro`)
@@ -204,7 +204,7 @@ const sortedPosts = posts.toSorted((a, b) => {
 ---
 import { getEmDashEntry, getEntryTerms, getSeoMeta } from "emdash";
 import { Image, PortableText } from "emdash/ui";
-import Base from "../../layouts/Base.astro";
+import PageLayout from "../../layouts/Page.astro";
 
 const { slug } = Astro.params;
 if (!slug) return Astro.redirect("/404");
@@ -222,7 +222,7 @@ const seo = getSeoMeta(post, {
 
 const tags = await getEntryTerms("posts", post.data.id, "tag");
 ---
-<Base title={seo.title} description={seo.description}>
+<PageLayout title={seo.title} description={seo.description}>
 	<article>
 		{post.data.featured_image && (
 			<div {...post.edit.featured_image}>
@@ -237,7 +237,7 @@ const tags = await getEntryTerms("posts", post.data.id, "tag");
 			</div>
 		)}
 	</article>
-</Base>
+</PageLayout>
 ```
 
 ### Taxonomy archive (e.g., `/category/[slug].astro`)
@@ -245,7 +245,7 @@ const tags = await getEntryTerms("posts", post.data.id, "tag");
 ```astro
 ---
 import { getTerm, getEmDashCollection } from "emdash";
-import Base from "../../layouts/Base.astro";
+import PageLayout from "../../layouts/Page.astro";
 
 const { slug } = Astro.params;
 const term = slug ? await getTerm("category", slug) : null;
@@ -256,12 +256,12 @@ const { entries: posts } = await getEmDashCollection("posts", {
 	orderBy: { published_at: "desc" },
 });
 ---
-<Base title={`${term.label} posts`}>
+<PageLayout title={`${term.label} posts`}>
 	<h1>{term.label}</h1>
 	{posts.map(post => (
 		<a href={`/posts/${post.id}`}>{post.data.title}</a>
 	))}
-</Base>
+</PageLayout>
 ```
 
 ### RSS feed (e.g., `/rss.xml.ts`)
@@ -328,13 +328,13 @@ function escapeXml(s: string): string {
 
 ```astro
 ---
-import Base from "../layouts/Base.astro";
+import PageLayout from "../layouts/Page.astro";
 ---
-<Base title="Not Found">
+<PageLayout title="Not Found">
 	<h1>Page not found</h1>
 	<p>The page you're looking for doesn't exist.</p>
 	<a href="/">Go home</a>
-</Base>
+</PageLayout>
 ```
 
 ### Empty state

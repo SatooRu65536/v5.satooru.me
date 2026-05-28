@@ -1,7 +1,7 @@
 ---
 import { getEmDashEntry, getEmDashCollection, decodeSlug } from 'emdash';
 import { Image, PortableText } from 'emdash/ui';
-import Base from '../../layouts/Base.astro';
+import PageLayout from '../../layouts/Page.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
 const slug = decodeSlug(Astro.params.slug);
@@ -40,7 +40,7 @@ function getImageSrc(img: unknown): string | undefined {
 }
 ---
 
-<Base
+<PageLayout
   description={project.data.summary}
   image={getImageSrc(project.data.featured_image)}
   title={project.data.title}
@@ -138,7 +138,7 @@ function getImageSrc(img: unknown): string | undefined {
       </section>
     )
   }
-</Base>
+</PageLayout>
 
 <style>
 

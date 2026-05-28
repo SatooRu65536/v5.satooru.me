@@ -6,7 +6,7 @@ import {
   getTaxonomyTerms,
   getTermsForEntries,
 } from 'emdash';
-import Base from '../../layouts/Base.astro';
+import PageLayout from '../../layouts/Page.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 
 // Get filter from query param. When set, push the filter down to the
@@ -38,7 +38,7 @@ const projectsWithTags = sortedProjects.map((project) => ({
 }));
 ---
 
-<Base
+<PageLayout
   title={activeTag
     ? `${tags.find((t) => t.slug === activeTag)?.label || activeTag} — Work`
     : 'Work'}
@@ -112,7 +112,7 @@ const projectsWithTags = sortedProjects.map((project) => ({
           </section>
         )
   }
-</Base>
+</PageLayout>
 
 <style>
 

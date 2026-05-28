@@ -1,8 +1,8 @@
 ---
-import Base from '../layouts/Base.astro';
+import PageLayout from '../layouts/Page.astro';
 ---
 
-<Base title="Page not found">
+<PageLayout title="Page not found">
   <div class="not-found">
     <span class="not-found-code">404</span>
     <h1>Page not found</h1>
@@ -12,7 +12,7 @@ import Base from '../layouts/Base.astro';
       <a class="link-secondary" href="/work">View our work</a>
     </div>
   </div>
-</Base>
+</PageLayout>
 
 <style>
   .not-found {

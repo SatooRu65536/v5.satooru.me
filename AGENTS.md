@@ -17,7 +17,7 @@ The admin UI is at `http://localhost:4321/_emdash/admin`.
 | `src/live.config.ts`     | EmDash loader registration (boilerplate -- don't modify)                           |
 | `seed/seed.json`         | Schema definition + demo content (collections, fields, taxonomies, menus, widgets) |
 | `emdash-env.d.ts`        | Generated types for collections (auto-regenerated on dev server start)             |
-| `src/layouts/Base.astro` | Base layout with EmDash wiring (menus, search, page contributions)                 |
+| `src/layouts/Page.astro` | Page layout with EmDash wiring (menus, search, page contributions)                 |
 | `src/pages/`             | Astro pages -- all server-rendered                                                 |
 
 ## Skills
@@ -79,7 +79,7 @@ Whitespace is generous. Sections breathe. Don't fight that.
 
 ## Customisation
 
-`src/styles/theme.css` is the only file to edit for visual changes. Every CSS variable from `Base.astro` is listed there as a commented default -- uncomment and change to override. The dark mode palette is defined inside `Base.astro` itself; light-mode overrides in `theme.css` won't affect dark mode. To customise dark mode, add `@media (prefers-color-scheme: dark)` and `:root.dark` rules in `theme.css`.
+`src/styles/theme.css` is the only file to edit for visual changes. Every CSS variable from `Page.astro` is listed there as a commented default -- uncomment and change to override. The dark mode palette is defined inside `Page.astro` itself; light-mode overrides in `theme.css` won't affect dark mode. To customise dark mode, add `@media (prefers-color-scheme: dark)` and `:root.dark` rules in `theme.css`.
 
 Fonts are configured in `astro.config.mjs` under `fonts:` (the Astro Fonts API). To change the display face, swap the `name:` for any Google Fonts serif and keep `cssVariable: "--font-serif"`. Good pairings: Cormorant Garamond, Fraunces, EB Garamond, DM Serif Display. Avoid changing the body font unless you have a reason -- system sans is deliberately quiet here.
 

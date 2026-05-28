@@ -5,10 +5,10 @@
   appearance. All defaults are listed below as comments. Uncomment and
   change any value to override it.
 
-  Base.astro puts its defaults inside @layer base, so declarations here
+  Page.astro puts its defaults inside @layer base, so declarations here
   (which are unlayered) always take priority -- no specificity tricks needed.
 
-  Note: this template defines explicit dark mode colors in Base.astro.
+  Note: this template defines explicit dark mode colors in Page.astro.
   Overriding light-mode --color-* variables here won't affect dark mode.
   To customize dark mode, also override --color-* variables inside a
   @media (prefers-color-scheme: dark) block and/or in the :root.dark rule.

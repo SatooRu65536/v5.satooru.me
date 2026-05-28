@@ -1,14 +1,14 @@
 ---
 import { getEmDashEntry } from 'emdash';
 import { PortableText } from 'emdash/ui';
-import Base from '../layouts/Base.astro';
+import PageLayout from '../layouts/Page.astro';
 
 const { entry: page, cacheHint } = await getEmDashEntry('pages', 'about');
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 ---
 
-<Base description="Learn more about who we are and what we do." title="About">
+<PageLayout description="Learn more about who we are and what we do." title="About">
   <div class="about-page">
     <header class="about-header">
       <h1 class="about-title" {...page?.edit?.title}>
@@ -48,7 +48,7 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
       </div>
     </aside>
   </div>
-</Base>
+</PageLayout>
 
 <style>
   .about-page {

@@ -1,5 +1,5 @@
 ---
-import Base from '../layouts/Base.astro';
+import PageLayout from '../layouts/Page.astro';
 
 // Handle form submission
 let formStatus: 'idle' | 'success' | 'error' = 'idle';
@@ -34,7 +34,7 @@ if (Astro.request.method === 'POST') {
 }
 ---
 
-<Base
+<PageLayout
   description="Get in touch with us about your next project."
   title="Contact"
 >
@@ -98,7 +98,7 @@ if (Astro.request.method === 'POST') {
                   placeholder="Tell us about your project..."
                   required
                   rows="6"
-                ></textarea>
+                />
               </div>
 
               <button class="form-submit" type="submit">
@@ -166,7 +166,7 @@ if (Astro.request.method === 'POST') {
       </aside>
     </div>
   </div>
-</Base>
+</PageLayout>
 
 <style>
   .contact-page {

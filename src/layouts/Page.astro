@@ -1,0 +1,75 @@
+---
+import { getSiteSettings } from 'emdash';
+import { EmDashHead } from 'emdash/ui';
+import { createPublicPageContext } from 'emdash/page';
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/globals.scss';
+import '../styles/base.scss';
+import '../styles/theme.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const { title, description, image, type = 'website' } = Astro.props;
+const settings = await getSiteSettings();
+const siteTitle = settings?.title || 'Studio';
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const siteDescription = settings?.tagline || 'Design & Development';
+
+const pageCtx = createPublicPageContext({
+  Astro,
+  kind: 'custom',
+  pageType: type,
+  title: fullTitle,
+  pageTitle: title ?? siteTitle,
+  description: description || siteDescription,
+  canonical: Astro.url.href,
+  image,
+  seo: { ogImage: image },
+  siteName: siteTitle,
+});
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{fullTitle}</title>
+    <EmDashHead page={pageCtx} />
+    <Font cssVariable="--font-serif" preload />
+    <link
+      href="/rss.xml"
+      rel="alternate"
+      title={`${siteTitle} RSS Feed`}
+      type="application/rss+xml"
+    />
+    <script is:inline>
+      (function () {
+        const c = document.cookie;
+        const i = c.indexOf('theme=');
+        const theme = i >= 0 ? c.slice(i + 6).split(';')[0] : null;
+        if (theme === 'dark' || theme === 'light') {
+          document.documentElement.classList.add(theme);
+        } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+
+    <script src="../scripts/theme-switcher.ts"></script>
+  </body>
+</html>

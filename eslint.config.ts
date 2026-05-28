@@ -30,5 +30,6 @@ export default defineConfig([
     quotes: 'single',
     indent: 2,
     arrowParens: true,
+    braceStyle: '1tbs',
   }),
 ]);

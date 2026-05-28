@@ -224,17 +224,17 @@ Each result has: `collection`, `id`, `title`, `slug`, `snippet` (HTML with `<mar
 ```astro
 ---
 import LiveSearch from "emdash/ui/search";
-import Base from "../layouts/Base.astro";
+import PageLayout from "../layouts/Page.astro";
 
 const query = Astro.url.searchParams.get("q") || "";
 ---
-<Base title="Search">
+<PageLayout title="Search">
   <h1>Search</h1>
   <LiveSearch
     placeholder="Search posts..."
     collections={["posts", "pages"]}
   />
-</Base>
+</PageLayout>
 ```
 
 ### Keyboard shortcut
