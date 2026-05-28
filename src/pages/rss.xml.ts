@@ -4,7 +4,7 @@ import { getEmDashCollection, getSiteSettings } from 'emdash';
 export const GET: APIRoute = async ({ site, url }) => {
   const siteUrl = site?.toString() || url.origin;
   const settings = await getSiteSettings();
-  const siteTitle = settings?.title || 'Studio';
+  const siteTitle = settings?.title || 'My Profile';
   const siteDescription = settings?.tagline || 'Design & Development';
 
   const { entries: projects } = await getEmDashCollection('projects', {

@@ -2,13 +2,13 @@
   "$schema": "./seed.schema.json",
   "version": "1",
   "meta": {
-    "name": "Portfolio Starter",
-    "description": "A portfolio for showcasing creative work",
-    "author": "EmDash"
+    "name": "Profile Site",
+    "description": "A simple profile site built with EmDash CMS.",
+    "author": "SatooRu"
   },
   "settings": {
-    "title": "Studio",
-    "tagline": "Design & Development"
+    "title": "My Profile",
+    "tagline": "Hi There 👋 "
   },
   "collections": [
     {
@@ -157,13 +157,23 @@
       "items": [
         {
           "type": "custom",
-          "label": "Work",
-          "url": "/work"
+          "label": "Home",
+          "url": "/"
         },
         {
           "type": "custom",
-          "label": "Contact",
-          "url": "/contact"
+          "label": "About",
+          "url": "/about"
+        },
+        {
+          "type": "custom",
+          "label": "Posts",
+          "url": "/posts"
+        },
+        {
+          "type": "custom",
+          "label": "Research",
+          "url": "/research"
         }
       ]
     }

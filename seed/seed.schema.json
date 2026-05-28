@@ -150,6 +150,9 @@
         "required": {
           "type": "boolean"
         },
+        "searchable": {
+          "type": "boolean"
+        },
         "unique": {
           "type": "boolean"
         },

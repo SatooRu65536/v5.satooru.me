@@ -1,0 +1,104 @@
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    /* light(default) */
+    --color-primary: #0a0a0a;
+    --color-on-primary: #f5f5f5;
+    --color-accent: #048dff;
+    --color-on-accent: #f5f5f5;
+    --color-text: #0a0a0a;
+    --color-background: #ffffff;
+    --color-background-muted: #d9d9d9;
+
+    /* dark */
+    --color-primary-dark: #f5f5f5;
+    --color-on-primary-dark: #0a0a0a;
+    --color-accent-dark: #048dff;
+    --color-on-accent-dark: #f5f5f5;
+    --color-text-dark: #f5f5f5;
+    --color-background-dark: #000000;
+    --color-background-muted-dark: #2a2a2a;
+
+    /* font */
+    --font-sans-serif: Inter, sans-serif;
+  }
+
+  /* Dark mode via system preference (when no explicit class) */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light) {
+      --color-primary: var(--color-primary-dark);
+      --color-on-primary: var(--color-on-primary-dark);
+      --color-accent: var(--color-accent-dark);
+      --color-on-accent: var(--color-on-accent-dark);
+      --color-text: var(--color-text-dark);
+      --color-background: var(--color-background-dark);
+      --color-background-muted: var(--color-background-muted-dark);
+    }
+  }
+
+  /* Explicit dark mode */
+  :root.dark {
+    --color-primary: var(--color-primary-dark);
+    --color-on-primary: var(--color-on-primary-dark);
+    --color-accent: var(--color-accent-dark);
+    --color-on-accent: var(--color-on-accent-dark);
+    --color-text: var(--color-text-dark);
+    --color-background: var(--color-background-dark);
+    --color-background-muted: var(--color-background-muted-dark);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    min-height: 100vh;
+    font-family: var(--font-sans-serif);
+    color: var(--color-text);
+    background: var(--color-background);
+    background-color: var(--color-background);
+    background-image: radial-gradient(
+      var(--color-background-muted) 1px,
+      transparent 3px
+    );
+    background-size: 30px 30px;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  h3 {
+    font-size: 1.25rem;
+  }
+}

@@ -2,7 +2,7 @@
 import { getSiteSettings } from 'emdash';
 
 const settings = await getSiteSettings();
-const siteTitle = settings?.title || 'Studio';
+const siteTitle = settings?.title || 'My Profile';
 const siteLogo = settings?.logo?.url
   ? (settings.logo as { mediaId: string; alt?: string; url: string })
   : null;
@@ -64,7 +64,7 @@ const siteLogo = settings?.logo?.url
   </div>
 </footer>
 
-<style>
+<style lang="scss">
   .site-footer {
     max-width: var(--wide-width);
     margin: 0 auto;

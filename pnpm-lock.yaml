@@ -20,6 +20,9 @@ importers:
       astro:
         specifier: ^6.3.0
         version: 6.3.8(@types/node@25.9.1)(jiti@2.7.0)(rollup@4.60.4)(sass@1.100.0)(yaml@2.9.0)
+      astro-google-fonts-optimizer:
+        specifier: ^0.2.2
+        version: 0.2.2
       emdash:
         specifier: ^0.14.0
         version: 0.14.0(46fe1c79c133483cb5ae8d89d5ccac0e)
@@ -2006,6 +2009,9 @@ packages:
   astro-eslint-parser@1.4.0:
     resolution: {integrity: sha512-+QDcgc7e+au6EZ0YjMmRRjNoQo5bDMlaR45aWDoFsuxQTCM9qmCHRoiKJPELgckJ8Wmr7vcfpa9eCDHBFh6G4w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  astro-google-fonts-optimizer@0.2.2:
+    resolution: {integrity: sha512-YQxp/ExF3NzUomAGuu1VKecO7/ETRnhnE50gqwAqfpbGPZFj4MYa4XxK1ukBg3R63QmKuE5uurOiKmXiLzttuw==}
 
   astro-portabletext@0.11.4:
     resolution: {integrity: sha512-2dOPJAZs6IiVotFaQB5Em0fYUNhX7cf2FfWf0dXfQ67wLmLXsUiQnRzb1BORrc9LS8YVQhXjhNXARB4kZwO+2w==}
@@ -6318,6 +6324,8 @@ snapshots:
       semver: 7.8.1
     transitivePeerDependencies:
       - supports-color
+
+  astro-google-fonts-optimizer@0.2.2: {}
 
   astro-portabletext@0.11.4(astro@6.3.8(@types/node@25.9.1)(jiti@2.7.0)(rollup@4.60.4)(sass@1.100.0)(yaml@2.9.0)):
     dependencies:
