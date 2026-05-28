@@ -21,10 +21,10 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Playfair Display',
-      cssVariable: '--font-serif',
+      name: 'Noto Sans JP',
+      cssVariable: '--font-noto-sans-jp',
       weights: [400, 500, 600, 700],
-      fallbacks: ['serif'],
+      fallbacks: ['sans-serif'],
     },
   ],
 
@@ -38,4 +38,18 @@ export default defineConfig({
   },
 
   devToolbar: { enabled: false },
+
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `
+            @use "styles/modules" as *;
+            @use "sass:color";
+        `,
+          loadPaths: ['src'],
+        },
+      },
+    },
+  },
 });
