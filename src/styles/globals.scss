@@ -2,6 +2,7 @@
 
 main {
   min-height: $main-height;
+  padding-bottom: $main-padding-bottom;
 }
 
 @media (max-width: 640px) {
