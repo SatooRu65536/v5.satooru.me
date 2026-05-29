@@ -31,7 +31,6 @@ import DarkModeIcon from '../icons/DarkModeIcon.astro';
     overflow: hidden;
 
     .theme-btn {
-      display: flex;
       align-items: center;
       gap: $space-sm;
       padding: $space-sm $space-md;
@@ -40,8 +39,10 @@ import DarkModeIcon from '../icons/DarkModeIcon.astro';
       color: currentColor;
       cursor: pointer;
 
-      &.active {
-        display: none;
+      display: none;
+
+      &:not(.active) {
+        display: flex;
       }
     }
   }
