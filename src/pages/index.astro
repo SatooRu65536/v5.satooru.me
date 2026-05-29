@@ -1,159 +1,20 @@
 ---
-import { getEmDashCollection, getSiteSettings } from 'emdash';
+import { getEmDashCollection } from 'emdash';
 import PageLayout from '../layouts/Page.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import EmptyState from '../components/EmptyState.astro';
+import TopPage from '../components/pages/TopPage.astro';
 
-const [settings, { entries: featuredProjects, cacheHint }] = await Promise.all([
-  getSiteSettings(),
-  getEmDashCollection('projects', {
+const { entries: featuredProjects, cacheHint } = await getEmDashCollection(
+  'projects',
+  {
     orderBy: { published_at: 'desc' },
     limit: 4,
-  }),
-]);
+  },
+);
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 ---
 
 <PageLayout>
-  {
-    featuredProjects.length > 0 ? (
-      <section class="featured">
-        <header class="section-header">
-          <h2 class="section-title">Selected Work</h2>
-          <a class="section-link" href="/work">
-            View all projects &rarr;
-          </a>
-        </header>
-        <div class="projects-grid">
-          {featuredProjects.map((project) => (
-            <ProjectCard
-              client={project.data.client}
-              featuredImage={project.data.featured_image ?? ''}
-              href={`/work/${project.id}`}
-              summary={project.data.summary}
-              title={project.data.title ?? 'Untitled'}
-              year={project.data.year}
-            />
-          ))}
-        </div>
-      </section>
-    ) : (
-      <section class="empty-state">
-        <div>
-          <h2>No projects yet</h2>
-          <p>Add your first project in the admin panel.</p>
-        </div>
-
-        <a class="btn" href="/_emdash/admin/content/projects/new">
-          Add a project
-        </a>
-      </section>
-    )
-  }
+  {featuredProjects.length > 0 ? <TopPage /> : <EmptyState />}
 </PageLayout>
-
-<style lang="scss">
-  .hero {
-    max-width: var(--wide-width);
-    margin: 0 auto;
-    padding: var(--spacing-4xl) var(--spacing-lg);
-    text-align: center;
-
-    &-title {
-      font-size: var(--font-size-4xl);
-      font-weight: 500;
-      margin-bottom: var(--spacing-md);
-      letter-spacing: -0.02em;
-    }
-
-    &-tagline {
-      font-size: var(--font-size-xl);
-      color: var(--color-muted);
-      font-family: $font-sans-serif;
-      font-style: italic;
-    }
-  }
-
-  .featured {
-    max-width: var(--wide-width);
-    margin: 0 auto;
-    padding: 0 var(--spacing-lg) var(--spacing-4xl);
-  }
-
-  .section {
-    &-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: var(--spacing-2xl);
-      padding-bottom: var(--spacing-md);
-      border-bottom: 1px solid var(--color-border);
-    }
-
-    &-title {
-      font-size: var(--font-size-lg);
-      font-weight: 500;
-    }
-
-    &-link {
-      font-size: $font-size-sm;
-      color: var(--color-muted);
-      text-decoration: none;
-      transition: color var(--transition-fast);
-
-      &:hover {
-        color: var(--color-text);
-      }
-    }
-  }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-2xl);
-  }
-
-  .empty-state {
-    height: $fit-content-height;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: $space-md;
-
-    .btn {
-      display: inline-block;
-      padding: $space-sm $space-md;
-      background: $color-text;
-      color: $color-background;
-      border-radius: $radius-md;
-      font-size: $font-size-base;
-      transition: opacity $transition-fast;
-
-      &:hover {
-        opacity: 0.85;
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .hero {
-      padding: var(--spacing-3xl) var(--spacing-lg);
-
-      &-title {
-        font-size: var(--font-size-3xl);
-      }
-    }
-
-    .projects-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .section-header {
-      flex-direction: column;
-      gap: var(--spacing-sm);
-      align-items: flex-start;
-    }
-  }
-</style>

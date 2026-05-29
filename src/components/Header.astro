@@ -5,9 +5,7 @@ import icon from '../assets/icon.webp';
 
 const settings = await getSiteSettings();
 const name = settings?.title || 'My Profile';
-const siteLogo = settings?.logo?.url
-  ? (settings.logo as { mediaId: string; alt?: string; url: string })
-  : null;
+const siteLogo = settings.logo;
 
 const menu = await getMenu('primary');
 

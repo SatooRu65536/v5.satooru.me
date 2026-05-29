@@ -1,0 +1,108 @@
+---
+import FadeIn from '../components/shared/FadeIn.astro';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.d.ts';
+
+interface Props {
+  title?: string | AstroComponentFactory;
+  leftSpace?: boolean;
+  center?: boolean;
+  underline?: boolean;
+  fadein?: boolean;
+  className?: string;
+  logo?: boolean;
+}
+
+const {
+  title,
+  leftSpace,
+  center,
+  underline,
+  fadein = true,
+  logo = false,
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="title" data-underline={underline}>
+    {
+      fadein === false ? (
+        <>
+          {typeof title === 'string' ? (
+            <h1>{title}</h1>
+          ) : title != null ? (
+            title
+          ) : (
+            <slot name="title" />
+          )}
+        </>
+      ) : (
+        <FadeIn data-underline={underline} direction="left">
+          {typeof title === 'string' ? (
+            <h1>{title}</h1>
+          ) : title != null ? (
+            title
+          ) : (
+            <slot name="title" />
+          )}
+        </FadeIn>
+      )
+    }
+  </div>
+
+  <div class="content" data-center={center} data-leftspace={leftSpace}>
+    <slot />
+  </div>
+</section>
+
+<style lang="scss">
+  .section {
+    margin-inline: auto;
+    padding: 40px;
+    width: 100%;
+    max-width: $section-max-width;
+
+    .title[data-underline='true'] {
+      width: fit-content;
+      position: relative;
+      display: inline-block;
+
+      .logo {
+        height: 40px;
+        background-color: $color-white;
+        border-radius: $radius-full;
+        margin-right: $space-sm;
+      }
+
+      h1 {
+        font-size: $font-size-xl;
+        font-weight: bold;
+      }
+
+      &::after {
+        content: '';
+        border-bottom: 1px solid $color-primary;
+        position: absolute;
+        left: 0;
+        right: -70px;
+        bottom: 0;
+      }
+    }
+
+    .content {
+      margin: 20px 0;
+
+      &[data-leftspace='true'] {
+        margin-left: 2rem;
+      }
+
+      &[data-center='true'] {
+        display: flex;
+        justify-content: center;
+
+        & > * {
+          width: fit-content;
+        }
+      }
+    }
+  }
+</style>

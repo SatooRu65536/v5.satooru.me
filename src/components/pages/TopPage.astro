@@ -1,0 +1,32 @@
+---
+import SectionLayout from '../../layouts/Section.astro';
+import { getSiteSettings } from 'emdash';
+import icon from '../../assets/icon.webp';
+
+const settings = await getSiteSettings();
+const title = settings.title;
+const tagline = settings.tagline;
+const logo = settings.logo;
+---
+
+<SectionLayout fadein={false} underline logo>
+  <div slot="title" class="title">
+    <img
+      src={logo?.url ?? icon.src}
+      alt={logo?.alt || title}
+      width="48"
+      height="48"
+    />
+    <h2>{title}</h2>
+  </div>
+
+  <p class="detail">{tagline}</p>
+</SectionLayout>
+
+<style lang="scss">
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+</style>
