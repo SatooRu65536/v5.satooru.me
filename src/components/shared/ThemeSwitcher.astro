@@ -1,0 +1,48 @@
+---
+import LightModeIcon from '../icons/LightModeIcon.astro';
+import DarkModeIcon from '../icons/DarkModeIcon.astro';
+---
+
+<div class="theme-switcher">
+  <button
+    aria-label="Light mode"
+    class="theme-btn"
+    data-theme="light"
+    type="button"
+  >
+    Light
+    <LightModeIcon />
+  </button>
+  <button
+    aria-label="Dark mode"
+    class="theme-btn"
+    data-theme="dark"
+    type="button"
+  >
+    Dark
+    <DarkModeIcon />
+  </button>
+
+  <script src="../../scripts/theme-switcher.ts"></script>
+</div>
+
+<style lang="scss">
+  .theme-switcher {
+    overflow: hidden;
+
+    .theme-btn {
+      display: flex;
+      align-items: center;
+      gap: $space-sm;
+      padding: $space-sm $space-md;
+      border-radius: $radius-lg;
+      background-color: transparent;
+      color: currentColor;
+      cursor: pointer;
+
+      &.active {
+        display: none;
+      }
+    }
+  }
+</style>

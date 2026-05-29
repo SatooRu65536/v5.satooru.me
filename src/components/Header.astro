@@ -1,4 +1,5 @@
 ---
+import ThemeSwitcher from './shared/ThemeSwitcher.astro';
 import { getMenu, getSiteSettings } from 'emdash';
 import icon from '../assets/icon.webp';
 
@@ -36,6 +37,8 @@ const { fixed = false } = Astro.props;
       ))
     }
   </nav>
+
+  <ThemeSwitcher />
 </header>
 
 <style lang="scss">
@@ -46,7 +49,8 @@ const { fixed = false } = Astro.props;
     background-color: rgba($color: $color-background, $alpha: 0.5);
     backdrop-filter: blur(4px);
 
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     gap: $space-md;
     align-items: center;
 
@@ -61,10 +65,14 @@ const { fixed = false } = Astro.props;
     }
 
     .title-container {
-      display: contents;
+      display: flex;
+      align-items: center;
+      gap: $space-sm;
 
       .logo-img {
         height: 40px;
+        background-color: $color-white;
+        border-radius: $radius-full;
       }
 
       .title {

@@ -1,7 +1,7 @@
 @layer base;
 
 main {
-  min-height: calc(100vh - 200px);
+  min-height: $main-height;
 }
 
 @media (max-width: 640px) {

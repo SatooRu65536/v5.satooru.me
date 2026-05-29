@@ -195,7 +195,7 @@ Theme via CSS variables:
 
 ```css
 :root {
-  --emdash-search-bg: var(--color-bg);
+  --emdash-search-bg: $color-text;
   --emdash-search-text: var(--color-text);
   --emdash-search-muted: var(--color-muted);
   --emdash-search-border: var(--color-border);
