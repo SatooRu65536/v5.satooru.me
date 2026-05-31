@@ -1,0 +1,21 @@
+---
+import ExperienceItem from '@/components/ExperienceItem.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import { getEmDashCollection } from 'emdash';
+
+const { entries: experiences, cacheHint } = await getEmDashCollection(
+  'experiences',
+  {
+    orderBy: {
+      start_date: 'asc',
+      end_date: 'asc',
+    },
+  },
+);
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<SectionLayout title="Experiences" class="experiences" leftSpace>
+  {experiences.map((experience) => <ExperienceItem experience={experience} />)}
+</SectionLayout>

@@ -5,6 +5,23 @@
 
 import type { ContentBylineCredit, PortableTextBlock } from "emdash";
 
+export interface Experiences {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  start_date: string;
+  end_date?: string;
+  summary?: string;
+  link_name?: string;
+  link?: string;
+  important?: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Page {
   id: string;
   slug: string | null;
@@ -22,7 +39,7 @@ export interface Works {
   slug: string | null;
   status: string;
   title: string;
-  type: "バイト" | "業務委託" | "短期インターン" | "長期インターン" | "就職";
+  type: string;
   start_date: string;
   end_date?: string;
   summary: string;
@@ -34,6 +51,7 @@ export interface Works {
 
 declare module "emdash" {
   interface EmDashCollections {
+    experiences: Experiences;
     pages: Page;
     works: Works;
   }

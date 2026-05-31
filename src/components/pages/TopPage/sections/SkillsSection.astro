@@ -75,8 +75,8 @@ const SKILLS: Skills = {
         </FadeIn>
 
         <FadeInWithStagger class="skills-container">
-          {skills.map((skill, i) => (
-            <FadeIn delay={(i + 1) * 100} direction="up">
+          {skills.map((skill) => (
+            <FadeIn direction="up" stagger>
               <IconCard iconKey={skill} />
             </FadeIn>
           ))}

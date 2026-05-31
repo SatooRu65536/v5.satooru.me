@@ -1,0 +1,153 @@
+---
+import type { ContentEntry } from 'emdash';
+import type { Experiences } from '../../emdash-env';
+import dayjs from 'dayjs';
+
+interface Props {
+  experience: ContentEntry<Experiences>;
+  class?: string;
+}
+
+const { experience, class: className, ...rest } = Astro.props;
+
+const startDate = dayjs(experience.data.start_date);
+const endDate =
+  experience.data.end_date === undefined
+    ? undefined
+    : dayjs(experience.data.end_date);
+const periodText = `${startDate.format('YYYY.MM')} - ${endDate ? endDate.format('YYYY.MM') : '現在'}`;
+---
+
+<div class:list={['card', className]} {...rest}>
+  <div class="circle_container">
+    <div class="circle" data-fill={experience.data.important}></div>
+    <div class="line"></div>
+  </div>
+
+  <div class="box">
+    <div class="content">
+      <p class="designation">{experience.data.title}</p>
+      <a class="name" href={experience.data.link}>
+        {experience.data.link_name}
+      </a>
+      <p class="period">{periodText}</p>
+      {
+        experience.data.summary !== undefined && (
+          <p class="overview">{experience.data.summary}</p>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<style lang="scss">
+  .card {
+    padding: 30px 15px;
+    display: flex;
+    height: 200px;
+
+    @include pc {
+      padding: 30px;
+    }
+
+    .circle_container {
+      order: 1;
+      margin-right: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+
+      .circle {
+        width: 20px;
+        height: 20px;
+        border: 1px solid $color-accent;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &[data-fill='true'] {
+          color: $color-background;
+          background-color: $color-accent;
+        }
+      }
+
+      .line {
+        height: 140px;
+        width: 1px;
+        background-color: $color-accent;
+        position: absolute;
+        bottom: -100px;
+      }
+    }
+
+    @include pc {
+      margin-right: 50px;
+    }
+
+    .box {
+      order: 2;
+      display: flex;
+      align-items: center;
+
+      .content {
+        .designation {
+          font-size: 1.3rem;
+        }
+
+        .name {
+          color: $color-accent;
+          font-size: 1rem;
+        }
+
+        .period {
+          font-size: 1rem;
+          padding-bottom: 10px;
+        }
+
+        .overview {
+          font-size: 1rem;
+          line-height: 2rem;
+          height: 60px;
+
+          @include mobile {
+            line-height: 4rem;
+            height: 80px;
+          }
+        }
+      }
+    }
+  }
+
+  :global(.card):nth-child(2n - 1) {
+    .circle_container {
+      margin-left: 400px;
+    }
+
+    .box {
+      .content {
+        width: 400px;
+      }
+    }
+  }
+
+  :global(.card):nth-child(2n) {
+    .circle_container {
+      order: 2;
+    }
+
+    .box {
+      order: 1;
+      width: 400px;
+      text-align: end;
+
+      .content {
+        width: fit-content;
+        padding-right: 50px;
+        margin-left: auto;
+        text-align: start;
+      }
+    }
+  }
+</style>

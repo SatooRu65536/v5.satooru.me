@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import FadeIn from '@/components/shared/FadeIn.astro';
 import ListItem from '@/components/ListItem.astro';
 import { getEmDashCollection } from 'emdash';
+import FadeInWithStagger from '@/components/shared/FadeInWithStagger.astro';
 
 const { entries: works, cacheHint } = await getEmDashCollection('works', {
   orderBy: {
@@ -16,23 +17,25 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 ---
 
 <SectionLayout title="Works" center>
-  <ul class="works">
-    {
-      works.map(({ data }) => (
-        <FadeIn direction="left">
-          <ListItem
-            title={data.title}
-            type={data.type}
-            date={[
-              dayjs(data.start_date),
-              data.end_date == undefined ? undefined : dayjs(data.end_date),
-            ]}
-            description={data.summary}
-          />
-        </FadeIn>
-      ))
-    }
-  </ul>
+  <FadeInWithStagger>
+    <ul class="works">
+      {
+        works.map(({ data }) => (
+          <FadeIn direction="left" stagger>
+            <ListItem
+              title={data.title}
+              type={data.type}
+              date={[
+                dayjs(data.start_date),
+                data.end_date == undefined ? undefined : dayjs(data.end_date),
+              ]}
+              description={data.summary}
+            />
+          </FadeIn>
+        ))
+      }
+    </ul>
+  </FadeInWithStagger>
 </SectionLayout>
 
 <style lang="scss">

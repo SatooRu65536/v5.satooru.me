@@ -2,12 +2,14 @@
 interface Props {
   direction?: 'left' | 'right' | 'up';
   delay?: number;
+  stagger?: boolean;
   class?: string;
 }
 
 const {
   direction = 'right',
   delay = 0,
+  stagger = false,
   class: customClass,
   ...rest
 } = Astro.props;
@@ -17,7 +19,7 @@ const {
   <slot />
 </div>
 
-<script is:inline>
+<script define:vars={{ stagger }}>
   function observeAll() {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -37,10 +39,12 @@ const {
     });
   }
 
-  if (document.readyState === 'loading') {
-    window.addEventListener('DOMContentLoaded', observeAll, { once: true });
-  } else {
-    observeAll();
+  if (!stagger) {
+    if (document.readyState === 'loading') {
+      window.addEventListener('DOMContentLoaded', observeAll, { once: true });
+    } else {
+      observeAll();
+    }
   }
 </script>
 

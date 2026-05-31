@@ -11,7 +11,7 @@ const { speed = 100, class: customClass, ...rest } = Astro.props;
   <slot />
 </div>
 
-<script is:inline define:vars={{ speed }}>
+<script define:vars={{ speed }}>
   function observeAll() {
     const observer = new IntersectionObserver(
       (entries) => {

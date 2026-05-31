@@ -8,7 +8,7 @@
   },
   "settings": {
     "title": "佐藤さとる",
-    "tagline": "Hi There 👋"
+    "tagline": "名古屋の大学生。ペンギンとプログラミングと城を三本柱に、自分の世界(=知見,思考 etc.)を広げるために様々なことに興味を持って日々を過ごしています。行動推定に関する勉強をしており、いずれは動物行動学を学びたいと考えています。夢を求めてプログラミングを活かしつつ、ペンギンに関われる仕事を目指しています。本名ではない。"
   },
   "collections": [
     {
@@ -75,6 +75,55 @@
           "required": true
         }
       ]
+    },
+    {
+      "slug": "experiences",
+      "label": "Experiences",
+      "labelSingular": "Experiences",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "start_date",
+          "label": "Start Date",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "slug": "end_date",
+          "label": "End Date",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "string",
+          "required": false
+        },
+        {
+          "slug": "link_name",
+          "label": "Link Name",
+          "type": "string",
+          "required": false
+        },
+        {
+          "slug": "link",
+          "label": "Link",
+          "type": "url",
+          "required": false
+        },
+        {
+          "slug": "important",
+          "label": "Important",
+          "type": "boolean",
+          "required": false
+        }
+      ]
     }
   ],
   "taxonomies": [],
@@ -126,5 +175,172 @@
         }
       ]
     }
-  ]
+  ],
+  "content": {
+    "works": [
+      {
+        "id": "コメダ珈琲",
+        "slug": "komeda",
+        "data": {
+          "title": "コメダ珈琲",
+          "type": "バイト",
+          "start_date": "2023-02-01T00:00Z",
+          "end_date": "2023-11-01T00:00Z",
+          "summary": "ホールスタッフ"
+        }
+      },
+      {
+        "id": "業務委託-ウェブメディア",
+        "slug": "webmedia",
+        "data": {
+          "title": "個人",
+          "type": "業務委託",
+          "start_date": "2023-02-01T00:00Z",
+          "end_date": "2023-11-01T00:00Z",
+          "summary": "ウェブメディアを管理するWebシステム開発"
+        }
+      },
+      {
+        "id": "業務委託-印刷会社",
+        "slug": "printing",
+        "data": {
+          "title": "個人",
+          "type": "業務委託",
+          "start_date": "2023-02-01T00:00Z",
+          "end_date": "2023-11-01T00:00Z",
+          "summary": "印刷会社のWebシステム開発"
+        }
+      },
+      {
+        "id": "pluszero-インターン",
+        "slug": "pluszero-intern",
+        "data": {
+          "title": "pluszero",
+          "type": "長期インターン",
+          "start_date": "2024-02-01T00:00Z",
+          "summary": "Webシステム開発"
+        }
+      },
+      {
+        "id": "pluszero-就職",
+        "slug": "pluszero",
+        "status": "draft",
+        "data": {
+          "title": "pluszero",
+          "type": "就職",
+          "start_date": "2027-04-01T00:00Z",
+          "summary": "Webシステム開発"
+        }
+      }
+    ],
+    "experiences": [
+      {
+        "id": "名電高校-入学",
+        "slug": "meiden-admission",
+        "data": {
+          "title": "名電高校 入学",
+          "start_date": "2020-04-01T00:00Z",
+          "end_date": "2023-03-01T00:00Z",
+          "summary": "情報科学科",
+          "link_name": "Meiden H.S.",
+          "link": "https://www.meiden.ed.jp/",
+          "important": true
+        }
+      },
+      {
+        "id": "情報デザイン部-入部",
+        "slug": "amidc-joining",
+        "data": {
+          "title": "情報デザイン部 入部",
+          "start_date": "2020-06-01T00:00Z",
+          "end_date": "2021-09-01T00:00Z",
+          "link_name": "AMIDC",
+          "link": "https://meidenid.com/"
+        }
+      },
+      {
+        "id": "メカニカルアーツ部-参加",
+        "slug": "mecha-bu-joining",
+        "data": {
+          "title": "メカニカルアーツ部 参加",
+          "start_date": "2020-10-01T00:00Z",
+          "end_date": "2023-03-01T00:00Z",
+          "link_name": "メカ部",
+          "link": "https://www.meiden.ed.jp/club/club-intro-culture12.html#club-intro-position"
+        }
+      },
+      {
+        "id": "情報システム部-入部",
+        "slug": "misc-joining",
+        "data": {
+          "title": "情報システム部 参加",
+          "start_date": "2021-11-01T00:00Z",
+          "end_date": "2023-03-01T00:00Z",
+          "summary": "システムコンピューター部(現情報システム部) に転部",
+          "link_name": "メカ部",
+          "link": "https://www.meiden.ed.jp/club/club-intro-culture12.html#club-intro-position"
+        }
+      },
+      {
+        "id": "愛知工業大学-入学",
+        "slug": "ait-admission",
+        "data": {
+          "title": "愛知工業大学 入学",
+          "start_date": "2023-04-01T00:00Z",
+          "end_date": "2027-03-01T00:00Z",
+          "summary": "情報科学部 コンピューターシステム専攻",
+          "link_name": "AIT",
+          "link": "https://www.ait.ac.jp/",
+          "important": true
+        }
+      },
+      {
+        "id": "梶研究室-参加",
+        "slug": "kajilab-joining",
+        "data": {
+          "title": "梶研究室 参加",
+          "start_date": "2023-04-01T00:00Z",
+          "end_date": "2027-03-01T00:00Z",
+          "summary": "自主的に参加",
+          "link_name": "Kaji Lab",
+          "link": "https://kajilab.net/"
+        }
+      },
+      {
+        "id": "システム工学研究会-入会",
+        "slug": "sysken-joining",
+        "data": {
+          "title": "システム工学研究会 入会",
+          "start_date": "2023-04-01T00:00Z",
+          "end_date": "2027-03-01T00:00Z",
+          "link_name": "SET",
+          "link": "https://www.sysken.net/"
+        }
+      },
+      {
+        "id": "梶研究室-配属",
+        "slug": "sysken-assignment",
+        "data": {
+          "title": "梶研究室 配属",
+          "start_date": "2025-05-01T00:00Z",
+          "end_date": "2027-03-01T00:00Z",
+          "summary": "本配属",
+          "link_name": "Kaji Lab",
+          "link": "https://kajilab.net/"
+        }
+      },
+      {
+        "id": "pluszero-入社",
+        "slug": "pluszero-joining",
+        "data": {
+          "title": "pluszero 入社(予定)",
+          "start_date": "2027-04-01T00:00Z",
+          "summary": "本配属",
+          "link_name": "pluszero",
+          "link": "https://plus-zero.co.jp/",
+          "important": true
+        }
+      }
+    ]
+  }
 }
