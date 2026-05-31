@@ -2,6 +2,7 @@
 import ThemeSwitcher from './shared/ThemeSwitcher.astro';
 import { getMenu, getSiteSettings } from 'emdash';
 import icon from '@/assets/icon.webp';
+import HambergerMenu from './HambergerMenu.astro';
 
 const settings = await getSiteSettings();
 const name = settings?.title || 'My Profile';
@@ -37,6 +38,8 @@ const { fixed = false } = Astro.props;
   </nav>
 
   <ThemeSwitcher />
+
+  <HambergerMenu menu={menu} class="hamberger-menu" />
 </header>
 
 <style lang="scss">
@@ -48,19 +51,19 @@ const { fixed = false } = Astro.props;
     backdrop-filter: blur(4px);
 
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto 1fr auto auto;
     gap: $space-md;
     align-items: center;
 
-    position: sticky;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: $z-top;
 
-    @include mobile {
+    @include tablet {
       padding-inline: 20px;
-      grid-template-columns: 1fr auto;
+      grid-template-columns: 1fr auto auto;
     }
 
     .title-container {
@@ -89,7 +92,7 @@ const { fixed = false } = Astro.props;
       display: flex;
       gap: $space-md;
 
-      @include mobile {
+      @include tablet {
         display: none;
       }
 
