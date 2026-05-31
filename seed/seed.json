@@ -124,6 +124,49 @@
           "required": false
         }
       ]
+    },
+    {
+      "slug": "presentations",
+      "label": "Presentations",
+      "labelSingular": "Presentations",
+      "fields": [
+        {
+          "slug": "event_name",
+          "label": "Event Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "presentation_type",
+          "label": "Event Type",
+          "type": "select",
+          "options": [
+            { "label": "口頭発表", "value": "口頭発表" },
+            { "label": "ポスター発表", "value": "ポスター発表" },
+            { "label": "論文誌", "value": "論文誌" },
+            { "label": "コンペティション", "value": "コンペティション" }
+          ],
+          "required": true
+        },
+        {
+          "slug": "presentation_date",
+          "label": "Presentation Date",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "slug": "presentation_title",
+          "label": "Presentation Title",
+          "type": "string",
+          "required": false
+        },
+        {
+          "slug": "link",
+          "label": "Link",
+          "type": "url",
+          "required": false
+        }
+      ]
     }
   ],
   "taxonomies": [],
@@ -339,6 +382,73 @@
           "link_name": "pluszero",
           "link": "https://plus-zero.co.jp/",
           "important": true
+        }
+      }
+    ],
+    "presentations": [
+      {
+        "id": "第87回全国大会",
+        "slug": "ipsj_2025",
+        "data": {
+          "event_name": "情報処理学会 第87回全国大会",
+          "presentation_type": "発表",
+          "presentation_date": "2025-03-13T00:00Z",
+          "presentation_title": "モーションキャプチャで得られる3次元の骨格情報を用いた調理行動の分類に関する基礎検討",
+          "link": "https://www.ipsj.or.jp/event/taikai/87/index.html"
+        }
+      },
+      {
+        "id": "DICOMO 2025",
+        "slug": "dicomo_2025",
+        "data": {
+          "event_name": "DICOMO 2025 シンポジウム",
+          "presentation_type": "発表",
+          "presentation_date": "2025-06-25T00:00Z",
+          "presentation_title": "位置情報と手順書を用いた調理行動の分類精度向上手法",
+          "link": "https://dicomo.org/"
+        }
+      },
+      {
+        "id": "xDR Challenge2025",
+        "slug": "xdr_challenge_2025",
+        "data": {
+          "event_name": "xDR Challenge2025",
+          "presentation_type": "コンペティション",
+          "presentation_date": "2025-09-08T00:00Z",
+          "link": "https://unit.aist.go.jp/rihsa/xDR-Challenge-2025/index.html"
+        }
+      },
+      {
+        "id": "ICMU 2025",
+        "slug": "icmu_2025",
+        "data": {
+          "event_name": "ICMU 2025",
+          "presentation_type": "ポスター発表",
+          "presentation_date": "2025-09-10T00:00Z",
+          "presentation_title": "Method for Improving Cooking Activity Classification Accuracy Using Location Information and Procedure Documents",
+          "link": "https://www.icmu.org/icmu2025/"
+        }
+      },
+      {
+        "id": "第88回全国大会",
+        "slug": "ipsj_2026",
+        "data": {
+          "event_name": "情報処理学会 第88回全国大会",
+          "presentation_type": "発表",
+          "presentation_date": "2026-03-07T00:00Z",
+          "presentation_title": "行動認識に基づく調理行動の位置補正手法, 第88回情報処理学会全国大会",
+          "link": "https://www.ipsj.or.jp/event/taikai/88/index.html"
+        }
+      },
+      {
+        "id": "DICOMO 2026",
+        "slug": "dicomo_2026",
+        "data": {
+          "event_name": "DICOMO 2026 シンポジウム",
+          "presentation_type": "発表",
+          "presentation_date": "2026-06-25T00:00Z",
+          "presentation_title": "3次元の骨格情報と位置情報を相補的に用いた調理行動の分類精度向上手法",
+          "link": "https://dicomo.org/"
         }
       }
     ]

@@ -34,6 +34,21 @@ export interface Page {
   bylines?: ContentBylineCredit[];
 }
 
+export interface Presentations {
+  id: string;
+  slug: string | null;
+  status: string;
+  event_name: string;
+  presentation_type: string;
+  presentation_date: string;
+  presentation_title?: string;
+  link?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Works {
   id: string;
   slug: string | null;
@@ -53,6 +68,7 @@ declare module "emdash" {
   interface EmDashCollections {
     experiences: Experiences;
     pages: Page;
+    presentations: Presentations;
     works: Works;
   }
 }
