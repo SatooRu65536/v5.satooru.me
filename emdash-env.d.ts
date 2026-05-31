@@ -5,6 +5,21 @@
 
 import type { ContentBylineCredit, PortableTextBlock } from "emdash";
 
+export interface Awards {
+  id: string;
+  slug: string | null;
+  status: string;
+  award: string;
+  event_name: string;
+  award_date: string;
+  summary: string;
+  link?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
 export interface Experiences {
   id: string;
   slug: string | null;
@@ -66,6 +81,7 @@ export interface Works {
 
 declare module "emdash" {
   interface EmDashCollections {
+    awards: Awards;
     experiences: Experiences;
     pages: Page;
     presentations: Presentations;

@@ -33,9 +33,30 @@
       ]
     },
     {
+      "slug": "posts",
+      "label": "Posts",
+      "labelSingular": "Post",
+      "supports": ["drafts", "revisions", "search", "seo", "scheduling"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "Content",
+          "type": "portableText",
+          "searchable": true
+        }
+      ]
+    },
+    {
       "slug": "works",
       "label": "Works",
-      "labelSingular": "Works",
+      "labelSingular": "Work",
       "fields": [
         {
           "slug": "title",
@@ -128,7 +149,7 @@
     {
       "slug": "presentations",
       "label": "Presentations",
-      "labelSingular": "Presentations",
+      "labelSingular": "Presentation",
       "fields": [
         {
           "slug": "event_name",
@@ -167,9 +188,113 @@
           "required": false
         }
       ]
+    },
+    {
+      "slug": "awards",
+      "label": "Awards",
+      "labelSingular": "Award",
+      "fields": [
+        {
+          "slug": "award",
+          "label": "Award",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "event_name",
+          "label": "Event Name",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "award_date",
+          "label": "Award Date",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "link",
+          "label": "Link",
+          "type": "url",
+          "required": false
+        }
+      ]
     }
   ],
-  "taxonomies": [],
+  "taxonomies": [
+    {
+      "name": "category",
+      "label": "Categories",
+      "labelSingular": "Category",
+      "hierarchical": false,
+      "collections": ["posts"],
+      "terms": [
+        { "slug": "aws", "label": "aws" },
+        { "slug": "astro", "label": "astro" },
+        { "slug": "biome", "label": "biome" },
+        { "slug": "c", "label": "c" },
+        { "slug": "cloudflare_workers", "label": "cloudflareWorkers" },
+        { "slug": "css", "label": "css" },
+        { "slug": "docker", "label": "docker" },
+        { "slug": "drizzle_orm", "label": "drizzleOrm" },
+        { "slug": "electron", "label": "electron" },
+        { "slug": "eslint", "label": "eslint" },
+        { "slug": "fastapi", "label": "fastapi" },
+        { "slug": "firebase", "label": "firebase" },
+        { "slug": "flutter", "label": "flutter" },
+        { "slug": "git", "label": "git" },
+        { "slug": "github", "label": "github" },
+        { "slug": "github_actions", "label": "githubActions" },
+        { "slug": "hono", "label": "hono" },
+        { "slug": "html", "label": "html" },
+        { "slug": "javascript", "label": "javascript" },
+        { "slug": "kotlin", "label": "kotlin" },
+        { "slug": "mysql", "label": "mysql" },
+        { "slug": "numpy", "label": "numpy" },
+        { "slug": "postgresql", "label": "postgresql" },
+        { "slug": "nestjs", "label": "nestjs" },
+        { "slug": "nextjs", "label": "nextjs" },
+        { "slug": "pandas", "label": "pandas" },
+        { "slug": "prisma", "label": "prisma" },
+        { "slug": "python", "label": "python" },
+        { "slug": "prettier", "label": "prettier" },
+        { "slug": "php", "label": "php" },
+        { "slug": "raspberry_pi", "label": "raspberryPi" },
+        { "slug": "react", "label": "react" },
+        { "slug": "rails", "label": "rails" },
+        { "slug": "rust", "label": "rust" },
+        { "slug": "scss", "label": "scss" },
+        { "slug": "storybook", "label": "storybook" },
+        { "slug": "svelte", "label": "svelte" },
+        { "slug": "supabase", "label": "supabase" },
+        { "slug": "swift", "label": "swift" },
+        { "slug": "tauri", "label": "tauri" },
+        { "slug": "threejs", "label": "threejs" },
+        { "slug": "typescript", "label": "typescript" },
+        { "slug": "tailwind", "label": "tailwind" },
+        { "slug": "vite", "label": "vite" },
+        { "slug": "vitest", "label": "vitest" },
+        { "slug": "vue", "label": "vue" },
+        { "slug": "jotai", "label": "jotai" },
+        { "slug": "trpc", "label": "trpc" },
+        { "slug": "ruby", "label": "ruby" }
+      ]
+    },
+    {
+      "name": "tag",
+      "label": "Tags",
+      "labelSingular": "Tag",
+      "hierarchical": false,
+      "collections": ["posts"],
+      "terms": []
+    }
+  ],
   "menus": [
     {
       "name": "primary",
@@ -387,7 +512,7 @@
     ],
     "presentations": [
       {
-        "id": "第87回全国大会",
+        "id": "情報処理学会 第87回全国大会",
         "slug": "ipsj_2025",
         "data": {
           "event_name": "情報処理学会 第87回全国大会",
@@ -430,13 +555,13 @@
         }
       },
       {
-        "id": "第88回全国大会",
+        "id": "情報処理学会 第88回全国大会",
         "slug": "ipsj_2026",
         "data": {
           "event_name": "情報処理学会 第88回全国大会",
           "presentation_type": "発表",
           "presentation_date": "2026-03-07T00:00Z",
-          "presentation_title": "行動認識に基づく調理行動の位置補正手法, 第88回情報処理学会全国大会",
+          "presentation_title": "行動認識に基づく調理行動の位置補正手法",
           "link": "https://www.ipsj.or.jp/event/taikai/88/index.html"
         }
       },
@@ -449,6 +574,150 @@
           "presentation_date": "2026-06-25T00:00Z",
           "presentation_title": "3次元の骨格情報と位置情報を相補的に用いた調理行動の分類精度向上手法",
           "link": "https://dicomo.org/"
+        }
+      }
+    ],
+    "awards": [
+      {
+        "id": "パソコン甲子園2020",
+        "slug": "pc_koshien_2020",
+        "data": {
+          "award": "佳作",
+          "event_name": "パソコン甲子園2020 いちまいの絵CG部門",
+          "award_date": "2020-10-01T00:00Z",
+          "summary": "食の裏に隠れた世界を表現したイラスト",
+          "link": "https://web-ext.u-aizu.ac.jp/pc-concours/2020/final/f_cgaward.html"
+        }
+      },
+      {
+        "id": "SEIKA AWARD 2021",
+        "slug": "seika_award_2021",
+        "data": {
+          "award": "入選",
+          "event_name": "SEIKA AWARD 2021",
+          "award_date": "2021-01-01T00:00Z",
+          "summary": "なんの特徴もない平凡な日常を表現した動画",
+          "link": "https://youtu.be/ZVi7Ayouou0"
+        }
+      },
+      {
+        "id": "高校生エンジニア体験 一般公開",
+        "slug": "aiboard_release",
+        "data": {
+          "award": "一般公開",
+          "event_name": "高校生エンジニア体験",
+          "award_date": "2021-09-01T00:00Z",
+          "summary": "aiboの可愛い仕草をみながらすごろくをするアプリ"
+        }
+      },
+      {
+        "id": "高校生エンジニア体験 AWS賞",
+        "slug": "aiboard_aws_award",
+        "data": {
+          "award": "AWS賞",
+          "event_name": "高校生エンジニア体験",
+          "award_date": "2021-10-01T00:00Z",
+          "summary": "aiboの可愛い仕草をみながらすごろくをするアプリ"
+        }
+      },
+      {
+        "id": "技育CAMP キャラバンハッカソン vol.2",
+        "slug": "geekcamp_caravan_2023_vol2",
+        "data": {
+          "award": "最優秀賞",
+          "event_name": "技育CAMP キャラバンハッカソン vol.2",
+          "award_date": "2023-06-18T00:00Z",
+          "summary": "紙を破いてPCを操作するアプリ"
+        }
+      },
+      {
+        "id": "技育CAMP マンスリーハッカソン vol.7",
+        "slug": "geekcamp_monthly_2023_vol7",
+        "data": {
+          "award": "企業賞",
+          "event_name": "技育CAMP マンスリーハッカソン vol.7",
+          "award_date": "2023-08-06T00:00Z",
+          "summary": "知っている単語から知らない単語を知れるアプリ"
+        }
+      },
+      {
+        "id": "技育展 中部ブロック予選",
+        "slug": "geekten_2023_chubu",
+        "data": {
+          "award": "決勝進出",
+          "event_name": "技育展 中部ブロック予選",
+          "award_date": "2023-08-12T00:00Z",
+          "summary": "技育展 中部ブロック予選"
+        }
+      },
+      {
+        "id": "Open hack U 2023 NAGOYA",
+        "slug": "hacku_2023_nagoya",
+        "data": {
+          "award": "最優秀賞",
+          "event_name": "Open hack U 2023 NAGOYA",
+          "award_date": "2023-08-12T00:00Z",
+          "summary": "テキストで簡単にアウトプット, 動画で気軽にインプットできるサービス"
+        }
+      },
+      {
+        "id": "技育CAMP アドバンス vol.3",
+        "slug": "geekcamp_advance_vol3",
+        "data": {
+          "award": "企業賞",
+          "event_name": "技育CAMP アドバンス vol.3",
+          "award_date": "2023-09-02-01T00:00Z",
+          "summary": "紙を破いてPCを操作するアプリ"
+        }
+      },
+      {
+        "id": "工科展",
+        "slug": "koukaten_2023",
+        "data": {
+          "award": "優秀賞",
+          "event_name": "工科展",
+          "award_date": "2023-10-02-01T00:00Z",
+          "summary": "Wi-Fiを使った混雑を知れるアプリ"
+        }
+      },
+      {
+        "id": "Open hack U 2024 KANAZAWA",
+        "slug": "hacku_2024_kanazawa",
+        "data": {
+          "award": "Happy Hacking賞",
+          "event_name": "Open hack U 2024 KANAZAWA",
+          "award_date": "2024-09-24-01T00:00Z",
+          "summary": "初心者が音楽制作の第一歩を踏み出せるアプリ"
+        }
+      },
+      {
+        "id": "情報処理学会 第87回全国大会",
+        "slug": "ipsj_2025",
+        "data": {
+          "award": "学生奨励賞",
+          "event_name": "情報処理学会 第87回全国大会",
+          "award_date": "2025-03-13-01T00:00Z",
+          "summary": "モーションキャプチャで得られる3次元の骨格情報を用いた調理行動の分類に関する基礎検討"
+        }
+      },
+      {
+        "id": "ICMU 2025",
+        "slug": "icmu_2025",
+        "data": {
+          "award": "Best Poster Award",
+          "event_name": "ICMU 2025",
+          "award_date": "2025-09-12-01T00:00Z",
+          "summary": "Method for Improving Cooking Activity Classification Accuracy Using Location Information and Procedure Documents"
+        }
+      },
+      {
+        "id": "情報処理学会 第88回全国大会",
+        "slug": "ipsj_2026",
+        "data": {
+          "award": "学生奨励賞",
+          "event_name": "情報処理学会 第88回全国大会",
+          "award_date": "2025-03-13-01T00:00Z",
+          "summary": "行動認識に基づく調理行動の位置補正手法"
         }
       }
     ]

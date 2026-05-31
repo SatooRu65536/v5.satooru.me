@@ -1,0 +1,47 @@
+---
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import dayjs from 'dayjs';
+import FadeIn from '@/components/shared/FadeIn.astro';
+import ListItem from '@/components/ListItem.astro';
+import { getEmDashCollection } from 'emdash';
+import FadeInWithStagger from '@/components/shared/FadeInWithStagger.astro';
+
+const { entries: works, cacheHint } = await getEmDashCollection(
+  'awards',
+  {
+    orderBy: {
+      award_date: 'asc',
+    },
+  },
+);
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<SectionLayout title="Award">
+  <FadeInWithStagger>
+    <ul class="presentations">
+      {
+        works.map(({ data }) => (
+          <FadeIn direction="left" stagger>
+            <ListItem
+              title={data.event_name}
+              type={data.award}
+              date={dayjs(data.award_date)}
+              description={data.summary}
+              link={data.link}
+            />
+          </FadeIn>
+        ))
+      }
+    </ul>
+  </FadeInWithStagger>
+</SectionLayout>
+
+<style lang="scss">
+  .presentations {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+</style>
