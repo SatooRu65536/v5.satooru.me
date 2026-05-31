@@ -15,3 +15,15 @@
     @content;
   }
 }
+
+@mixin light-theme {
+  :root.light {
+    @content;
+  }
+}
+
+@mixin dark-theme {
+  :root.dark {
+    @content;
+  }
+}

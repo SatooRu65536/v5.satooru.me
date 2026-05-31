@@ -8,9 +8,8 @@ function setTheme(theme: string) {
   if (theme === 'system') {
     document.cookie = `theme=; path=/; max-age=0; SameSite=Lax${secure}`;
     root.classList.remove('light', 'dark');
-    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      root.classList.add('dark');
-    }
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.classList.add('dark');
+    else root.classList.add('light');
   } else {
     document.cookie = `theme=${theme}; path=/; max-age=31536000; SameSite=Lax${secure}`;
     root.classList.remove('light', 'dark');

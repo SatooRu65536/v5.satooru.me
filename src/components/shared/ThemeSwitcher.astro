@@ -40,32 +40,18 @@ import DarkModeIcon from '@/components/icons/common/DarkModeIcon.astro';
       cursor: pointer;
 
       display: none;
-
-      &.active {
-        display: none;
-      }
     }
+  }
 
-    &:has(.theme-btn.active) {
-      .theme-btn:not(.active) {
-        display: flex;
-      }
+  @include light-theme {
+    .theme-btn[data-theme='dark'] {
+      display: flex;
     }
+  }
 
-    &:not(:has(.theme-btn.active)) {
-      .theme-btn {
-        @media (prefers-color-scheme: light) {
-          &[data-theme='dark'] {
-            display: flex;
-          }
-        }
-
-        @media (prefers-color-scheme: dark) {
-          &[data-theme='light'] {
-            display: flex;
-          }
-        }
-      }
+  @include dark-theme {
+    .theme-btn[data-theme='light'] {
+      display: flex;
     }
   }
 </style>
