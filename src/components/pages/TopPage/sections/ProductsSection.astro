@@ -1,0 +1,29 @@
+---
+import PostCard from '@/components/PostCard.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import { getEmDashCollection } from 'emdash';
+
+const { entries: products, cacheHint } = await getEmDashCollection('posts', {
+  where: { category: 'product' },
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<SectionLayout title="Products">
+  <div class="products">
+    {products.map((product) => <PostCard post={product} />)}
+  </div>
+</SectionLayout>
+
+<style lang="scss">
+  .products {
+    margin-inline: auto;
+    max-width: 1200px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+    gap: 20px;
+  }
+</style>

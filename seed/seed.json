@@ -251,6 +251,19 @@
       "hierarchical": false,
       "collections": ["posts"],
       "terms": [
+        { "slug": "kajilab", "label": "KajiLab" },
+        { "slug": "report", "label": "Report" },
+        { "slug": "product", "label": "Product" },
+        { "slug": "private", "label": "Private" }
+      ]
+    },
+    {
+      "name": "techs",
+      "label": "Techs",
+      "labelSingular": "Tech",
+      "hierarchical": false,
+      "collections": ["posts"],
+      "terms": [
         { "slug": "aws", "label": "aws" },
         { "slug": "astro", "label": "astro" },
         { "slug": "biome", "label": "biome" },
@@ -301,14 +314,6 @@
         { "slug": "trpc", "label": "trpc" },
         { "slug": "ruby", "label": "ruby" }
       ]
-    },
-    {
-      "name": "tag",
-      "label": "Tags",
-      "labelSingular": "Tag",
-      "hierarchical": false,
-      "collections": ["posts"],
-      "terms": []
     }
   ],
   "menus": [
