@@ -1,169 +1,103 @@
 ---
-import type { MediaValue } from 'emdash';
-import { Image } from 'emdash/ui';
+import CardLayout from '@/layouts/CardLayout.astro';
+import { filterIconKeys } from '@/utils/icon';
+import TechIcon from './icons/TechIcon.astro';
+import WebIcon from './icons/common/WebIcon.astro';
 
 interface Props {
   title: string;
   summary?: string;
-  featuredImage: MediaValue | string;
-  href: string;
-  client?: string;
-  year?: string;
-  categories?: string[];
-  tags?: string[];
+  tags: string[];
+  repository: string;
+  site?: string;
 }
 
-const { title, summary, featuredImage, href, client, year, categories, tags } =
-  Astro.props;
-// Combine categories and tags for display
-const allTags = [...(categories || []), ...(tags || [])];
+const { title, summary, tags, repository, site } = Astro.props;
+
+const techsIconKeys = filterIconKeys(tags);
 ---
 
-<article class="project-card">
-  <a class="card-link" href={href}>
-    <div class="card-image">
-      <Image image={featuredImage} />
-      <div class="card-overlay">
-        <span class="card-view">View Project</span>
-      </div>
+<CardLayout class="card">
+  <h3 class="title">{title}</h3>
+  <h4 class="summary">{summary}</h4>
+  <div class="tech_wrapper">
+    <div>
+      {techsIconKeys.map((tech) => <TechIcon iconKey={tech} />)}
     </div>
-    <div class="card-content">
-      <h2 class="card-title">{title}</h2>
-      <div class="card-meta">
-        {client && <span class="card-client">{client}</span>}
-        {client && year && <span class="card-separator">·</span>}
-        {year && <span class="card-year">{year}</span>}
-      </div>
-      {summary && <p class="card-summary">{summary}</p>}
-      {
-        allTags.length > 0 && (
-          <div class="card-categories">
-            {allTags.map((tag) => (
-              <span class="card-category">{tag}</span>
-            ))}
-          </div>
-        )
-      }
-    </div>
-  </a>
-</article>
+  </div>
+
+  <div class="buttons">
+    <a href={repository} target="_blank">
+      <TechIcon iconKey="github" />
+    </a>
+
+    {
+      site != null && (
+        <a href={site} target="_blank">
+          <WebIcon />
+        </a>
+      )
+    }
+  </div>
+</CardLayout>
 
 <style lang="scss">
-  .project-card {
-    position: relative;
-  }
-
-  .card-link {
+  .card {
+    width: 300px;
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-lg, 1.5rem);
-    text-decoration: none;
-    color: inherit;
-  }
+    background-color: $color-background-light;
+    color: $color-text-light;
 
-  .card-image {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius, 4px);
-  }
+    .title {
+      font-size: $font-size-base;
+    }
 
-  // eslint-disable-next-line astro/no-unused-css-selector
-  .card-image img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    transition: transform var(--transition-slow, 300ms ease);
-  }
+    .summary {
+      font-size: $font-size-base;
+    }
 
-  .card-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0);
-    transition: background var(--transition-base, 200ms ease);
-  }
+    .tech_wrapper {
+      padding-block: 10px 15px;
+      width: 100%;
+      overflow-x: scroll;
 
-  .card-view {
-    font-family: var(--font-sans-serif, Georgia, serif);
-    font-size: var(--font-size-sm, 0.875rem);
-    color: white;
-    padding: var(--spacing-sm, 0.5rem) var(--spacing-md, 1rem);
-    border: 1px solid white;
-    border-radius: var(--radius, 4px);
-    opacity: 0;
-    transform: translateY(10px);
-    transition:
-      opacity var(--transition-base, 200ms ease),
-      transform var(--transition-base, 200ms ease);
-  }
+      & > div {
+        width: fit-content;
+        display: flex;
+        gap: 10px;
+      }
+    }
 
-  // eslint-disable-next-line astro/no-unused-css-selector
-  .project-card:hover .card-image img {
-    transform: scale(1.03);
-  }
+    .buttons {
+      margin-top: auto;
+      display: flex;
+      flex-direction: row-reverse;
+      gap: 10px;
 
-  .project-card:hover .card-overlay {
-    background: rgba(0, 0, 0, 0.4);
-  }
+      & > a {
+        height: 30px;
+        width: 40px;
+        padding: 5px;
+        background-color: $color-primary-light;
+        display: inline-block;
+        border-radius: 10px;
+        text-align: center;
+        transition: background-color $transition-base;
 
-  .project-card:hover .card-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
+        &:hover {
+          background-color: $color-accent;
+        }
 
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-xs, 0.25rem);
-  }
+        & > svg {
+          height: 20px;
+        }
 
-  .card-title {
-    font-family: var(--font-sans-serif, Georgia, serif);
-    font-size: var(--font-size-xl, 1.5rem);
-    font-weight: 500;
-    transition: color var(--transition-fast, 150ms ease);
-  }
-
-  .project-card:hover .card-title {
-    color: var(--color-accent, #7c3aed);
-  }
-
-  .card-meta {
-    font-size: var(--font-size-sm, 0.875rem);
-    color: var(--color-muted, #6b7280);
-  }
-
-  .card-separator {
-    margin: 0 var(--spacing-xs, 0.25rem);
-  }
-
-  .card-summary {
-    font-size: var(--font-size-sm, 0.875rem);
-    color: var(--color-muted, #6b7280);
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacing-sm, 0.5rem);
-    margin-top: var(--spacing-sm, 0.5rem);
-  }
-
-  .card-category {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-muted, #6b7280);
-    padding: var(--spacing-xs, 0.25rem) var(--spacing-sm, 0.5rem);
-    border: 1px solid var(--color-border, #e5e7eb);
-    border-radius: var(--radius, 4px);
+        & > svg,
+        & > svg :global(path) {
+          fill: $color-on-primary-light !important;
+        }
+      }
+    }
   }
 </style>

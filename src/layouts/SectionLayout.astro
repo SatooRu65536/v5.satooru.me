@@ -8,7 +8,7 @@ interface Props {
   center?: boolean;
   underline?: boolean;
   fadein?: boolean;
-  className?: string;
+  class?: string;
 }
 
 const {
@@ -17,10 +17,11 @@ const {
   center,
   underline,
   fadein = true,
+  class: className,
 } = Astro.props;
 ---
 
-<section class="section">
+<section class:list={['section', className]}>
   <div class="title" data-underline={underline}>
     {
       fadein === false ? (
@@ -34,7 +35,7 @@ const {
           )}
         </>
       ) : (
-        <FadeIn data-underline={underline} direction="left">
+        <FadeIn data-underline={underline} direction="right">
           {typeof title === 'string' ? (
             <h1>{title}</h1>
           ) : title != null ? (

@@ -1,23 +1,17 @@
 ---
 import { ICON_MAP, type IconKey } from '@/consts/icons';
+import TechIcon from './icons/TechIcon.astro';
 
 interface Props {
   iconKey: IconKey;
 }
 
 const { iconKey, ...rest } = Astro.props;
-
-function getIcon(key: IconKey) {
-  const Icon = ICON_MAP[key].icon;
-  return Icon;
-}
-
-const Icon = getIcon(iconKey);
 ---
 
 <div class="icon-card" {...rest}>
   <div class="icon-wrapper">
-    <Icon className="icon" />
+    <TechIcon iconKey={iconKey} class="icon" />
   </div>
   <p class="name">{ICON_MAP[iconKey].name}</p>
 </div>

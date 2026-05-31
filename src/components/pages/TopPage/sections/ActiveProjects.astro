@@ -1,0 +1,44 @@
+---
+import ProjectCard from '@/components/ProjectCard.astro';
+import FadeIn from '@/components/shared/FadeIn.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import { fetchActiveProjects } from '@/utils/fetcher';
+
+const projects = await fetchActiveProjects();
+---
+
+<SectionLayout title="Active Projects">
+  <div class="projects">
+    {
+      projects.map((project) => (
+        <FadeIn class="fadein">
+          <ProjectCard
+            summary={project.summary}
+            repository={project.repository}
+            site={project.site}
+            tags={project.tags}
+            title={project.name}
+          />
+        </FadeIn>
+      ))
+    }
+  </div>
+</SectionLayout>
+
+<style lang="scss">
+  .projects {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-gap: 30px;
+    gap: 30px;
+
+    .fadein {
+      display: flex;
+    }
+
+    .none {
+      text-align: center;
+    }
+  }
+</style>

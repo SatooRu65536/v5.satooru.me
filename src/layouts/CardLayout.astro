@@ -1,0 +1,39 @@
+---
+interface Props {
+  class?: string;
+  href?: string;
+}
+
+const { href, class: className, ...rest } = Astro.props;
+---
+
+<article {...rest} class:list={['card', className]} data-haslink={href != null}>
+  {href != null && <a class="link" href={href} aria-label="card link" />}
+
+  <slot />
+</article>
+
+<style lang="scss">
+  .card {
+    padding: 12px;
+    background-color: $color-background;
+    border-radius: 10px;
+    border: solid 1px $color-primary;
+    position: relative;
+
+    &[data-haslink='true'] {
+      transition: scale $transition-base;
+      border: solid 1.5px $color-accent;
+
+      &:hover {
+        scale: 1.03;
+      }
+    }
+
+    .link {
+      cursor: pointer;
+      position: absolute;
+      inset: 0;
+    }
+  }
+</style>

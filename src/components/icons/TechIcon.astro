@@ -1,0 +1,19 @@
+---
+import { ICON_MAP, type IconKey } from '@/consts/icons';
+
+interface Props {
+  iconKey: IconKey;
+  class?: string;
+}
+
+const { iconKey, class: className, ...rest } = Astro.props;
+
+function getIcon(key: IconKey) {
+  const Icon = ICON_MAP[key].icon;
+  return Icon;
+}
+
+const Icon = getIcon(iconKey);
+---
+
+<Icon className={className} {...rest} />
