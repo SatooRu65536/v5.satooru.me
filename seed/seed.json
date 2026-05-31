@@ -333,13 +333,13 @@
         },
         {
           "type": "custom",
-          "label": "Posts",
-          "url": "/posts"
+          "label": "Research",
+          "url": "/research"
         },
         {
           "type": "custom",
-          "label": "Research",
-          "url": "/research"
+          "label": "Posts",
+          "url": "/posts"
         }
       ]
     },
