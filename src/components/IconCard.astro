@@ -16,7 +16,9 @@ const Icon = getIcon(iconKey);
 ---
 
 <div class="icon-card" {...rest}>
-  <Icon />
+  <div class="icon-wrapper">
+    <Icon className="icon" />
+  </div>
   <p class="name">{ICON_MAP[iconKey].name}</p>
 </div>
 
@@ -24,11 +26,47 @@ const Icon = getIcon(iconKey);
   .icon-card {
     text-align: center;
 
-    svg {
-      $size: $font-size-4xl;
+    .icon-wrapper {
+      position: relative;
 
-      width: $size;
-      height: $size;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 80px;
+      height: 80px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        z-index: 0;
+        background: rgba(#00ffff, 0.7);
+        filter: blur(20px);
+
+        --size: 20px;
+        width: var(--size);
+        height: var(--size);
+
+        opacity: 0.3;
+        transition:
+          opacity $transition-fast,
+          width $transition-fast,
+          height $transition-fast;
+
+        @include dark-theme {
+          --size: 60px;
+          opacity: 1;
+        }
+      }
+
+      .icon {
+        $size: $font-size-4xl;
+
+        width: $size;
+        height: $size;
+        position: relative;
+      }
     }
 
     .name {

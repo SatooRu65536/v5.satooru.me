@@ -17,13 +17,13 @@
 }
 
 @mixin light-theme {
-  :root.light {
+  @at-root :root.light #{&} {
     @content;
   }
 }
 
 @mixin dark-theme {
-  :root.dark {
+  @at-root :root.dark #{&} {
     @content;
   }
 }
