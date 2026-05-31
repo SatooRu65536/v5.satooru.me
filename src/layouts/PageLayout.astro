@@ -15,9 +15,16 @@ interface Props {
   description?: string;
   image?: string;
   type?: 'website' | 'article';
+  onlyMain?: boolean;
 }
 
-const { title, description, image, type = 'website' } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  type = 'website',
+  onlyMain = false,
+} = Astro.props;
 const settings = await getSiteSettings();
 const siteTitle = settings?.title || 'My Profile';
 const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
@@ -65,11 +72,11 @@ const pageCtx = createPublicPageContext({
   </head>
 
   <body>
-    <Header />
+    {!onlyMain && <Header />}
     <main>
       <slot />
     </main>
-    <Footer />
+    {!onlyMain && <Footer />}
 
     <script src="@/scripts/theme-switcher.ts"></script>
   </body>

@@ -1,97 +1,119 @@
 ---
-import PageLayout from '@/layouts/Page.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import notFoundSvg from '@/assets/404.svg';
 ---
 
-<PageLayout title="Page not found">
-  <div class="not-found">
-    <span class="not-found-code">404</span>
-    <h1>Page not found</h1>
-    <p>The page you're looking for doesn't exist or has been moved.</p>
-    <div class="not-found-links">
-      <a class="link-primary" href="/">Go home</a>
-      <a class="link-secondary" href="/work">View our work</a>
+<PageLayout onlyMain>
+  <a href="/" class="notfound">
+    <div class="img-wrapper">
+      <img alt="404" class="penguin" src={notFoundSvg.src} />
+      <div class="line-container"></div>
     </div>
-  </div>
+  </a>
 </PageLayout>
 
+<style lang="scss" is:global>
+  main {
+    height: $main-height;
+  }
+</style>
+
 <style lang="scss">
-  .not-found {
-    text-align: center;
-    padding: var(--spacing-4xl) var(--spacing-lg);
-    max-width: var(--max-width);
-    margin: 0 auto;
-  }
-
-  .not-found-code {
+  .notfound {
+    height: 100vh;
+    background-color: #ffee33;
     display: block;
-    font-family: $font-sans-serif;
-    font-size: 8rem;
-    font-weight: 500;
-    line-height: 1;
-    color: var(--color-border);
-    margin-bottom: var(--spacing-lg);
-  }
+    overflow: hidden;
 
-  .not-found h1 {
-    font-family: $font-sans-serif;
-    font-size: var(--font-size-2xl);
-    font-weight: 500;
-    margin-bottom: var(--spacing-sm);
-  }
+    .img-wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-  .not-found p {
-    color: var(--color-muted);
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .not-found-links {
-    display: flex;
-    gap: var(--spacing-md);
-    justify-content: center;
-  }
-
-  .link-primary {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: var(--font-size-sm);
-    color: $color-text;
-    background: var(--color-text);
-    text-decoration: none;
-    border-radius: var(--radius);
-    transition:
-      background var(--transition-fast),
-      transform var(--transition-fast);
-  }
-
-  .link-primary:hover {
-    background: var(--color-accent);
-    color: white;
-    transform: translateY(-1px);
-  }
-
-  .link-secondary {
-    padding: var(--spacing-sm) var(--spacing-lg);
-    font-size: var(--font-size-sm);
-    color: var(--color-text);
-    text-decoration: none;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius);
-    transition:
-      border-color var(--transition-fast),
-      transform var(--transition-fast);
-  }
-
-  .link-secondary:hover {
-    border-color: var(--color-text);
-    transform: translateY(-1px);
-  }
-
-  @media (max-width: 480px) {
-    .not-found-code {
-      font-size: 5rem;
+      .penguin {
+        width: min(500px, 100%);
+        cursor: pointer;
+        position: relative;
+        z-index: $z-base;
+      }
     }
 
-    .not-found-links {
-      flex-direction: column;
+    .message {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: $z-middle;
     }
+
+    .line-container {
+      position: fixed;
+
+      width: 200vw;
+      height: 200vw;
+
+      left: calc(50% - 100vw);
+      top: calc(50% - 100vw);
+
+      background-image:
+        repeating-conic-gradient(
+          transparent 0,
+          transparent 13deg,
+          #ffab3c 13deg,
+          #ffab3c 16deg
+        ),
+        repeating-conic-gradient(
+          transparent 0,
+          transparent 20deg,
+          #ffab3c 20deg,
+          #ffab3c 23deg
+        ),
+        repeating-conic-gradient(
+          transparent 0,
+          transparent 5deg,
+          #ffab3c 5deg,
+          #ffab3c 8deg
+        ),
+        repeating-conic-gradient(
+          transparent 0,
+          transparent 40deg,
+          #ffab3c 40deg,
+          #ffab3c 44deg
+        ),
+        repeating-conic-gradient(
+          transparent 0,
+          transparent 10deg,
+          #ffab3c 10deg,
+          #ffab3c 13deg
+        );
+
+      animation: backgroundAnimation 20s infinite linear;
+    }
+  }
+
+  @keyframes backgroundAnimation {
+    from {
+      transform: rotate(0);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .lineContainer:before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    background-image: radial-gradient(
+      #ffee33 0%,
+      #ffee33 12%,
+      transparent 30%,
+      transparent
+    );
   }
 </style>
