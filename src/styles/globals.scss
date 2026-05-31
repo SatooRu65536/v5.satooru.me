@@ -4,9 +4,3 @@ main {
   min-height: $main-height;
   padding-bottom: $main-padding-bottom;
 }
-
-@media (max-width: 640px) {
-  h1 {
-    font-size: var(--font-size-3xl);
-  }
-}

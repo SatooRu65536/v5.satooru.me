@@ -120,33 +120,35 @@ const periodText = `${startDate.format('YYYY.MM')} - ${endDate ? endDate.format(
     }
   }
 
-  :global(.card):nth-child(2n - 1) {
-    .circle_container {
-      margin-left: 400px;
-    }
+  @include pc {
+    :global(.card):nth-child(2n - 1) {
+      .circle_container {
+        margin-left: 400px;
+      }
 
-    .box {
-      .content {
-        width: 400px;
+      .box {
+        .content {
+          width: 400px;
+        }
       }
     }
-  }
 
-  :global(.card):nth-child(2n) {
-    .circle_container {
-      order: 2;
-    }
+    :global(.card):nth-child(2n) {
+      .circle_container {
+        order: 2;
+      }
 
-    .box {
-      order: 1;
-      width: 400px;
-      text-align: end;
+      .box {
+        order: 1;
+        width: 400px;
+        text-align: end;
 
-      .content {
-        width: fit-content;
-        padding-right: 50px;
-        margin-left: auto;
-        text-align: start;
+        .content {
+          width: fit-content;
+          padding-right: 50px;
+          margin-left: auto;
+          text-align: start;
+        }
       }
     }
   }
