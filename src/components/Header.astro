@@ -60,6 +60,7 @@ const { fixed = false } = Astro.props;
 
     @include mobile {
       padding-inline: 20px;
+      grid-template-columns: 1fr auto;
     }
 
     .title-container {
@@ -87,6 +88,10 @@ const { fixed = false } = Astro.props;
     .nav {
       display: flex;
       gap: $space-md;
+
+      @include mobile {
+        display: none;
+      }
 
       .link {
         color: $color-text;
