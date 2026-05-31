@@ -20,7 +20,7 @@ const periodText = `${startDate.format('YYYY.MM')} - ${endDate ? endDate.format(
 
 <div class:list={['card', className]} {...rest}>
   <div class="circle_container">
-    <div class="circle" data-fill={experience.data.important}></div>
+    <div class="circle" data-fill={Boolean(experience.data.important)}></div>
     <div class="line"></div>
   </div>
 
