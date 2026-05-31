@@ -26,6 +26,9 @@ importers:
       astro-google-fonts-optimizer:
         specifier: ^0.2.2
         version: 0.2.2
+      dayjs:
+        specifier: ^1.11.21
+        version: 1.11.21
       emdash:
         specifier: ^0.14.0
         version: 0.14.0(46fe1c79c133483cb5ae8d89d5ccac0e)

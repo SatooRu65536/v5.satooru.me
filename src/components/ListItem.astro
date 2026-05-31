@@ -1,0 +1,81 @@
+---
+import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
+import OpenInNewIcon from './icons/common/OpenInNewIcon.astro';
+
+interface Props {
+  date: Dayjs | [Dayjs] | [Dayjs, Dayjs];
+  type: string;
+  title: string;
+  link?: string;
+  description?: string;
+  dateFormat?: string;
+}
+
+export type ListItemProps = Props;
+
+const { date, type, title, link, description, dateFormat } = Astro.props;
+const dateFormatSnap = dateFormat ?? 'YYYY.MM.DD';
+
+const displayDate = Array.isArray(date)
+  ? `${dayjs(date[0]).format(dateFormatSnap)} ~ ${date[1] === undefined ? '現在' : dayjs(date[1]).format(dateFormatSnap)}`
+  : dayjs(date).format(dateFormatSnap);
+---
+
+<li class="lit_item">
+  <p class="date">
+    {displayDate}
+  </p>
+
+  <p class="main">
+    <span>[{type}]</span>
+    <span class="title">{title}</span>
+    {
+      link !== undefined && (
+        <a class="link" href={link}>
+          <OpenInNewIcon />
+        </a>
+      )
+    }
+  </p>
+
+  {description !== undefined && <p class="description">{description}</p>}
+</li>
+
+<style lang="scss">
+  .lit_item {
+    list-style-type: none;
+    display: block;
+
+    .date {
+      font-size: $font-size-base;
+    }
+
+    .main {
+      display: block;
+      font-size: $font-size-xl;
+
+      & > * {
+        display: inline;
+      }
+
+      .title {
+        margin-left: $space-md;
+        font-weight: bold;
+      }
+
+      .link {
+        margin-left: 10px;
+      }
+
+      .link_icon {
+        height: $font-size-lg;
+      }
+    }
+
+    .description {
+      font-size: $font-size-base;
+      margin-left: 1rem;
+    }
+  }
+</style>
