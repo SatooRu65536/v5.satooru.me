@@ -1,0 +1,47 @@
+---
+import XIcon from '@/components/icons/XIcon.astro';
+import GitHubIcon from '@/components/icons/GitHubIcon.astro';
+import InstagramIcon from '@/components/icons/InstagramIcon.astro';
+import AccountIcon from '@/components/icons/AccountIcon.astro';
+
+interface Props {
+  name: string;
+}
+
+const { name } = Astro.props;
+
+const snsIcons = {
+  x: XIcon,
+  github: GitHubIcon,
+  instagram: InstagramIcon,
+};
+
+type SnsName = keyof typeof snsIcons;
+
+function isSnsName(value: string): value is SnsName {
+  return value in snsIcons;
+}
+
+function getSnsIcon(label: string) {
+  const snsName = label.toLowerCase();
+
+  if (isSnsName(snsName)) {
+    return snsIcons[snsName];
+  }
+
+  return AccountIcon;
+}
+
+const Icon = getSnsIcon(name);
+---
+
+<Icon class="icon" />
+
+<style lang="scss">
+  .icon {
+    $size: 30px;
+
+    width: $size;
+    height: $size;
+  }
+</style>

@@ -7,63 +7,10 @@
     "author": "SatooRu"
   },
   "settings": {
-    "title": "My Profile",
-    "tagline": "Hi There 👋 "
+    "title": "佐藤さとる",
+    "tagline": "Hi There 👋"
   },
   "collections": [
-    {
-      "slug": "projects",
-      "label": "Projects",
-      "labelSingular": "Project",
-      "supports": ["drafts", "revisions", "search", "seo"],
-      "fields": [
-        {
-          "slug": "title",
-          "label": "Title",
-          "type": "string",
-          "required": true,
-          "searchable": true
-        },
-        {
-          "slug": "featured_image",
-          "label": "Featured Image",
-          "type": "image",
-          "required": true
-        },
-        {
-          "slug": "client",
-          "label": "Client",
-          "type": "string"
-        },
-        {
-          "slug": "year",
-          "label": "Year",
-          "type": "string"
-        },
-        {
-          "slug": "summary",
-          "label": "Summary",
-          "type": "text",
-          "searchable": true
-        },
-        {
-          "slug": "content",
-          "label": "Content",
-          "type": "portableText",
-          "searchable": true
-        },
-        {
-          "slug": "gallery",
-          "label": "Gallery",
-          "type": "json"
-        },
-        {
-          "slug": "url",
-          "label": "Project URL",
-          "type": "string"
-        }
-      ]
-    },
     {
       "slug": "pages",
       "label": "Pages",
@@ -111,6 +58,27 @@
           "type": "custom",
           "label": "Research",
           "url": "/research"
+        }
+      ]
+    },
+    {
+      "name": "sns",
+      "label": "SNS",
+      "items": [
+        {
+          "type": "custom",
+          "label": "X",
+          "url": "https://x.com/SatooRu65536"
+        },
+        {
+          "type": "custom",
+          "label": "GitHub",
+          "url": "https://github.com/SatooRu65536"
+        },
+        {
+          "type": "custom",
+          "label": "Instagram",
+          "url": "https://www.instagram.com/satooru65536/"
         }
       ]
     }
