@@ -5,7 +5,7 @@
 
 import type { ContentBylineCredit, PortableTextBlock } from "emdash";
 
-export interface Awards {
+export interface Award {
   id: string;
   slug: string | null;
   status: string;
@@ -49,7 +49,22 @@ export interface Page {
   bylines?: ContentBylineCredit[];
 }
 
-export interface Presentations {
+export interface Post {
+  id: string;
+  slug: string | null;
+  status: string;
+  title: string;
+  featured_image?: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
+  content?: PortableTextBlock[];
+  excerpt?: string;
+  published_date?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  publishedAt: Date | null;
+  bylines?: ContentBylineCredit[];
+}
+
+export interface Presentation {
   id: string;
   slug: string | null;
   status: string;
@@ -64,7 +79,7 @@ export interface Presentations {
   bylines?: ContentBylineCredit[];
 }
 
-export interface Works {
+export interface Work {
   id: string;
   slug: string | null;
   status: string;
@@ -81,10 +96,11 @@ export interface Works {
 
 declare module "emdash" {
   interface EmDashCollections {
-    awards: Awards;
+    awards: Award;
     experiences: Experiences;
     pages: Page;
-    presentations: Presentations;
-    works: Works;
+    posts: Post;
+    presentations: Presentation;
+    works: Work;
   }
 }

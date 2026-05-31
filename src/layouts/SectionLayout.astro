@@ -18,10 +18,11 @@ const {
   underline,
   fadein = true,
   class: className,
+  ...rest
 } = Astro.props;
 ---
 
-<section class:list={['section', className]}>
+<section {...rest} class:list={['section', className]}>
   <div class="title" data-underline={underline}>
     {
       fadein === false ? (

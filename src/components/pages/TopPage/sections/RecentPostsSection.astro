@@ -1,0 +1,30 @@
+---
+import PostCard from '@/components/PostCard.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import { getEmDashCollection } from 'emdash';
+
+const { entries: posts, cacheHint } = await getEmDashCollection('posts', {
+  orderBy: { published_at: 'desc' },
+  limit: 3,
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<SectionLayout title="Recent Posts">
+  <div class="recent-posts">
+    {posts.map((post) => <PostCard post={post} />)}
+  </div>
+</SectionLayout>
+
+<style lang="scss">
+  .recent-posts {
+    margin-inline: auto;
+    max-width: 1200px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    justify-content: center;
+    gap: 20px;
+  }
+</style>

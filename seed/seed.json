@@ -46,10 +46,26 @@
           "searchable": true
         },
         {
+          "slug": "featured_image",
+          "label": "Featured Image",
+          "type": "image"
+        },
+        {
           "slug": "content",
           "label": "Content",
           "type": "portableText",
           "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "Excerpt",
+          "type": "text"
+        },
+        {
+          "slug": "published_date",
+          "label": "Published Date",
+          "type": "datetime",
+          "required": false
         }
       ]
     },
@@ -718,6 +734,17 @@
           "event_name": "情報処理学会 第88回全国大会",
           "award_date": "2025-03-13-01T00:00Z",
           "summary": "行動認識に基づく調理行動の位置補正手法"
+        }
+      }
+    ],
+    "posts": [
+      {
+        "id": "Post A",
+        "slug": "post_a",
+        "data": {
+          "published_date": "2026-06-01T00:00Z",
+          "title": "Post A",
+          "content": "Hello, World!"
         }
       }
     ]
