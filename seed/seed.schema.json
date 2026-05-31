@@ -1,469 +1,516 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://emdashcms.com/seed.schema.json",
-  "title": "EmDash Seed Schema",
+  "title": "EmDash seed file",
+  "description": "Seed file format for bootstrapping an EmDash site.",
   "type": "object",
-  "required": ["version"],
-  "additionalProperties": false,
   "properties": {
     "$schema": {
-      "type": "string"
+      "type": "string",
+      "description": "Path or URL to the JSON Schema describing this file."
     },
     "version": {
       "type": "string",
-      "const": "1"
+      "const": "1",
+      "description": "Seed format version."
     },
     "meta": {
-      "$ref": "#/$defs/meta"
+      "$ref": "#/$defs/seedMeta"
     },
     "settings": {
-      "type": "object",
-      "additionalProperties": true
+      "$ref": "#/$defs/siteSettings"
     },
     "collections": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/collection"
+        "$ref": "#/$defs/seedCollection"
       }
     },
     "taxonomies": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/taxonomy"
-      }
-    },
-    "bylines": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/byline"
+        "$ref": "#/$defs/seedTaxonomy"
       }
     },
     "menus": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/menu"
+        "$ref": "#/$defs/seedMenu"
       }
     },
     "redirects": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/redirect"
+        "$ref": "#/$defs/seedRedirect"
       }
     },
     "widgetAreas": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/widgetArea"
+        "$ref": "#/$defs/seedWidgetArea"
       }
     },
     "sections": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/section"
+        "$ref": "#/$defs/seedSection"
+      }
+    },
+    "bylines": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/seedByline"
       }
     },
     "content": {
       "type": "object",
       "additionalProperties": {
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/contentEntry"
-        }
+        "$ref": "#/$defs/seedContentEntries"
       }
     }
   },
+  "required": ["version"],
+  "additionalProperties": false,
   "$defs": {
-    "meta": {
+    "slugPattern": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "seedMeta": {
       "type": "object",
-      "additionalProperties": false,
       "properties": {
         "name": { "type": "string" },
         "description": { "type": "string" },
         "author": { "type": "string" }
-      }
+      },
+      "additionalProperties": false
     },
-
-    "collection": {
+    "siteSettings": {
       "type": "object",
-      "required": ["slug", "label", "fields"],
-      "additionalProperties": false,
       "properties": {
-        "slug": {
-          "type": "string",
-          "pattern": "^[a-z0-9_]+$"
+        "title": { "type": "string" },
+        "tagline": { "type": "string" },
+        "logo": { "$ref": "#/$defs/mediaReference" },
+        "favicon": { "$ref": "#/$defs/mediaReference" },
+        "url": { "type": "string" },
+        "postsPerPage": { "type": "number" },
+        "dateFormat": { "type": "string" },
+        "timezone": { "type": "string" },
+        "social": {
+          "type": "object",
+          "properties": {
+            "twitter": { "type": "string" },
+            "github": { "type": "string" },
+            "facebook": { "type": "string" },
+            "instagram": { "type": "string" },
+            "linkedin": { "type": "string" },
+            "youtube": { "type": "string" }
+          },
+          "additionalProperties": false
         },
-        "label": {
-          "type": "string"
-        },
-        "labelSingular": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "icon": {
-          "type": "string"
-        },
+        "seo": { "$ref": "#/$defs/seoSettings" }
+      },
+      "additionalProperties": false
+    },
+    "seoSettings": {
+      "type": "object",
+      "properties": {
+        "titleSeparator": { "type": "string" },
+        "defaultOgImage": { "$ref": "#/$defs/mediaReference" },
+        "robotsTxt": { "type": "string" },
+        "googleVerification": { "type": "string" },
+        "bingVerification": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "mediaReference": {
+      "type": "object",
+      "properties": {
+        "mediaId": { "type": "string" },
+        "alt": { "type": "string" },
+        "url": { "type": "string" },
+        "contentType": { "type": "string" },
+        "width": { "type": "number" },
+        "height": { "type": "number" }
+      },
+      "required": ["mediaId"],
+      "additionalProperties": false
+    },
+    "seedCollection": {
+      "type": "object",
+      "properties": {
+        "slug": { "$ref": "#/$defs/slugPattern" },
+        "label": { "type": "string" },
+        "labelSingular": { "type": "string" },
+        "description": { "type": "string" },
+        "icon": { "type": "string" },
         "supports": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "enum": [
+              "drafts",
+              "revisions",
+              "preview",
+              "scheduling",
+              "search",
+              "seo"
+            ]
+          }
         },
+        "urlPattern": { "type": "string" },
+        "commentsEnabled": { "type": "boolean" },
         "fields": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/field"
+            "$ref": "#/$defs/seedField"
           }
         }
-      }
+      },
+      "required": ["slug", "label", "fields"],
+      "additionalProperties": false
     },
-
-    "field": {
+    "seedField": {
       "type": "object",
-      "required": ["slug", "label", "type"],
-      "additionalProperties": false,
       "properties": {
-        "slug": {
-          "type": "string",
-          "pattern": "^[a-z0-9_]+$"
-        },
-        "label": {
-          "type": "string"
-        },
+        "slug": { "$ref": "#/$defs/slugPattern" },
+        "label": { "type": "string" },
         "type": {
           "enum": [
             "string",
             "text",
+            "url",
             "number",
             "integer",
             "boolean",
-            "date",
             "datetime",
-            "email",
-            "url",
-            "slug",
+            "select",
+            "multiSelect",
             "portableText",
             "image",
             "file",
+            "reference",
             "json",
-            "reference"
+            "slug",
+            "repeater"
           ]
         },
-        "required": {
-          "type": "boolean"
-        },
-        "searchable": {
-          "type": "boolean"
-        },
-        "unique": {
-          "type": "boolean"
-        },
+        "required": { "type": "boolean" },
+        "unique": { "type": "boolean" },
+        "searchable": { "type": "boolean" },
         "defaultValue": {},
-        "validation": {
-          "type": "object",
-          "additionalProperties": true
-        },
-        "widget": {
-          "type": "string"
-        },
+        "validation": { "type": "object" },
+        "widget": { "type": "string" },
         "options": {
-          "type": "object",
-          "additionalProperties": true
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["value", "label"],
+                "additionalProperties": false,
+                "properties": {
+                  "value": {
+                    "type": "string"
+                  },
+                  "label": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": true
+            }
+          ]
         }
-      }
+      },
+      "required": ["slug", "label", "type"],
+      "additionalProperties": false
     },
-
-    "taxonomy": {
+    "seedTaxonomy": {
       "type": "object",
-      "required": ["name", "label", "hierarchical", "collections"],
-      "additionalProperties": false,
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "label": {
-          "type": "string"
-        },
-        "labelSingular": {
-          "type": "string"
-        },
-        "hierarchical": {
-          "type": "boolean"
-        },
+        "id": { "type": "string" },
+        "name": { "$ref": "#/$defs/slugPattern" },
+        "label": { "type": "string" },
+        "labelSingular": { "type": "string" },
+        "hierarchical": { "type": "boolean" },
         "collections": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         },
+        "locale": { "type": "string" },
+        "translationOf": { "type": "string" },
         "terms": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/term"
+            "$ref": "#/$defs/seedTaxonomyTerm"
           }
         }
-      }
+      },
+      "required": ["name", "label", "hierarchical", "collections"],
+      "additionalProperties": false
     },
-
-    "term": {
+    "seedTaxonomyTerm": {
       "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z0-9-]+$"
+        },
+        "label": { "type": "string" },
+        "description": { "type": "string" },
+        "parent": { "type": "string" },
+        "locale": { "type": "string" },
+        "translationOf": { "type": "string" }
+      },
       "required": ["slug", "label"],
-      "additionalProperties": false,
-      "properties": {
-        "slug": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$"
-        },
-        "label": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "parent": {
-          "type": "string"
-        }
-      }
+      "additionalProperties": false
     },
-
-    "byline": {
+    "seedMenu": {
       "type": "object",
-      "required": ["id", "slug", "displayName"],
-      "additionalProperties": false,
       "properties": {
-        "id": {
-          "type": "string"
-        },
-        "slug": {
-          "type": "string",
-          "pattern": "^[a-z0-9-]+$"
-        },
-        "displayName": {
-          "type": "string"
-        },
-        "bio": {
-          "type": "string"
-        },
-        "websiteUrl": {
-          "type": "string",
-          "format": "uri"
-        },
-        "isGuest": {
-          "type": "boolean"
-        }
-      }
-    },
-
-    "menu": {
-      "type": "object",
-      "required": ["name", "label", "items"],
-      "additionalProperties": false,
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "label": {
-          "type": "string"
-        },
+        "id": { "type": "string" },
+        "name": { "$ref": "#/$defs/slugPattern" },
+        "label": { "type": "string" },
+        "locale": { "type": "string" },
+        "translationOf": { "type": "string" },
         "items": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/menuItem"
+            "$ref": "#/$defs/seedMenuItem"
           }
         }
-      }
+      },
+      "required": ["name", "label", "items"],
+      "additionalProperties": false
     },
-
-    "menuItem": {
+    "seedMenuItem": {
       "type": "object",
-      "required": ["type"],
-      "additionalProperties": false,
       "properties": {
+        "id": { "type": "string" },
         "type": {
           "enum": ["custom", "page", "post", "taxonomy", "collection"]
         },
-        "label": {
-          "type": "string"
-        },
-        "url": {
-          "type": "string"
-        },
-        "ref": {
-          "type": "string"
-        },
-        "collection": {
-          "type": "string"
-        },
-        "target": {
-          "type": "string"
-        },
-        "titleAttr": {
-          "type": "string"
-        },
-        "cssClasses": {
-          "type": "string"
-        },
+        "label": { "type": "string" },
+        "url": { "type": "string" },
+        "ref": { "type": "string" },
+        "collection": { "type": "string" },
+        "target": { "enum": ["_blank", "_self"] },
+        "titleAttr": { "type": "string" },
+        "cssClasses": { "type": "string" },
+        "locale": { "type": "string" },
+        "translationOf": { "type": "string" },
         "children": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/menuItem"
+            "$ref": "#/$defs/seedMenuItem"
           }
         }
-      }
+      },
+      "required": ["type"],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": { "const": "custom" }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["url"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": { "enum": ["page", "post"] }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["ref"]
+          }
+        }
+      ],
+      "additionalProperties": false
     },
-
-    "redirect": {
+    "seedRedirect": {
       "type": "object",
-      "required": ["source", "destination"],
-      "additionalProperties": false,
       "properties": {
         "source": {
           "type": "string",
-          "pattern": "^/"
+          "pattern": "^/(?!/)[^\\r\\n]*$"
         },
         "destination": {
           "type": "string",
-          "pattern": "^/"
+          "pattern": "^/(?!/)[^\\r\\n]*$"
         },
-        "type": {
-          "enum": [301, 302, 307, 308]
-        },
-        "enabled": {
-          "type": "boolean"
-        },
+        "type": { "enum": [301, 302, 307, 308] },
+        "enabled": { "type": "boolean" },
         "groupName": {
-          "type": "string"
+          "type": ["string", "null"]
         }
-      }
+      },
+      "required": ["source", "destination"],
+      "additionalProperties": false
     },
-
-    "widgetArea": {
+    "seedWidgetArea": {
       "type": "object",
-      "required": ["name", "label", "widgets"],
-      "additionalProperties": false,
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "label": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "description": { "type": "string" },
         "widgets": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/widget"
+            "$ref": "#/$defs/seedWidget"
           }
         }
-      }
+      },
+      "required": ["name", "label", "widgets"],
+      "additionalProperties": false
     },
-
-    "widget": {
+    "seedWidget": {
       "type": "object",
-      "required": ["type"],
-      "additionalProperties": false,
       "properties": {
-        "type": {
-          "enum": ["content", "menu", "component"]
-        },
-        "title": {
-          "type": "string"
-        },
-        "menuName": {
-          "type": "string"
-        },
-        "componentId": {
-          "type": "string"
-        },
-        "props": {
-          "type": "object",
-          "additionalProperties": true
-        },
+        "type": { "enum": ["content", "menu", "component"] },
+        "title": { "type": "string" },
         "content": {
-          "type": "array"
+          "type": "array",
+          "items": { "$ref": "#/$defs/portableTextNode" }
+        },
+        "menuName": { "type": "string" },
+        "componentId": { "type": "string" },
+        "props": { "type": "object" }
+      },
+      "required": ["type"],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": { "const": "menu" }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["menuName"]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": { "const": "component" }
+            },
+            "required": ["type"]
+          },
+          "then": {
+            "required": ["componentId"]
+          }
         }
-      }
+      ],
+      "additionalProperties": false
     },
-
-    "section": {
+    "seedSection": {
       "type": "object",
-      "required": ["slug", "title", "content"],
-      "additionalProperties": false,
       "properties": {
         "slug": {
           "type": "string",
           "pattern": "^[a-z0-9-]+$"
         },
-        "title": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
         "keywords": {
           "type": "array",
-          "items": {
-            "type": "string"
-          }
+          "items": { "type": "string" }
         },
         "content": {
-          "type": "array"
+          "type": "array",
+          "items": { "$ref": "#/$defs/portableTextNode" }
         },
-        "source": {
-          "enum": ["theme", "import", "user"]
-        }
-      }
+        "source": { "enum": ["theme", "import"] }
+      },
+      "required": ["slug", "title", "content"],
+      "additionalProperties": false
     },
-
-    "contentEntry": {
+    "seedByline": {
       "type": "object",
-      "required": ["id", "slug", "data"],
-      "additionalProperties": false,
       "properties": {
-        "id": {
-          "type": "string"
-        },
+        "id": { "type": "string" },
         "slug": {
           "type": "string",
           "pattern": "^[a-z0-9-]+$"
         },
-        "status": {
-          "enum": ["published", "draft"]
-        },
-        "data": {
-          "type": "object",
-          "additionalProperties": true
-        },
-        "bylines": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/contentByline"
-          }
-        },
+        "displayName": { "type": "string" },
+        "bio": { "type": "string" },
+        "websiteUrl": { "type": "string" },
+        "isGuest": { "type": "boolean" }
+      },
+      "required": ["id", "slug", "displayName"],
+      "additionalProperties": false
+    },
+    "seedContentEntries": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/seedContentEntry"
+      }
+    },
+    "seedContentEntry": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "slug": { "type": "string" },
+        "status": { "enum": ["published", "draft"] },
+        "data": { "type": "object" },
         "taxonomies": {
           "type": "object",
           "additionalProperties": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
+          }
+        },
+        "bylines": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/seedBylineCredit" }
+        },
+        "locale": { "type": "string" },
+        "translationOf": { "type": "string" }
+      },
+      "required": ["id", "slug", "data"],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "translationOf": { "type": "string" }
+            },
+            "required": ["translationOf"]
+          },
+          "then": {
+            "required": ["locale"]
           }
         }
-      }
+      ],
+      "additionalProperties": false
     },
-
-    "contentByline": {
+    "seedBylineCredit": {
       "type": "object",
-      "required": ["byline"],
-      "additionalProperties": false,
       "properties": {
-        "byline": {
-          "type": "string"
-        },
-        "roleLabel": {
-          "type": "string"
-        }
-      }
+        "byline": { "type": "string" },
+        "roleLabel": { "type": "string" }
+      },
+      "required": ["byline"],
+      "additionalProperties": false
+    },
+    "portableTextNode": {
+      "type": "object",
+      "properties": {
+        "_type": { "type": "string" },
+        "_key": { "type": "string" }
+      },
+      "required": ["_type"],
+      "additionalProperties": true
     }
   }
 }

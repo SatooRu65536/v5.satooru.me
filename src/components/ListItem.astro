@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import OpenInNewIcon from './icons/common/OpenInNewIcon.astro';
 
 interface Props {
-  date: Dayjs | [Dayjs] | [Dayjs, Dayjs];
+  date: Dayjs | [Dayjs] | [Dayjs, Dayjs | undefined];
   type: string;
   title: string;
   link?: string;

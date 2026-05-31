@@ -1,48 +1,34 @@
 ---
 import SectionLayout from '@/layouts/SectionLayout.astro';
-import type { ListItemProps } from '@/components/ListItem.astro';
 import dayjs from 'dayjs';
 import FadeIn from '@/components/shared/FadeIn.astro';
 import ListItem from '@/components/ListItem.astro';
+import { getEmDashCollection } from 'emdash';
 
-export const WORKS: ListItemProps[] = [
-  {
-    date: [dayjs('2023.02.01'), dayjs('2023.11.01')],
-    type: 'バイト',
-    title: 'コメダ珈琲',
-    description: 'ホールスタッフ',
-    dateFormat: 'YYYY.MM',
+const { entries: works, cacheHint } = await getEmDashCollection('works', {
+  orderBy: {
+    start_date: 'asc',
+    end_date: 'asc',
   },
-  {
-    date: [dayjs('2023.09.01'), dayjs('2024.02.01')],
-    type: '業務委託',
-    title: '個人',
-    description: 'ウェブメディアを管理するWebシステム開発',
-    dateFormat: 'YYYY.MM',
-  },
-  {
-    date: [dayjs('2023.09.01'), dayjs('2024.02.01')],
-    type: '業務委託',
-    title: '個人',
-    description: '印刷会社のWebシステム開発',
-    dateFormat: 'YYYY.MM',
-  },
-  {
-    date: [dayjs('2024.02.01')],
-    type: '長期インターン',
-    title: 'pluszero',
-    description: 'Webシステム開発',
-    dateFormat: 'YYYY.MM',
-  },
-];
+});
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 ---
 
 <SectionLayout title="Works" center>
   <ul class="works">
     {
-      WORKS.map((work) => (
+      works.map(({ data }) => (
         <FadeIn direction="left">
-          <ListItem {...work} />
+          <ListItem
+            title={data.title}
+            type={data.type}
+            date={[
+              dayjs(data.start_date),
+              data.end_date == undefined ? undefined : dayjs(data.end_date),
+            ]}
+            description={data.summary}
+          />
         </FadeIn>
       ))
     }

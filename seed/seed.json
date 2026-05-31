@@ -31,6 +31,50 @@
           "searchable": true
         }
       ]
+    },
+    {
+      "slug": "works",
+      "label": "Works",
+      "labelSingular": "Works",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "Title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "type",
+          "label": "Type",
+          "type": "select",
+          "required": true,
+          "options": [
+            { "value": "バイト", "label": "バイト" },
+            { "value": "業務委託", "label": "業務委託" },
+            { "value": "短期インターン", "label": "短期インターン" },
+            { "value": "長期インターン", "label": "長期インターン" },
+            { "value": "就職", "label": "就職" }
+          ]
+        },
+        {
+          "slug": "start_date",
+          "label": "Start Date",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "slug": "end_date",
+          "label": "End Date",
+          "type": "datetime",
+          "required": false
+        },
+        {
+          "slug": "summary",
+          "label": "Summary",
+          "type": "string",
+          "required": true
+        }
+      ]
     }
   ],
   "taxonomies": [],

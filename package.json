@@ -12,6 +12,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy",
+    "seed": "emdash seed seed/seed.json",
     "typecheck": "astro check",
     "lint": "eslint --fix",
     "format": "prettier --write src/**/*.astro"

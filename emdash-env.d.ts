@@ -17,18 +17,15 @@ export interface Page {
   bylines?: ContentBylineCredit[];
 }
 
-export interface Project {
+export interface Works {
   id: string;
   slug: string | null;
   status: string;
   title: string;
-  featured_image: { id: string; src?: string; alt?: string; width?: number; height?: number; provider?: string; previewUrl?: string; meta?: Record<string, unknown> };
-  client?: string;
-  year?: string;
-  summary?: string;
-  content?: PortableTextBlock[];
-  gallery?: unknown;
-  url?: string;
+  type: "バイト" | "業務委託" | "短期インターン" | "長期インターン" | "就職";
+  start_date: string;
+  end_date?: string;
+  summary: string;
   createdAt: Date;
   updatedAt: Date;
   publishedAt: Date | null;
@@ -38,6 +35,6 @@ export interface Project {
 declare module "emdash" {
   interface EmDashCollections {
     pages: Page;
-    projects: Project;
+    works: Works;
   }
 }
