@@ -1,7 +1,7 @@
 ---
 import { getEmDashEntry } from 'emdash';
 import { PortableText } from 'emdash/ui';
-import PageLayout from '../layouts/Page.astro';
+import PageLayout from '@/layouts/Page.astro';
 
 const { entry: page, cacheHint } = await getEmDashEntry('pages', 'about');
 

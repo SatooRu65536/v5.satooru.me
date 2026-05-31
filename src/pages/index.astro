@@ -1,8 +1,8 @@
 ---
 import { getEmDashCollection } from 'emdash';
-import PageLayout from '../layouts/Page.astro';
-import EmptyState from '../components/EmptyState.astro';
-import TopPage from '../components/pages/TopPage.astro';
+import PageLayout from '@/layouts/Page.astro';
+import EmptyState from '@/components/EmptyState.astro';
+import TopPage from '@/components/pages/TopPage/index.astro';
 
 const { entries: featuredProjects, cacheHint } = await getEmDashCollection(
   'projects',

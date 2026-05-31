@@ -3,12 +3,12 @@ import { getSiteSettings } from 'emdash';
 import { EmDashHead } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
 import { GoogleFontsOptimizer } from 'astro-google-fonts-optimizer';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import icon from '../assets/icon.webp';
-import applyTheme from '../scripts/apply-theme?raw';
-import baseStyles from '../styles/base.css?raw';
-import '../styles/globals.scss';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import icon from '@/assets/icon.webp';
+import applyTheme from '@/scripts/apply-theme?raw';
+import baseStyles from '@/styles/base.css?raw';
+import '@/styles/globals.scss';
 
 interface Props {
   title?: string;
@@ -71,6 +71,6 @@ const pageCtx = createPublicPageContext({
     </main>
     <Footer />
 
-    <script src="../scripts/theme-switcher.ts"></script>
+    <script src="@/scripts/theme-switcher.ts"></script>
   </body>
 </html>

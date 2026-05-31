@@ -19,17 +19,6 @@ export default defineConfig({
     }),
   ],
 
-  optimizeDeps: {
-    exclude: [
-      'emdash',
-      'emdash/runtime',
-      'emdash/ui',
-      'emdash/media/local-runtime',
-      '@emdash-cms/cloudflare/db/d1',
-      '@emdash-cms/cloudflare/storage/r2',
-    ],
-  },
-
   devToolbar: { enabled: false },
 
   vite: {

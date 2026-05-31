@@ -1,7 +1,7 @@
 ---
 import ThemeSwitcher from './shared/ThemeSwitcher.astro';
 import { getMenu, getSiteSettings } from 'emdash';
-import icon from '../assets/icon.webp';
+import icon from '@/assets/icon.webp';
 
 const settings = await getSiteSettings();
 const name = settings?.title || 'My Profile';
