@@ -5,10 +5,15 @@ interface Props {
   class?: string;
 }
 
-const { direction = 'right', delay = 0, ...rest } = Astro.props;
+const {
+  direction = 'right',
+  delay = 0,
+  class: customClass,
+  ...rest
+} = Astro.props;
 ---
 
-<div {...rest} class="fade-in" data-direction={direction}>
+<div {...rest} class:list={['fade-in', customClass]} data-direction={direction}>
   <slot />
 </div>
 

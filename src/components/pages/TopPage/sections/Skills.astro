@@ -1,0 +1,103 @@
+---
+import SectionLayout from '@/layouts/Section.astro';
+import FadeIn from '@/components/shared/FadeIn.astro';
+import type { IconKey } from '@/consts/icons';
+import IconCard from '@/components/IconCard.astro';
+
+interface Skills {
+  [key: string]: IconKey[];
+}
+
+const SKILLS: Skills = {
+  'Core Expertise': [
+    'html',
+    'css',
+    'scss',
+    'javascript',
+    'typescript',
+    'react',
+    'nextjs',
+    'astro',
+    'jotai',
+    'vitest',
+    'eslint',
+    'prettier',
+    'tauri',
+    'storybook',
+    'nestjs',
+    'trpc',
+    'mysql',
+    'prisma',
+    'python',
+    'aws',
+    'cloudflareWorkers',
+    'docker',
+    'git',
+    'github',
+  ],
+  // 扱える
+  'Comfortable With': [
+    'rust',
+    'vue',
+    'svelte',
+    'biome',
+    'electron',
+    'threejs',
+    'hono',
+    'postgresql',
+    'githubActions',
+    'fastapi',
+    'numpy',
+    'pandas',
+  ],
+  // 経験あり
+  'Familiar With': [
+    'swift',
+    'kotlin',
+    'php',
+    'ruby',
+    'rails',
+    'raspberryPi',
+    'c',
+    'firebase',
+    'supabase',
+  ],
+};
+---
+
+<SectionLayout title="Skills">
+  {
+    Object.entries(SKILLS).map(([category, skills]) => (
+      <div class="skills-category">
+        <FadeIn class="heading">
+          <h2>{category}</h2>
+        </FadeIn>
+
+        {skills.map((skill, i) => (
+          <FadeIn delay={(i + 1) * 100} direction="up">
+            <IconCard iconKey={skill} />
+          </FadeIn>
+        ))}
+      </div>
+    ))
+  }
+</SectionLayout>
+
+<style lang="scss">
+  .skills-category {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    text-align: center;
+
+    & > * {
+      height: 100px;
+      margin-inline: auto;
+    }
+
+    .heading {
+      height: auto;
+      padding: 10px 0;
+      grid-column: 1 / -1;
+    }
+  }
+</style>

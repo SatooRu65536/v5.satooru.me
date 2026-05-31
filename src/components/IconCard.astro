@@ -1,0 +1,34 @@
+---
+import { ICON_MAP, type IconKey } from '@/consts/icons';
+
+interface Props {
+  iconKey: IconKey;
+}
+
+const { iconKey, ...rest } = Astro.props;
+
+function getIcon(key: IconKey) {
+  const Icon = ICON_MAP[key].icon;
+  return Icon;
+}
+
+const Icon = getIcon(iconKey);
+---
+
+<div class="icon-card" {...rest}>
+  <Icon />
+  <p>{ICON_MAP[iconKey].name}</p>
+</div>
+
+<style lang="scss">
+  .icon-card {
+    text-align: center;
+
+    svg {
+      $size: $font-size-2xl;
+
+      width: $size;
+      height: $size;
+    }
+  }
+</style>
