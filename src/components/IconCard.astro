@@ -17,7 +17,7 @@ const Icon = getIcon(iconKey);
 
 <div class="icon-card" {...rest}>
   <Icon />
-  <p>{ICON_MAP[iconKey].name}</p>
+  <p class="name">{ICON_MAP[iconKey].name}</p>
 </div>
 
 <style lang="scss">
@@ -25,10 +25,14 @@ const Icon = getIcon(iconKey);
     text-align: center;
 
     svg {
-      $size: $font-size-2xl;
+      $size: $font-size-4xl;
 
       width: $size;
       height: $size;
+    }
+
+    .name {
+      font-size: $font-size-base;
     }
   }
 </style>

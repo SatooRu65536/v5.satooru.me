@@ -1,0 +1,47 @@
+---
+interface Props {
+  class?: string;
+  speed?: number;
+}
+
+const { speed = 100, class: customClass, ...rest } = Astro.props;
+---
+
+<div {...rest} class:list={['fadein-with-stagger', customClass]}>
+  <slot />
+</div>
+
+<script is:inline define:vars={{ speed }}>
+  function observeAll() {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const elements = entry.target.querySelectorAll('.fade-in');
+
+          elements.forEach((element, i) => {
+            element.style.setProperty('--delay', i * speed);
+            element.classList.add('is-visible');
+          });
+        });
+      },
+      {
+        threshold: 0.2,
+      },
+    );
+
+    document.querySelectorAll('.fadein-with-stagger').forEach((container) => {
+      observer.observe(container);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    window.addEventListener('DOMContentLoaded', observeAll, { once: true });
+  } else {
+    observeAll();
+  }
+</script>
+
+<style lang="scss" define:vars={{ speed }}>
+  .fadein-with-stagger {
+  }
+</style>

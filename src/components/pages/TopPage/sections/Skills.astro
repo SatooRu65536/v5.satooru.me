@@ -1,8 +1,9 @@
 ---
-import SectionLayout from '@/layouts/Section.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
 import FadeIn from '@/components/shared/FadeIn.astro';
 import type { IconKey } from '@/consts/icons';
 import IconCard from '@/components/IconCard.astro';
+import FadeInWithStagger from '@/components/shared/FadeInWithStagger.astro';
 
 interface Skills {
   [key: string]: IconKey[];
@@ -37,7 +38,6 @@ const SKILLS: Skills = {
   ],
   // 扱える
   'Comfortable With': [
-    'rust',
     'vue',
     'svelte',
     'biome',
@@ -52,6 +52,7 @@ const SKILLS: Skills = {
   ],
   // 経験あり
   'Familiar With': [
+    'rust',
     'swift',
     'kotlin',
     'php',
@@ -65,7 +66,7 @@ const SKILLS: Skills = {
 };
 ---
 
-<SectionLayout title="Skills">
+<SectionLayout>
   {
     Object.entries(SKILLS).map(([category, skills]) => (
       <div class="skills-category">
@@ -73,11 +74,13 @@ const SKILLS: Skills = {
           <h2>{category}</h2>
         </FadeIn>
 
-        {skills.map((skill, i) => (
-          <FadeIn delay={(i + 1) * 100} direction="up">
-            <IconCard iconKey={skill} />
-          </FadeIn>
-        ))}
+        <FadeInWithStagger class="skills-container">
+          {skills.map((skill, i) => (
+            <FadeIn delay={(i + 1) * 100} direction="up">
+              <IconCard iconKey={skill} />
+            </FadeIn>
+          ))}
+        </FadeInWithStagger>
       </div>
     ))
   }
@@ -87,6 +90,7 @@ const SKILLS: Skills = {
   .skills-category {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: $space-xl $space-sm;
     text-align: center;
 
     & > * {
@@ -98,6 +102,10 @@ const SKILLS: Skills = {
       height: auto;
       padding: 10px 0;
       grid-column: 1 / -1;
+    }
+
+    .skills-container {
+      display: contents;
     }
   }
 </style>
