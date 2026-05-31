@@ -1,8 +1,11 @@
 $header-height: 70px;
 $footer-height: 44px;
+$main-padding-top: $header-height;
 $main-padding-bottom: 50px;
-$main-height: calc(100vh - $header-height - $footer-height);
+$main-height: calc(100vh - $footer-height);
 $main-height-fixed: calc(100vh - $header-height);
 
 $section-max-width: 1200px;
-$fit-content-height: calc(100vh - $header-height - $footer-height - $main-padding-bottom);
+$fit-content-height: calc(
+  100vh - $header-height - $footer-height - $main-padding-bottom
+);
