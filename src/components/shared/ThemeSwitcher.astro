@@ -34,24 +34,26 @@ import DarkModeIcon from '@/components/icons/common/DarkModeIcon.astro';
       align-items: center;
       gap: $space-sm;
       padding: $space-sm $space-md;
+      border: solid 1px $color-on-background;
       border-radius: $radius-lg;
       background-color: transparent;
       color: currentColor;
       cursor: pointer;
+      outline: none;
 
       display: none;
-    }
-  }
 
-  @include light-theme {
-    .theme-btn[data-theme='dark'] {
-      display: flex;
-    }
-  }
+      @include light-theme {
+        &[data-theme='dark'] {
+          display: flex;
+        }
+      }
 
-  @include dark-theme {
-    .theme-btn[data-theme='light'] {
-      display: flex;
+      @include dark-theme {
+        &[data-theme='light'] {
+          display: flex;
+        }
+      }
     }
   }
 </style>
