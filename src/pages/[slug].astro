@@ -1,0 +1,20 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import { decodeSlug, getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import '@/styles/content-styles.scss';
+
+const slug = decodeSlug(Astro.params.slug);
+if (slug === undefined) return Astro.redirect('/404');
+
+const { entry, cacheHint } = await getEmDashEntry('pages', slug);
+if (entry === null) return Astro.redirect('/404');
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<PageLayout>
+  <ContentLayout data-styled>
+    <PortableText value={entry.data.content} />
+  </ContentLayout>
+</PageLayout>
