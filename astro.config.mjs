@@ -19,12 +19,14 @@ export default defineConfig({
     }),
   ],
 
-  ssr: {
-    noExternal: [
+  optimizeDeps: {
+    exclude: [
       'emdash',
-      '@emdash-cms/cloudflare',
-      '@cloudflare/vite-plugin',
-      'miniflare',
+      'emdash/runtime',
+      'emdash/ui',
+      'emdash/media/local-runtime',
+      '@emdash-cms/cloudflare/db/d1',
+      '@emdash-cms/cloudflare/storage/r2',
     ],
   },
 
