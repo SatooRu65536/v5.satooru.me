@@ -2,7 +2,6 @@
 import { getSiteSettings } from 'emdash';
 import { EmDashHead } from 'emdash/ui';
 import { createPublicPageContext } from 'emdash/page';
-import { GoogleFontsOptimizer } from 'astro-google-fonts-optimizer';
 import Header from '@/components/Header.astro';
 import Footer from '@/components/Footer.astro';
 import icon from '@/assets/icon.webp';
@@ -58,9 +57,6 @@ const pageCtx = createPublicPageContext({
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>{fullTitle}</title>
     <EmDashHead page={pageCtx} />
-    <GoogleFontsOptimizer
-      url="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;500;700&display=swap"
-    />
     <link
       href="/rss.xml"
       rel="alternate"
