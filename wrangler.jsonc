@@ -8,15 +8,15 @@
 	],
 	"r2_buckets": [
 		{
-			"bucket_name": "satooru-me",
+			"bucket_name": "v5-satooru-me",
 			"binding": "MEDIA"
 		},
 	],
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "satooru-me",
-			"database_id": "b7de037a-c0ef-4cf8-b134-46eae7d8402d",
+			"database_name": "v5-satooru-me",
+			"database_id": "6379914e-e8ef-4e5d-a7f2-470a31ae0a3a"
 		}
 	],
 }
