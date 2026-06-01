@@ -245,7 +245,7 @@
   ],
   "taxonomies": [
     {
-      "name": "category",
+      "name": "categories",
       "label": "Categories",
       "labelSingular": "Category",
       "hierarchical": false,

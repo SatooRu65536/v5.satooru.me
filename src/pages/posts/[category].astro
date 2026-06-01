@@ -1,0 +1,38 @@
+---
+import PostList from '@/components/PostList.astro';
+import { PER_PAGE } from '@/consts/settings';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { getEmDashCollection, getTerm } from 'emdash';
+import { getTaxonomyTerms } from 'emdash';
+
+const page = Astro.url.searchParams.get('page') ?? '1';
+const category = Astro.params.category;
+
+const currentCategory = category ? await getTerm('categories', category) : null;
+if (currentCategory == null) return Astro.redirect('/404');
+
+const [posts, postsNum, categories] = await Promise.all([
+  getEmDashCollection('posts', {
+    where: { categories: currentCategory.slug },
+    orderBy: { published_date: 'desc', published_at: 'desc' },
+    cursor: (Number(page) - 1).toString(),
+    limit: PER_PAGE,
+  }),
+  (
+    await getEmDashCollection('posts', {
+      where: { category: currentCategory.slug },
+    })
+  ).entries.length,
+  getTaxonomyTerms('categories'),
+]);
+---
+
+<PageLayout>
+  <PostList
+    page={Number(page)}
+    posts={posts.entries}
+    postNum={postsNum}
+    categories={categories}
+    currentCategory={currentCategory}
+  />
+</PageLayout>

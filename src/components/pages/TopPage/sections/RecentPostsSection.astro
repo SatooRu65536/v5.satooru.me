@@ -4,7 +4,7 @@ import SectionLayout from '@/layouts/SectionLayout.astro';
 import { getEmDashCollection } from 'emdash';
 
 const { entries: posts, cacheHint } = await getEmDashCollection('posts', {
-  orderBy: { published_at: 'desc' },
+  orderBy: { published_date: 'desc', published_at: 'desc' },
   limit: 3,
 });
 

@@ -1,0 +1,93 @@
+---
+import type { TaxonomyTerm } from 'emdash';
+import PostCategories from './PostCategories.astro';
+import PageNation from './PageNation.astro';
+import type { ContentEntry } from 'emdash';
+import type { Post } from '../../emdash-env';
+import PostListCard from './PostListCard.astro';
+
+interface Props {
+  page: number;
+  postNum: number;
+  posts: ContentEntry<Post>[];
+  categories: TaxonomyTerm[];
+  currentCategory?: TaxonomyTerm | null;
+}
+
+const { page, posts, postNum, currentCategory, categories } = Astro.props;
+
+const pageTo = (page: number) => {
+  if (currentCategory == undefined) {
+    return {
+      href: `/posts?page=${page}`,
+    };
+  }
+
+  return {
+    href: `/posts/${currentCategory.slug}?page=${page}`,
+  };
+};
+---
+
+<div class="container">
+  <section class="categories_wrapper">
+    <PostCategories categories={categories} currentCategory={currentCategory} />
+  </section>
+
+  <section class="articles_wrapper">
+    <div class="articles">
+      {
+        posts.length === 0 ? (
+          <p>記事はありません</p>
+        ) : (
+          posts.map((post) => <PostListCard post={post} />)
+        )
+      }
+    </div>
+  </section>
+
+  <section class="pagenation">
+    <PageNation page={page} pageTo={pageTo} postNum={postNum} />
+  </section>
+</div>
+
+<style lang="scss">
+  .container {
+    min-height: $main-height;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .categories_wrapper {
+      margin-inline: auto;
+      padding: 40px;
+      width: 100%;
+      max-width: 1200px;
+
+      @include mobile {
+        padding: 20px;
+      }
+    }
+
+    .articles_wrapper {
+      flex: 1;
+
+      .articles {
+        margin-inline: auto;
+        max-width: 1200px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, 300px);
+        justify-content: center;
+        gap: 20px;
+      }
+    }
+
+    .pagenation {
+      height: fit-content;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+</style>

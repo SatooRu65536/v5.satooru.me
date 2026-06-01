@@ -1,0 +1,47 @@
+---
+import type { TaxonomyTerm } from 'emdash';
+
+interface Props {
+  categories: TaxonomyTerm[];
+  currentCategory?: TaxonomyTerm | null;
+}
+
+const { categories, currentCategory } = Astro.props;
+---
+
+<div class="post-categories">
+  <a class="link" data-selected={currentCategory == undefined} href="/posts"
+    >All</a
+  >
+
+  {
+    categories.map((category) => (
+      <a
+        class="link"
+        data-selected={category.id === currentCategory?.id}
+        data-name={category.label}
+        href={`/posts/${category.slug}`}
+      >
+        {category.label}
+      </a>
+    ))
+  }
+</div>
+
+<style lang="scss">
+  .post-categories {
+    display: flex;
+    gap: 10px;
+
+    .link {
+      padding: 5px 10px;
+      border: solid 1px $color-accent;
+      border-radius: 5px;
+
+      &[data-selected='true'] {
+        background-color: $color-accent;
+        color: white;
+      }
+    }
+  }
+</style>
