@@ -15,7 +15,7 @@ const { title, excerpt, publishedAt, link, tags } = Astro.props;
 <asticle class="post-item">
   <a href={link} class="post-link">
     <time datetime={publishedAt?.toString()}>
-      {dayjs(publishedAt).format('YYYY/MM/DD')}
+      {dayjs(publishedAt).format('YYYY年MM月DD日')}
     </time>
 
     <h2 class="title">{title}</h2>
@@ -35,7 +35,7 @@ const { title, excerpt, publishedAt, link, tags } = Astro.props;
 
 <style lang="scss">
   .post-item {
-    padding: $space-md 0 $space-xl;
+    padding: $space-md $space-md $space-xl;
     backdrop-filter: blur(2px);
     border-bottom: solid 1px $color-background-muted;
 

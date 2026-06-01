@@ -1,0 +1,45 @@
+---
+import Thumbnail from '@/components/Thumbnail.astro';
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import dayjs from 'dayjs';
+import { getEmDashEntry } from 'emdash';
+import { PortableText } from 'emdash/ui';
+import '@/styles/content-styles.scss';
+
+const slug = Astro.params.slug;
+if (slug === undefined) return Astro.redirect('/404');
+
+const { entry, cacheHint } = await getEmDashEntry('posts', slug);
+if (entry === null) return Astro.redirect('/404');
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+
+const publishedAt = entry.data.published_date ?? entry.data.createdAt;
+---
+
+<PageLayout>
+  <ContentLayout data-styled>
+    <h1 class="title">
+      <span>{entry.data.title}</span>
+    </h1>
+    <p class="published-at">
+      {dayjs(publishedAt).format('YYYY年MM月DD日')}
+    </p>
+
+    <Thumbnail class="thumbnail" src={entry.data.featured_image?.src} />
+
+    <PortableText value={entry.data.content} />
+  </ContentLayout>
+</PageLayout>
+
+<style lang="scss">
+  .published-at {
+    text-align: right;
+    padding-inline: 20px;
+  }
+  
+
+  .thumbnail {
+    height: 300px;
+  }
+</style>
