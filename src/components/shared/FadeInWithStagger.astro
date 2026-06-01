@@ -16,6 +16,8 @@ const { speed = 100, class: customClass, ...rest } = Astro.props;
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
           const elements = entry.target.querySelectorAll('.fade-in');
 
           elements.forEach((element, i) => {
