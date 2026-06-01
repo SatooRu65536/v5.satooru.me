@@ -15,7 +15,7 @@ const { post } = Astro.props;
 const formattedDate = dayjs(
   post.data.published_date ?? post.data.publishedAt,
 ).format('YYYY/MM/DD');
-const href = `/posts/${post.data.slug}`;
+const href = `/post/${post.data.slug}`;
 ---
 
 <CardLayout class="card" href={href}>
