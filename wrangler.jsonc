@@ -6,6 +6,15 @@
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	"vars": {
+		"API_BASE_URL": "https://api.satooru.me"
+	},
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": false
+		}
+	},
 	"r2_buckets": [
 		{
 			"bucket_name": "v5-satooru-me",
