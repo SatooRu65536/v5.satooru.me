@@ -1,53 +1,56 @@
 ---
-import type { TaxonomyTerm } from 'emdash';
+import { getTermsForEntries, type TaxonomyTerm } from 'emdash';
 import PostCategories from './PostCategories.astro';
-import PageNation from './PageNation.astro';
 import type { ContentEntry } from 'emdash';
 import type { Post } from '../../emdash-env';
-import PostListCard from './PostListCard.astro';
+import PostListItem from './PostListItem.astro';
 
 interface Props {
-  page: number;
-  postNum: number;
   posts: ContentEntry<Post>[];
   categories: TaxonomyTerm[];
   currentCategory?: TaxonomyTerm | null;
 }
 
-const { page, posts, postNum, currentCategory, categories } = Astro.props;
+const { posts, currentCategory, categories } = Astro.props;
 
-const pageTo = (page: number) => {
-  if (currentCategory == undefined) {
-    return {
-      href: `/posts?page=${page}`,
-    };
-  }
+const categoriesByEntry = await getTermsForEntries(
+  'posts',
+  posts.map((p) => p.data.id),
+  'categories',
+);
 
-  return {
-    href: `/posts/${currentCategory.slug}?page=${page}`,
-  };
-};
+const postsWithCategory = posts.map((post) => ({
+  post,
+  categories: categoriesByEntry.get(post.data.id) ?? [],
+}));
 ---
 
 <div class="container">
-  <section class="categories_wrapper">
+  <section class="categories-wrapper">
     <PostCategories categories={categories} currentCategory={currentCategory} />
   </section>
 
-  <section class="articles_wrapper">
+  <section class="articles-wrapper">
     <div class="articles">
       {
-        posts.length === 0 ? (
+        postsWithCategory.length === 0 ? (
           <p>記事はありません</p>
         ) : (
-          posts.map((post) => <PostListCard post={post} />)
+          postsWithCategory.map(({ post: { data }, categories }) => (
+            <PostListItem
+              title={data.title}
+              excerpt={data.excerpt}
+              publishedAt={data.published_date ?? data.createdAt}
+              link={`/post/${data.slug}`}
+              tags={categories.map((c) => ({
+                label: c.label,
+                link: `/posts/${c.slug}`,
+              }))}
+            />
+          ))
         )
       }
     </div>
-  </section>
-
-  <section class="pagenation">
-    <PageNation page={page} pageTo={pageTo} postNum={postNum} />
   </section>
 </div>
 
@@ -55,10 +58,8 @@ const pageTo = (page: number) => {
   .container {
     min-height: $main-height;
     height: 100%;
-    display: flex;
-    flex-direction: column;
 
-    .categories_wrapper {
+    .categories-wrapper {
       margin-inline: auto;
       padding: 40px;
       width: 100%;
@@ -69,25 +70,19 @@ const pageTo = (page: number) => {
       }
     }
 
-    .articles_wrapper {
-      flex: 1;
+    .articles-wrapper {
+      margin-inline: auto;
+      max-width: $content-width;
 
       .articles {
         margin-inline: auto;
         max-width: 1200px;
         padding: 20px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, 300px);
+        grid-template-columns: 1fr;
         justify-content: center;
         gap: 20px;
       }
-    }
-
-    .pagenation {
-      height: fit-content;
-      display: flex;
-      justify-content: center;
-      margin-top: 20px;
     }
   }
 </style>

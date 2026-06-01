@@ -5,6 +5,8 @@ $main-padding-bottom: 50px;
 $main-height: calc(100vh - $header-height - $footer-height);
 $main-height-fixed: calc(100vh - $header-height);
 
+$content-width: 680px;
+
 $section-max-width: 1200px;
 $fit-content-height: calc(
   100vh - $header-height - $footer-height - $main-padding-bottom

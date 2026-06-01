@@ -4,14 +4,11 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import { getEmDashCollection } from 'emdash';
 import { getTaxonomyTerms } from 'emdash';
 
-const page = Astro.url.searchParams.get('page') ?? '1';
-
-const [{ entries: posts, cacheHint }, postsNum, categories] = await Promise.all(
+const [{ entries: posts, cacheHint }, categories] = await Promise.all(
   [
     getEmDashCollection('posts', {
       orderBy: { published_date: 'desc', published_at: 'desc' },
     }),
-    (await getEmDashCollection('posts')).entries.length,
     getTaxonomyTerms('categories'),
   ],
 );
@@ -20,10 +17,5 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 ---
 
 <PageLayout>
-  <PostList
-    page={Number(page)}
-    posts={posts}
-    postNum={postsNum}
-    categories={categories}
-  />
+  <PostList posts={posts} categories={categories} />
 </PageLayout>
