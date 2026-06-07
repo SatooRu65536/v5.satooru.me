@@ -10,12 +10,13 @@ interface Props {
 
 const { experience, class: className, ...rest } = Astro.props;
 
-const startDate = dayjs(experience.data.start_date);
+const startDate = dayjs(experience.data.start_date).format('YYYY.MM');
 const endDate =
-  experience.data.end_date === undefined
+  experience.data.end_date == undefined
     ? undefined
-    : dayjs(experience.data.end_date);
-const periodText = `${startDate.format('YYYY.MM')} - ${endDate ? endDate.format('YYYY.MM') : '現在'}`;
+    : dayjs(experience.data.end_date).format('YYYY.MM');
+
+const periodText = endDate ? `${startDate} - ${endDate}` : `${startDate} - `;
 ---
 
 <div class:list={['card', className]} {...rest}>

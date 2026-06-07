@@ -524,7 +524,6 @@
         "data": {
           "title": "pluszero 入社(予定)",
           "start_date": "2027-04-01T00:00Z",
-          "summary": "本配属",
           "link_name": "pluszero",
           "link": "https://plus-zero.co.jp/",
           "important": true
@@ -687,7 +686,7 @@
         "data": {
           "award": "企業賞",
           "event_name": "技育CAMP アドバンス vol.3",
-          "award_date": "2023-09-02-01T00:00Z",
+          "award_date": "2023-09-02T00:00Z",
           "summary": "紙を破いてPCを操作するアプリ"
         }
       },
@@ -697,7 +696,7 @@
         "data": {
           "award": "優秀賞",
           "event_name": "工科展",
-          "award_date": "2023-10-02-01T00:00Z",
+          "award_date": "2023-10-02T00:00Z",
           "summary": "Wi-Fiを使った混雑を知れるアプリ"
         }
       },
@@ -707,7 +706,7 @@
         "data": {
           "award": "Happy Hacking賞",
           "event_name": "Open hack U 2024 KANAZAWA",
-          "award_date": "2024-09-24-01T00:00Z",
+          "award_date": "2024-09-24T00:00Z",
           "summary": "初心者が音楽制作の第一歩を踏み出せるアプリ"
         }
       },
@@ -717,7 +716,7 @@
         "data": {
           "award": "学生奨励賞",
           "event_name": "情報処理学会 第87回全国大会",
-          "award_date": "2025-03-13-01T00:00Z",
+          "award_date": "2025-03-13T00:00Z",
           "summary": "モーションキャプチャで得られる3次元の骨格情報を用いた調理行動の分類に関する基礎検討"
         }
       },
@@ -727,7 +726,7 @@
         "data": {
           "award": "Best Poster Award",
           "event_name": "ICMU 2025",
-          "award_date": "2025-09-12-01T00:00Z",
+          "award_date": "2025-09-12T00:00Z",
           "summary": "Method for Improving Cooking Activity Classification Accuracy Using Location Information and Procedure Documents"
         }
       },
@@ -737,7 +736,7 @@
         "data": {
           "award": "学生奨励賞",
           "event_name": "情報処理学会 第88回全国大会",
-          "award_date": "2025-03-13-01T00:00Z",
+          "award_date": "2025-03-13T00:00Z",
           "summary": "行動認識に基づく調理行動の位置補正手法"
         }
       }
