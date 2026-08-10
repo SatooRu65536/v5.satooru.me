@@ -3,6 +3,10 @@
     "emdash-docs": {
       "type": "http",
       "url": "https://docs.emdashcms.com/mcp"
+    },
+    "cloudflare-bindings": {
+      "type": "http",
+      "url": "https://bindings.mcp.cloudflare.com/mcp"
     }
   }
 }
