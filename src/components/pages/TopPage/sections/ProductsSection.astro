@@ -1,5 +1,5 @@
 ---
-import PostCard from '@/components/PostCard.astro';
+import ProductCard from './ProductCard.astro';
 import SectionLayout from '@/layouts/SectionLayout.astro';
 import { getEmDashCollection } from 'emdash';
 
@@ -12,7 +12,7 @@ if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
 
 <SectionLayout title="Products">
   <div class="products">
-    {products.map((product) => <PostCard post={product} />)}
+    {products.map((product) => <ProductCard post={product} />)}
   </div>
 </SectionLayout>
 
