@@ -5,6 +5,7 @@ import { getEmDashCollection } from 'emdash';
 
 const { entries: products, cacheHint } = await getEmDashCollection('posts', {
   where: { categories: 'product' },
+  orderBy: { published_date: 'desc', published_at: 'desc' },
 });
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
