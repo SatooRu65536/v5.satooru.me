@@ -69,15 +69,15 @@ const typeLabel = typeTerms[0]?.label;
       flex: 1;
       display: flex;
       flex-direction: column;
+      gap: $space-sm;
 
       .tag {
         font-size: $font-size-sm;
-        font-weight: normal;
+        font-weight: bold;
         color: $color-text-light;
       }
 
       .techs {
-        margin-top: 8px;
         display: flex;
         align-items: center;
         gap: 6px;
@@ -92,10 +92,8 @@ const typeLabel = typeTerms[0]?.label;
       }
 
       .date {
-        margin-top: auto;
         flex-shrink: 0;
         font-size: $font-size-sm;
-        text-align: end;
       }
     }
 
