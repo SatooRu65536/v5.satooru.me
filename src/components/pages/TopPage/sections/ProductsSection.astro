@@ -4,7 +4,7 @@ import SectionLayout from '@/layouts/SectionLayout.astro';
 import { getEmDashCollection } from 'emdash';
 
 const { entries: products, cacheHint } = await getEmDashCollection('posts', {
-  where: { category: 'product' },
+  where: { categories: 'product' },
 });
 
 if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
