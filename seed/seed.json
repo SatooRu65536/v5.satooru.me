@@ -258,6 +258,28 @@
       ]
     },
     {
+      "name": "types",
+      "label": "Types",
+      "labelSingular": "Type",
+      "hierarchical": false,
+      "collections": ["posts"],
+      "terms": [
+        { "slug": "website", "label": "Webサイト" },
+        { "slug": "web_app", "label": "Webアプリ" },
+        { "slug": "video", "label": "映像" },
+        { "slug": "menu_bar_app", "label": "メニューバーアプリ" },
+        { "slug": "desktop_app", "label": "デスクトップアプリ" },
+        { "slug": "other", "label": "その他" },
+        { "slug": "mobile_app", "label": "モバイルアプリ" },
+        { "slug": "language_other", "label": "プログラミング言語&その他" },
+        { "slug": "web_api", "label": "WebAPI" },
+        { "slug": "python_package", "label": "Pythonパッケージ" },
+        { "slug": "python", "label": "Python" },
+        { "slug": "discord_bot", "label": "DiscordBOT" },
+        { "slug": "chrome_extension", "label": "Chrome拡張機能" }
+      ]
+    },
+    {
       "name": "techs",
       "label": "Techs",
       "labelSingular": "Tech",

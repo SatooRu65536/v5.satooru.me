@@ -19,21 +19,19 @@ const formattedDate = dayjs(
 ).format('YYYY/MM/DD');
 const href = `/post/${post.data.slug}`;
 
-const [techTerms, categoryTerms] = await Promise.all([
+const [techTerms, typeTerms] = await Promise.all([
   getEntryTerms('posts', post.data.id, 'techs'),
-  getEntryTerms('posts', post.data.id, 'categories'),
+  getEntryTerms('posts', post.data.id, 'types'),
 ]);
 
 const techIconKeys = filterIconKeys(techTerms.map((term) => term.label));
-const categoryLabel = categoryTerms.find(
-  (term) => term.slug !== 'product',
-)?.label;
+const typeLabel = typeTerms[0]?.label;
 ---
 
 <CardLayout class="card" href={href}>
   <div class="left">
     <h3 class="title">{post.data.title}</h3>
-    {categoryLabel && <h4 class="tag">{categoryLabel}</h4>}
+    {typeLabel && <h4 class="tag">{typeLabel}</h4>}
     <div class="techs">
       {techIconKeys.map((tech) => <TechIcon iconKey={tech} />)}
     </div>
