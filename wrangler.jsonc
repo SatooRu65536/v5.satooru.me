@@ -18,14 +18,16 @@
 	"r2_buckets": [
 		{
 			"bucket_name": "v5-satooru-me",
-			"binding": "MEDIA"
-		},
+			"binding": "MEDIA",
+			"remote": true
+		}
 	],
 	"d1_databases": [
 		{
 			"binding": "DB",
 			"database_name": "v5-satooru-me",
-			"database_id": "db7cc961-1e31-4e34-9a67-b7a0b34be20b"
+			"database_id": "db7cc961-1e31-4e34-9a67-b7a0b34be20b",
+			"remote": true
 		}
 	]
 }
