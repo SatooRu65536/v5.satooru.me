@@ -1,12 +1,25 @@
 import cloudflare from '@astrojs/cloudflare';
 import react from '@astrojs/react';
 import { d1, r2 } from '@emdash-cms/cloudflare';
-import { defineConfig } from 'astro/config';
+import { defineConfig, memoryCache } from 'astro/config';
 import emdash from 'emdash/astro';
 
 export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
+  experimental: {
+    cache: {
+      provider: memoryCache({ max: 500 }),
+    },
+    routeRules: {
+      '/': { maxAge: 600 },
+      '/posts': { maxAge: 86400 },
+      '/posts/[category]': { maxAge: 86400 },
+      '/post/[slug]': { maxAge: 86400 },
+      '/[slug]': { maxAge: 86400 },
+      '/rss.xml': { maxAge: 86400 },
+    },
+  },
   image: {
     layout: 'constrained',
     responsiveStyles: true,

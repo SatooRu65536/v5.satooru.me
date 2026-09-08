@@ -1,7 +1,7 @@
 ---
 import dayjs from 'dayjs';
 import CardLayout from '@/layouts/CardLayout.astro';
-import { extractPlainText, getEntryTerms, type ContentEntry } from 'emdash';
+import { extractPlainText, type ContentEntry } from 'emdash';
 import { Image } from 'emdash/ui';
 import penguinImg from '@/assets/penguin.webp';
 import TechIcon from '@/components/icons/TechIcon.astro';
@@ -10,10 +10,10 @@ import type { Post } from '../../../../../emdash-env';
 
 interface Props {
   post: ContentEntry<Post>;
-  showTechs?: boolean;
+  techIconKeys?: string[];
 }
 
-const { post, showTechs = false } = Astro.props;
+const { post, techIconKeys = [] } = Astro.props;
 
 const formattedDate = dayjs(
   post.data.published_date ?? post.data.publishedAt,
@@ -28,13 +28,7 @@ const excerptText = rawExcerpt
   .trim()
   .slice(0, 200);
 
-const techIconKeys = showTechs
-  ? filterIconKeys(
-      (await getEntryTerms('posts', post.data.id, 'techs')).map(
-        (term) => term.label,
-      ),
-    )
-  : [];
+const filteredTechIconKeys = filterIconKeys(techIconKeys);
 ---
 
 <CardLayout class="card" href={href}>
@@ -44,7 +38,7 @@ const techIconKeys = showTechs
     <div class="content">
       <p>{excerptText}</p>
       <div class="techs">
-        {techIconKeys.map((tech) => <TechIcon iconKey={tech} />)}
+        {filteredTechIconKeys.map((tech) => <TechIcon iconKey={tech} />)}
       </div>
     </div>
     <div class="footer">
