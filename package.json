@@ -21,11 +21,11 @@
     "@astrojs/cloudflare": "^13.5.3",
     "@astrojs/react": "^5.0.0",
     "@dev.icons/react": "^1.1.0",
-    "@emdash-cms/cloudflare": "^0.14.0",
+    "@emdash-cms/cloudflare": "^1.2.0",
     "astro": "^6.3.0",
     "astro-google-fonts-optimizer": "^0.2.2",
     "dayjs": "^1.11.21",
-    "emdash": "^0.14.0",
+    "emdash": "^1.2.0",
     "ofetch": "^1.5.1",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -45,6 +45,6 @@
     "prettier-plugin-astro": "^0.14.1",
     "sass": "^1.100.0",
     "typescript-eslint": "^8.60.0",
-    "wrangler": "^4.83.0"
+    "wrangler": "^4.148.0"
   }
 }
