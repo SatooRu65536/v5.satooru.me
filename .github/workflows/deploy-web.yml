@@ -1,0 +1,30 @@
+name: Deploy web
+
+on:
+  # CMS の rebuild-web プラグインが記事の公開・非公開・削除時に送る
+  repository_dispatch:
+    types: [cms-content-updated]
+  workflow_dispatch:
+
+# 連続で公開されても実行中 1 + 待機 1 にまとめる (待機中のものは最新の 1 件に置き換わる)
+concurrency:
+  group: deploy-web
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      # node / pnpm / dotenvx を mise.toml のバージョンで入れる
+      - uses: jdx/mise-action@v2
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm deploy:web
+        env:
+          # 暗号化済みの .env を dotenvx で復号する
+          DOTENV_PRIVATE_KEY: ${{ secrets.DOTENV_PRIVATE_KEY }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
