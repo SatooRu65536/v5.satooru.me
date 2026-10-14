@@ -4,6 +4,9 @@ import { defineConfig, envField } from 'astro/config';
 export default defineConfig({
   site: 'https://satooru.me',
   output: 'static',
+  // 旧サイトと同じ末尾スラッシュなしの URL (/posts, /post/114) で配信する
+  trailingSlash: 'never',
+  build: { format: 'file' },
   integrations: [react()],
   image: {
     layout: 'constrained',

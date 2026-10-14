@@ -26,7 +26,10 @@ const settings = await getSiteSettings();
 const siteTitle = settings.title || 'My Profile';
 const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
 const metaDescription = description || settings.tagline || 'Design & Development';
-const canonical = new URL(Astro.url.pathname, Astro.site).href;
+// build.format: 'file' では pathname に .html が付くため取り除く
+const pathname =
+  Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+const canonical = new URL(pathname, Astro.site).href;
 ---
 
 <!doctype html>

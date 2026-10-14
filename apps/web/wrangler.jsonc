@@ -3,8 +3,22 @@
 	"name": "v5-satooru-me",
 	"account_id": "fa92a0ccd3de6f27140c99c7c6e0a8da",
 	"compatibility_date": "2026-02-24",
+	"workers_dev": false,
+	"preview_urls": false,
+	"routes": [
+		{
+			"pattern": "satooru.me",
+			"custom_domain": true
+		}
+	],
 	"assets": {
 		"directory": "./dist",
 		"not_found_handling": "404-page"
-	}
+	},
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"invocation_logs": false
+		}
+	},
 }
