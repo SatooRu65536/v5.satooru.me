@@ -1,0 +1,53 @@
+---
+import Thumbnail from '@/components/Thumbnail.astro';
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import PortableText from '@/components/portable-text/PortableText.astro';
+import dayjs from 'dayjs';
+import type { GetStaticPaths } from 'astro';
+import { getPosts, postDate, toBlocks } from '@/lib/posts';
+import type { Entry, Post } from '@/lib/cms-types';
+import '@/styles/content-styles.scss';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPosts();
+  return posts.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  entry: Entry<Post>;
+}
+
+const { entry } = Astro.props;
+const publishedAt = postDate(entry);
+---
+
+<PageLayout>
+  <ContentLayout data-styled>
+    <h1 class="title">
+      <span>{entry.data.title}</span>
+    </h1>
+    <p class="published-at">
+      {dayjs(publishedAt).format('YYYY年MM月DD日')}
+    </p>
+
+    <Thumbnail class="thumbnail" src={entry.data.featured_image?.src} />
+
+    <PortableText value={toBlocks(entry.data.content)} />
+  </ContentLayout>
+</PageLayout>
+
+<style lang="scss">
+  .published-at {
+    text-align: right;
+    padding-inline: 20px;
+  }
+  
+
+  .thumbnail {
+    height: 300px;
+  }
+</style>

@@ -1,0 +1,115 @@
+---
+import dayjs from 'dayjs';
+import CardLayout from '@/layouts/CardLayout.astro';
+import penguinImg from '@/assets/penguin.webp';
+import TechIcon from '@/components/icons/TechIcon.astro';
+import { filterIconKeys } from '@/utils/icon';
+import { getEntryTerms } from '@/lib/cms';
+import type { Entry, Post } from '@/lib/cms-types';
+import { postDate } from '@/lib/posts';
+
+interface Props {
+  post: Entry<Post>;
+}
+
+const { post } = Astro.props;
+
+const formattedDate = dayjs(postDate(post)).format('YYYY/MM/DD');
+const href = `/post/${post.slug}`;
+
+const [techTerms, typeTerms] = await Promise.all([
+  getEntryTerms('posts', post.id, 'techs'),
+  getEntryTerms('posts', post.id, 'types'),
+]);
+
+const techIconKeys = filterIconKeys(techTerms.map((term) => term.label));
+const typeLabel = typeTerms[0]?.label;
+---
+
+<CardLayout class="card" href={href}>
+  <div class="left">
+    <h3 class="title">{post.data.title}</h3>
+    {typeLabel && <h4 class="tag">{typeLabel}</h4>}
+    <div class="techs">
+      {techIconKeys.map((tech) => <TechIcon iconKey={tech} />)}
+    </div>
+    <p class="date">{formattedDate}</p>
+  </div>
+
+  <div class="right">
+    <img
+      src={post.data.featured_image?.src ?? penguinImg.src}
+      alt={post.data.featured_image?.alt ?? ''}
+      class="thumbnail"
+      loading="lazy"
+      decoding="async"
+    />
+  </div>
+</CardLayout>
+
+<style lang="scss">
+  .card {
+    overflow-x: scroll;
+    display: flex;
+    gap: 10px;
+    background-color: $color-background-light;
+    color: $color-text-light;
+
+    & > div {
+      min-width: 0;
+    }
+
+    .title {
+      font-size: $font-size-base;
+      text-wrap: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .left {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: $space-sm;
+
+      .tag {
+        font-size: $font-size-sm;
+        font-weight: bold;
+        color: $color-text-light;
+      }
+
+      .techs {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        overflow-x: scroll;
+        min-width: 0;
+
+        & > :global(svg) {
+          flex-shrink: 0;
+          width: $font-size-xl;
+          height: $font-size-xl;
+        }
+      }
+
+      .date {
+        flex-shrink: 0;
+        font-size: $font-size-sm;
+      }
+    }
+
+    .right {
+      flex-shrink: 0;
+      width: 100px;
+      height: 100px;
+      border-radius: 5px;
+      overflow: hidden;
+
+      .thumbnail {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+      }
+    }
+  }
+</style>

@@ -1,0 +1,88 @@
+---
+import PostCategories from './PostCategories.astro';
+import PostListItem from './PostListItem.astro';
+import { getTermsForEntries } from '@/lib/cms';
+import type { Entry, Post, Term } from '@/lib/cms-types';
+import { postDate } from '@/lib/posts';
+
+interface Props {
+  posts: Entry<Post>[];
+  categories: Term[];
+  currentCategory?: Term | null;
+}
+
+const { posts, currentCategory, categories } = Astro.props;
+
+const categoriesByEntry = await getTermsForEntries(
+  'posts',
+  posts.map((p) => p.id),
+  'categories',
+);
+
+const postsWithCategory = posts.map((post) => ({
+  post,
+  categories: categoriesByEntry.get(post.id) ?? [],
+}));
+---
+
+<div class="container">
+  <section class="categories-wrapper">
+    <PostCategories categories={categories} currentCategory={currentCategory} />
+  </section>
+
+  <section class="articles-wrapper">
+    <div class="articles">
+      {
+        postsWithCategory.length === 0 ? (
+          <p>記事はありません</p>
+        ) : (
+          postsWithCategory.map(({ post, categories }) => (
+            <PostListItem
+              title={post.data.title}
+              excerpt={post.data.excerpt}
+              publishedAt={postDate(post)}
+              link={`/post/${post.slug}`}
+              tags={categories.map((c) => ({
+                label: c.label,
+                link: `/posts/${c.slug}`,
+              }))}
+            />
+          ))
+        )
+      }
+    </div>
+  </section>
+</div>
+
+<style lang="scss">
+  .container {
+    min-height: $main-height;
+    height: 100%;
+
+    .categories-wrapper {
+      margin-inline: auto;
+      padding: 40px;
+      width: 100%;
+      max-width: 1200px;
+
+      @include mobile {
+        padding: 20px;
+      }
+    }
+
+    .articles-wrapper {
+      margin-inline: auto;
+      max-width: $content-width;
+
+      .articles {
+        margin-inline: auto;
+        max-width: 1200px;
+        padding: 20px;
+        display: grid;
+        grid-template-columns: 1fr;
+        justify-content: center;
+        gap: 20px;
+      }
+    }
+  }
+</style>

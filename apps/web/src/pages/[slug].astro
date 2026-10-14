@@ -1,0 +1,29 @@
+---
+import PageLayout from '@/layouts/PageLayout.astro';
+import ContentLayout from '@/layouts/ContentLayout.astro';
+import PortableText from '@/components/portable-text/PortableText.astro';
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from '@/lib/cms';
+import type { Entry, Page } from '@/lib/cms-types';
+import '@/styles/content-styles.scss';
+
+export const getStaticPaths = (async () => {
+  const pages = await getCollection('pages');
+  return pages.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  entry: Entry<Page>;
+}
+
+const { entry } = Astro.props;
+---
+
+<PageLayout>
+  <ContentLayout data-styled>
+    <PortableText value={entry.data.content ?? []} />
+  </ContentLayout>
+</PageLayout>

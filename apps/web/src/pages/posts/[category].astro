@@ -1,0 +1,47 @@
+---
+import PostList from '@/components/PostList.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import type { GetStaticPaths } from 'astro';
+import { getTaxonomyTerms, getTermsForEntries } from '@/lib/cms';
+import type { Term } from '@/lib/cms-types';
+import { getPosts } from '@/lib/posts';
+
+export const getStaticPaths = (async () => {
+  const categories = await getTaxonomyTerms('categories');
+  return categories.map((category) => ({
+    params: { category: category.slug },
+    props: { currentCategory: category },
+  }));
+}) satisfies GetStaticPaths;
+
+interface Props {
+  currentCategory: Term;
+}
+
+const { currentCategory } = Astro.props;
+
+const [allPosts, categories] = await Promise.all([
+  getPosts(),
+  getTaxonomyTerms('categories'),
+]);
+
+const categoriesByEntry = await getTermsForEntries(
+  'posts',
+  allPosts.map((post) => post.id),
+  'categories',
+);
+
+const posts = allPosts.filter((post) =>
+  categoriesByEntry
+    .get(post.id)
+    ?.some((category) => category.id === currentCategory.id),
+);
+---
+
+<PageLayout>
+  <PostList
+    posts={posts}
+    categories={categories}
+    currentCategory={currentCategory}
+  />
+</PageLayout>

@@ -1,0 +1,87 @@
+---
+import { getMenu, getSiteSettings } from '@/lib/cms';
+import FadeIn from '@/components/shared/FadeIn.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import icon from '@/assets/icon.webp';
+import SnsIcons from '@/components/icons/SnsIcons/index.astro';
+
+const settings = await getSiteSettings();
+const title = settings.title;
+const tagline = settings.tagline;
+const logo = settings.logo;
+
+const snsList = await getMenu('sns');
+
+function getSnsId(url: string) {
+  if (url.endsWith('/')) {
+    return url.slice(0, -1).split('/').pop();
+  }
+  return url.split('/').pop();
+}
+---
+
+<SectionLayout fadein={false} underline>
+  <div slot="title" class="title">
+    <img
+      src={logo?.url ?? icon.src}
+      alt={logo?.alt || title}
+      width="48"
+      height="48"
+    />
+    <h2>{title}</h2>
+  </div>
+
+  <FadeIn>
+    <p class="detail">{tagline}</p>
+  </FadeIn>
+
+  <div class="sns-wrapper">
+    <div class="sns-list">
+      {
+        snsList.items.map((l, i) => (
+          <FadeIn delay={(i + 1) * 100}>
+            <a
+              href={l.url}
+              class="sns-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <SnsIcons name={l.label} />
+              <span>@{getSnsId(l.url)}</span>
+            </a>
+          </FadeIn>
+        ))
+      }
+    </div>
+  </div>
+</SectionLayout>
+
+<style lang="scss">
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .sns-wrapper {
+    display: flex;
+    max-width: 900px;
+    justify-content: end;
+    padding-inline: $space-2xl;
+
+    .sns-list {
+      margin-top: $space-2xl;
+      width: fit-content;
+      display: flex;
+      flex-direction: column;
+      gap: $space-md;
+
+      .sns-link {
+        color: $color-text;
+        display: inline-flex;
+        align-items: center;
+        gap: $space-md;
+      }
+    }
+  }
+</style>
