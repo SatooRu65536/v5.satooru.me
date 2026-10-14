@@ -5,7 +5,7 @@ import PageLayout from '@/layouts/PageLayout.astro';
 import PortableText from '@/components/portable-text/PortableText.astro';
 import dayjs from 'dayjs';
 import type { GetStaticPaths } from 'astro';
-import { getPosts, postDate, toBlocks } from '@/lib/posts';
+import { getPosts, postDate, postThumbnail, toBlocks } from '@/lib/posts';
 import type { Entry, Post } from '@/lib/cms-types';
 import '@/styles/content-styles.scss';
 
@@ -23,9 +23,15 @@ interface Props {
 
 const { entry } = Astro.props;
 const publishedAt = postDate(entry);
+const thumbnail = postThumbnail(entry);
 ---
 
-<PageLayout>
+<PageLayout
+  title={entry.data.title}
+  description={entry.data.excerpt}
+  image={thumbnail?.src}
+  type="article"
+>
   <ContentLayout data-styled>
     <h1 class="title">
       <span>{entry.data.title}</span>
@@ -34,7 +40,7 @@ const publishedAt = postDate(entry);
       {dayjs(publishedAt).format('YYYY年MM月DD日')}
     </p>
 
-    <Thumbnail class="thumbnail" src={entry.data.featured_image?.src} />
+    <Thumbnail class="thumbnail" src={thumbnail?.src} />
 
     <PortableText value={toBlocks(entry.data.content)} />
   </ContentLayout>

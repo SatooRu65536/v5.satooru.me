@@ -33,3 +33,23 @@ export function extractPlainText(content: Post['content']): string {
     )
     .join('\n');
 }
+
+/** サムネイル画像 (アイキャッチが無ければ本文の1枚目の画像) */
+export function postThumbnail(
+  post: Entry<Post>,
+): { src: string; alt: string } | undefined {
+  const featured = post.data.featured_image;
+  if (featured?.src) return { src: featured.src, alt: featured.alt ?? '' };
+
+  for (const block of toBlocks(post.data.content)) {
+    if (block._type !== 'image') continue;
+    const image = block as {
+      alt?: string;
+      url?: string;
+      asset?: { url?: string };
+    };
+    const src = image.asset?.url ?? image.url;
+    if (src) return { src, alt: image.alt ?? '' };
+  }
+  return undefined;
+}

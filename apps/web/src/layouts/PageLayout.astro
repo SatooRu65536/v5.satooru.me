@@ -30,6 +30,7 @@ const metaDescription = description || settings.tagline || 'Design & Development
 const pathname =
   Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
 const canonical = new URL(pathname, Astro.site).href;
+const ogImage = image && new URL(image, Astro.site).href;
 ---
 
 <!doctype html>
@@ -52,7 +53,7 @@ const canonical = new URL(pathname, Astro.site).href;
     <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={siteTitle} />
-    {image && <meta property="og:image" content={image} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
     <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
     <link
       href="/rss.xml"

@@ -5,7 +5,7 @@ import penguinImg from '@/assets/penguin.webp';
 import TechIcon from '@/components/icons/TechIcon.astro';
 import { filterIconKeys } from '@/utils/icon';
 import type { Entry, Post } from '@/lib/cms-types';
-import { extractPlainText, postDate } from '@/lib/posts';
+import { extractPlainText, postDate, postThumbnail } from '@/lib/posts';
 
 interface Props {
   post: Entry<Post>;
@@ -16,6 +16,7 @@ const { post, techIconKeys = [] } = Astro.props;
 
 const formattedDate = dayjs(postDate(post)).format('YYYY/MM/DD');
 const href = `/post/${post.slug}`;
+const thumbnail = postThumbnail(post);
 
 const rawExcerpt = post.data.excerpt || extractPlainText(post.data.content);
 const excerptText = rawExcerpt
@@ -45,8 +46,8 @@ const filteredTechIconKeys = filterIconKeys(techIconKeys);
 
   <div class="right">
     <img
-      src={post.data.featured_image?.src ?? penguinImg.src}
-      alt={post.data.featured_image?.alt ?? ''}
+      src={thumbnail?.src ?? penguinImg.src}
+      alt={thumbnail?.alt ?? ''}
       class="thumbnail"
       loading="lazy"
       decoding="async"

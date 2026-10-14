@@ -6,7 +6,7 @@ import TechIcon from '@/components/icons/TechIcon.astro';
 import { filterIconKeys } from '@/utils/icon';
 import { getEntryTerms } from '@/lib/cms';
 import type { Entry, Post } from '@/lib/cms-types';
-import { postDate } from '@/lib/posts';
+import { postDate, postThumbnail } from '@/lib/posts';
 
 interface Props {
   post: Entry<Post>;
@@ -16,6 +16,7 @@ const { post } = Astro.props;
 
 const formattedDate = dayjs(postDate(post)).format('YYYY/MM/DD');
 const href = `/post/${post.slug}`;
+const thumbnail = postThumbnail(post);
 
 const [techTerms, typeTerms] = await Promise.all([
   getEntryTerms('posts', post.id, 'techs'),
@@ -38,8 +39,8 @@ const typeLabel = typeTerms[0]?.label;
 
   <div class="right">
     <img
-      src={post.data.featured_image?.src ?? penguinImg.src}
-      alt={post.data.featured_image?.alt ?? ''}
+      src={thumbnail?.src ?? penguinImg.src}
+      alt={thumbnail?.alt ?? ''}
       class="thumbnail"
       loading="lazy"
       decoding="async"
