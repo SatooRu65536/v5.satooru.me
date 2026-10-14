@@ -15,7 +15,6 @@
     "format": "prettier --write \"apps/*/src/**/*.astro\""
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^2.34.2",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^8.60.0",
