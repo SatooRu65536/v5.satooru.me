@@ -1,0 +1,15 @@
+---
+import PostList from '@/components/PostList.astro';
+import PageLayout from '@/layouts/PageLayout.astro';
+import { getTaxonomyTerms } from '@/lib/cms';
+import { getPosts } from '@/lib/posts';
+
+const [posts, categories] = await Promise.all([
+  getPosts(),
+  getTaxonomyTerms('categories'),
+]);
+---
+
+<PageLayout>
+  <PostList posts={posts} categories={categories} />
+</PageLayout>

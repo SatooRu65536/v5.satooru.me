@@ -1,0 +1,14 @@
+---
+import { PortableText as BasePortableText } from 'astro-portabletext';
+import type { PortableTextBlock } from '@/lib/cms-types';
+import Image from './Image.astro';
+import Code from './Code.astro';
+
+interface Props {
+  value: PortableTextBlock[];
+}
+
+const { value } = Astro.props;
+---
+
+<BasePortableText value={value} components={{ type: { image: Image, code: Code } }} />

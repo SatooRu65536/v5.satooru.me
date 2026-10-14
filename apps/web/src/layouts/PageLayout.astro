@@ -1,0 +1,76 @@
+---
+import { getSiteSettings } from '@/lib/cms';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import icon from '@/assets/icon.webp';
+import applyTheme from '@/scripts/apply-theme?raw';
+import baseStyles from '@/styles/base.css?raw';
+import '@/styles/globals.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  onlyMain?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  type = 'website',
+  onlyMain = false,
+} = Astro.props;
+const settings = await getSiteSettings();
+const siteTitle = settings.title || 'My Profile';
+const fullTitle = title ? `${title} — ${siteTitle}` : siteTitle;
+const metaDescription = description || settings.tagline || 'Design & Development';
+// build.format: 'file' では pathname に .html が付くため取り除く
+const pathname =
+  Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '') || '/';
+const canonical = new URL(pathname, Astro.site).href;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <link
+      as="image"
+      crossorigin
+      href={icon.src}
+      rel="preload"
+      type="image/webp"
+    />
+    <meta charset="UTF-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={metaDescription} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? siteTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={siteTitle} />
+    {image && <meta property="og:image" content={image} />}
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <link
+      href="/rss.xml"
+      rel="alternate"
+      title={`${siteTitle} RSS Feed`}
+      type="application/rss+xml"
+    />
+    <script is:inline set:html={applyTheme} />
+    <style is:inline set:html={baseStyles}></style>
+  </head>
+
+  <body>
+    {!onlyMain && <Header />}
+    <main>
+      <slot />
+    </main>
+    {!onlyMain && <Footer />}
+
+    <script src="@/scripts/theme-switcher.ts"></script>
+  </body>
+</html>

@@ -16,7 +16,8 @@ uploads/
 npm-debug.log*
 
 # environment variables
-.env
+# .env は dotenvx で暗号化してコミットする。復号鍵 (.env.keys) は絶対にコミットしない
+.env.keys
 .env.local
 
 # Wrangler local secrets

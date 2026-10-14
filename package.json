@@ -3,36 +3,18 @@
   "version": "0.0.3",
   "private": true,
   "type": "module",
-  "emdash": {
-    "label": "Portfolio",
-    "seed": "seed/seed.json"
-  },
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "deploy": "astro build && wrangler deploy",
-    "seed": "emdash seed seed/seed.json",
-    "typecheck": "astro check",
+    "dev:cms": "pnpm --filter cms run dev",
+    "dev:web": "pnpm --filter web run dev",
+    "build:cms": "pnpm --filter cms run build",
+    "build:web": "pnpm --filter web run build",
+    "deploy:cms": "pnpm --filter cms run deploy",
+    "deploy:web": "pnpm --filter web run deploy",
+    "typecheck": "pnpm -r run typecheck",
     "lint": "eslint --fix",
-    "format": "prettier --write src/**/*.astro"
-  },
-  "dependencies": {
-    "@astrojs/cloudflare": "^13.5.3",
-    "@astrojs/react": "^5.0.0",
-    "@dev.icons/react": "^1.1.0",
-    "@emdash-cms/cloudflare": "^1.2.0",
-    "astro": "^6.3.0",
-    "astro-google-fonts-optimizer": "^0.2.2",
-    "dayjs": "^1.11.21",
-    "emdash": "^1.2.0",
-    "ofetch": "^1.5.1",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "format": "prettier --write \"apps/*/src/**/*.astro\""
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.7",
-    "@cloudflare/workers-types": "^4.20260305.1",
     "@eslint/js": "^10.0.1",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@typescript-eslint/parser": "^8.60.0",
@@ -43,8 +25,6 @@
     "jiti": "^2.7.0",
     "prettier": "^3.8.3",
     "prettier-plugin-astro": "^0.14.1",
-    "sass": "^1.100.0",
-    "typescript-eslint": "^8.60.0",
-    "wrangler": "^4.148.0"
+    "typescript-eslint": "^8.60.0"
   }
 }

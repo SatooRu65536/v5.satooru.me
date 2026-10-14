@@ -1,0 +1,13 @@
+---
+import ExperienceItem from '@/components/ExperienceItem.astro';
+import SectionLayout from '@/layouts/SectionLayout.astro';
+import { compareByFields, getCollection } from '@/lib/cms';
+
+const experiences = (await getCollection('experiences')).toSorted(
+  compareByFields('start_date', 'end_date'),
+);
+---
+
+<SectionLayout title="Experiences" class="experiences" leftSpace>
+  {experiences.map((experience) => <ExperienceItem experience={experience} />)}
+</SectionLayout>

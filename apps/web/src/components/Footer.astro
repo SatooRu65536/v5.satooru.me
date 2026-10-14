@@ -1,0 +1,22 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <p>SatooRu © {year} Copyright.</p>
+</footer>
+
+<style lang="scss">
+  .footer {
+    height: $footer-height;
+    text-align: center;
+
+    p {
+      padding-bottom: 5px;
+      max-width: 80%;
+      width: 400px;
+      display: inline-block;
+      border-bottom: solid 2px $color-text;
+    }
+  }
+</style>
